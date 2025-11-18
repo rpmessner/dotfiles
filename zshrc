@@ -35,12 +35,6 @@ done
 ITERM2_INTEGRATION_SCRIPT="${HOME}/.iterm2_shell_integration.zsh"
 test -e "$ITERM2_INTEGRATION_SCRIPT" && source "$ITERM2_INTEGRATION_SCRIPT"
 
-
-# Preferred editor for local and remote sessions
-if [ -z ${EDITOR+x} ]; then
-  export EDITOR='nvim'
-fi
-
 # Editor for git commits, rebases etc (don't set it if it was set already...
 # i.e. by NeoVim)
 if [ -z ${GIT_EDITOR+x} ]; then
@@ -73,9 +67,6 @@ case "$(uname -s)" in
     export RUBY_CONFIGURE_OPTS=--with-readline-dir="/usr/include/readline"
     ;;
 esac
-
-# enable direnv
-eval "$(direnv hook zsh)"
 
 # tell RipGrep where to look for it's config file
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
@@ -129,13 +120,11 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# NOTE: Comment out this line if using starship prompt instead
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# pnpm
-export PNPM_HOME="/Users/ryanmessner/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
+# set up starship prompt (comment out p10k above to use this)
+# export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
+# eval "$(starship init zsh)"
+
 source ${HOME}/.ghcup/env

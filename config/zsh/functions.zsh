@@ -2,12 +2,13 @@
 ghpre() {
   existing_description="$(gh pr view --json body -q '.body')"
   temp_file="$(mktemp)"
-  echo "$existing_description" > "$temp_file"
+  echo "$existing_description" >"$temp_file"
   nvim "$temp_file" +'set ft=markdown'
   gh pr edit --body "$(cat $temp_file)"
   rm "$temp_file"
 }
 
+# spellchecker:off
 # fo [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Exit if there's no match (--exit-0)
 #   - CTRL-O to open with `open` command,
@@ -21,6 +22,7 @@ fo() {
     [ "$key" = ctrl-o ] && open "$file" || nvim "$file"
   fi
 }
+# spellchecker:on
 
 # fh - repeat history
 fh() {
@@ -43,16 +45,16 @@ fgco() {
     git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}'
   ) || return
   branches=$(
-    git branch --all | grep -v HEAD |
-      sed "s/.* //" | sed "s#remotes/[^/]*/##" |
-      sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
+    git branch --all | grep -v HEAD \
+      | sed "s/.* //" | sed "s#remotes/[^/]*/##" \
+      | sort -u | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}'
   ) || return
   target=$(
     (
       echo "$branches"
       echo "$tags"
-    ) |
-      fzf-tmux -p --reverse -l30 -- --no-hscroll --ansi +m -d "\t" -n 2
+    ) \
+      | fzf-tmux -p --reverse -l30 -- --no-hscroll --ansi +m -d "\t" -n 2
   ) || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
@@ -60,16 +62,16 @@ fgco() {
 # fgcoc - checkout git commit
 fgcoc() {
   local commits commit
-  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-    git checkout $(echo "$commit" | sed "s/ .*//")
+  commits=$(git log --pretty=oneline --abbrev-commit --reverse) \
+    && commit=$(echo "$commits" | fzf --tac +s +m -e) \
+    && git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
 # fgshow - git commit browser
 fgshow() {
   git log --graph --color=always \
-    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-    fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+    --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" \
+    | fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
       --bind "ctrl-m:execute:
                 (grep -o '[a-f0-9]\{7\}' | head -1 |
                 xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
@@ -81,9 +83,9 @@ FZF-EOF"
 # example usage: git rebase -i `fcs`
 fgcs() {
   local commits commit
-  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-    echo -n $(echo "$commit" | sed "s/ .*//")
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) \
+    && commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) \
+    && echo -n $(echo "$commit" | sed "s/ .*//")
 }
 
 fman() {
@@ -204,4 +206,13 @@ confirm() {
 # Usage: curl --silent https://www.rust-lang.org/ | hq '#get-help'
 hq() {
   htmlq "$1" | bat -l html -p
+}
+
+# curls webpage and converts to markdown
+#
+# Dependencies: html2markdown, neovim
+#
+# Usage: mdcurl https://example.com
+mdcurl() {
+  curl "$1" | html2markdown | nvim +'set ft=markdown' +'setlocal buftype=nofile bufhidden=hide noswapfile' -
 }

@@ -1,6 +1,9 @@
 # HomeBrew Github API Token Placeholder
 export HOMEBREW_GITHUB_API_TOKEN="<<-[[CHANGEINLOCALZSHRC]]->>"
 
+if [ -d /home/linuxbrew ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
-# set homebrew on path
-export PATH="/usr/local/bin:$PATH"
+# disable analytics
+export HOMEBREW_NO_ANALYTICS=1
