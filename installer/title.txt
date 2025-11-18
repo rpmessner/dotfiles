@@ -12,5 +12,5 @@
         ░        ░ ░                   ░      ░  ░   ░  ░      ░
       ░
 
-                  -- Dorian's Dotfiles Installer --
+                  -- Ryan's Dotfiles Installer --
 

@@ -12,7 +12,7 @@
 ```
 
 <p align="center">
-  <b>:sparkles: Dorian's Dotfiles :sparkles:</b>
+  <b>:sparkles: Ryan's Dotfiles :sparkles:</b>
 </p>
 
 <br />
@@ -20,6 +20,8 @@
 ### Thanks for dropping by!
 
 This is my personal collection of configuration files.
+
+> Originally based on [Dorian Karter's dotfiles](https://github.com/dkarter/dotfiles) with extensive custom modifications and additions.
 
 Here are some details about my setup:
 
