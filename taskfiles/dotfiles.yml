@@ -1,0 +1,169 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+includes:
+  bat:
+    taskfile: ./bat.yml
+    internal: true
+
+  brew:
+    taskfile: ./brew.yml
+    dir: ../
+    internal: true
+
+  completions:
+    taskfile: ./completions.yml
+    internal: true
+
+  fonts:
+    taskfile: ./fonts.yml
+    internal: true
+
+  gh:
+    taskfile: ./github.yml
+    internal: true
+
+  mac:
+    taskfile: ./mac.yml
+    internal: true
+
+  asdf:
+    taskfile: ./asdf.yml
+    dir: ../
+    internal: true
+
+  shell:
+    taskfile: ./shell.yml
+    internal: true
+
+  tmux:
+    taskfile: ./tmux.yml
+    dir: ../
+    internal: true
+
+  zinit:
+    taskfile: ./zinit.yml
+    dir: ../
+    internal: true
+
+tasks:
+  install:
+    desc: Install dotfiles
+    summary: |
+      Install dotfiles
+
+      Installs all dependencies and symlink dotfiles.
+    silent: true
+    cmds:
+      - task: shell:zsh:default
+      - task: create:dirs
+      - task: symlink
+      - task: mac:set:defaults
+      - task: zinit:install
+      - task: zinit:plugins:update
+      - task: asdf:install
+      - task: asdf:tools:install
+      - task: git:hooks:sync
+      - task: fonts:sync
+      - task: brew:sync
+      - task: bat:sync
+      - task: tmux:plugins:install
+      - task: gh:plugins:install
+      # completions needs the tools to be installed
+      - task: completions:sync
+      - task: print:done
+      - cmd: |
+          glow docs/post_install.md
+
+  sync:
+    desc: Synchronize dotfiles
+    summary: |
+      Synchronize dotfiles
+
+      Use this task to get the latest tool versions and configuration changes
+      after pulling the repo
+    cmds:
+      - task: create:dirs
+      - task: symlink
+      - task: asdf:sync
+      - task: git:hooks:sync
+      - task: brew:sync
+      - task: bat:sync
+      - task: tmux:sync
+      - task: zinit:sync
+      - task: gh:sync
+      - task: fonts:sync
+      - task: mac:sync
+      # completions needs the tools to be installed
+      - task: completions:sync
+      - task: print:done
+
+  create:dirs:
+    desc: Creates directories for dotfiles
+    vars:
+      DIRS:
+        - '~/.cache/zsh/completions'
+        - '~/.config'
+        - '~/.local/share/psql'
+    cmds:
+      - cmd: mkdir -p {{.DIRS | join " "}}
+        # we don't care about failures if they already exist
+        ignore_error: true
+
+  symlink:
+    desc: Symlinks dotfiles and folders
+    vars:
+      FILES:
+        # ideally this list should be as small as possible, use XDG_CONFIG
+        # folder instead
+        - aliases
+        - ctags
+        - gemrc
+        - gitconfig
+        - gitignore
+        - gitmessage
+        - ignore
+        - npmrc
+        - prettierrc
+        - pryrc
+        - psqlrc
+        - stylelintrc
+        - zinitrc
+        - zshenv
+        - zshrc
+    cmds:
+      - for:
+          var: FILES
+          as: FILE
+        cmd: |
+          ln -s -f "$(realpath ./{{.FILE}})" ~/.{{.FILE}}
+
+      - cmd: |
+          for folder in ./config/*; do
+            echo "Symlinking $(basename $folder)..."
+            source_path=$(realpath $folder)
+            pushd ~/.config > /dev/null 2>&1
+            ln -s -f "$source_path" . > /dev/null 2>&1
+            popd > /dev/null 2>&1
+          done
+        silent: true
+
+  leaks:
+    desc: Checks for secret leaks across the history of this project
+    cmd: gitleaks git -v --redact -b gitleaks-report.json
+
+  fmt:
+    desc: Format all formattable files
+    aliases: [format]
+    cmd: dprint fmt
+
+  git:hooks:sync:
+    desc: Installs git hooks via lefthook
+    internal: true
+    cmd: lefthook install || echo "lefthook not installed, skipping"
+
+  print:done:
+    desc: Prints done with a cool font and some nice gradients (animated)
+    internal: true
+    cmd: echo DONE | figlet | lolcrab -a --speed 1 --duration 1 --gradient warm
+    silent: true

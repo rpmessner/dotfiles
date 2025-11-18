@@ -1,10 +1,47 @@
 # frozen_string_literal: true
 
+# Dual Panel File Browser
+cask 'marta'
+
+# Fast GPU rendered terminal emulator
+cask 'wezterm'
+
+# best screenshot tool on mac
+cask 'cleanshot'
+
+# setup a hyper key modifier
+cask 'hyperkey'
+
+# note taking app and Zettlekasten
+cask 'obsidian'
+
+# spotlight alternative
+cask 'raycast'
+
+# a terminal emulator (used primarily for wrapping terminal apps)
+cask 'iterm2'
+
+# allow accessing passwords from a CLI
+cask '1password-cli'
+
+# macOS automation using Lua
+cask 'hammerspoon'
+
+# run open source LLM models locally
+cask 'ollama-app'
+
 # for Erlang
+brew 'wxwidgets'
 brew 'autoconf'
 brew 'fop'
 brew 'libiodbc'
 brew 'openjdk'
+
+# for generating graphics
+brew 'graphviz'
+
+# code stats
+brew 'scc'
 
 # SQLite3
 brew 'sqlite'
@@ -57,6 +94,9 @@ brew 'direnv'
 # fuzzy finder
 brew 'fzf'
 
+# fonts
+cask "font-fira-code-nerd-font"
+
 # c++ compiler
 brew 'gcc'
 
@@ -91,6 +131,14 @@ brew 'make'
 
 # terminal multiplexer
 brew 'tmux'
+
+# vimium like jumps in tmux
+tap 'morantron/tmux-fingers'
+brew 'morantron/tmux-fingers/tmux-fingers'
+
+# tmux session managers
+brew 'tmuxinator'
+brew 'sesh'
 
 # download files from the terminal, used by some scripts
 brew 'wget'
@@ -172,3 +220,30 @@ brew 'xq'
 
 # better shell completions
 brew 'carapace'
+
+# cross-shell prompt
+brew 'starship'
+
+# git hooks manager
+brew 'lefthook'
+
+# git secret leak detection
+brew 'gitleaks'
+
+# spell checker
+brew 'typos-cli'
+
+# shell script formatter
+brew 'shfmt'
+
+# TOML formatter
+brew 'taplo'
+
+# universal code formatter
+brew 'dprint'
+
+# conventional commit linter
+brew 'cocogitto'
+
+# Mac App Store CLI
+brew 'mas'

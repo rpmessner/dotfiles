@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+vars:
+  ZINIT_HOME: ~/.local/share/zinit/zinit.git
+
+tasks:
+  install:
+    desc: Installs zinit (if not installed already)
+    summary: |
+      Installs zinit (if not installed already)
+
+      To override, run with -f
+    status:
+      - test -d "${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+    cmds:
+      - cmd: |
+          ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git" && \
+          mkdir -p "$(dirname $ZINIT_HOME)" && \
+          rm -rf "$ZINIT_HOME" && \
+          git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+  plugins:update:
+    desc: Updates all zinit plugins
+    cmds:
+      - cmd: |
+          zsh -c 'source {{.ZINIT_HOME}}/zinit.zsh && zinit update --all --parallel'
+
+  # this task has some extra caching mechanisms to prevent it from running too often
+  # to force it to run pass the `-f` flag
+  sync:
+    desc: Installs and updates plugins
+    cmds:
+      - task: plugins:update
+      # Update the timestamp file
+      - touch {{.LAST_RUN_FILE}}
+    vars:
+      LAST_RUN_FILE: .task/{{.TASK | replace ":" "-"}}.timestamp
+    preconditions:
+      # Create the timestamp directory if it doesn't exist
+      - sh: mkdir -p .task
+    status:
+      # Check 2: Did the task run within the last hour?
+      # We use a timestamp file and check its age
+      - test -f {{.LAST_RUN_FILE}} && test $(find {{.LAST_RUN_FILE}} -mmin -60)
+
+    # Check 1: Was the source file modified since last run?
+    # This is handled by Taskfile's built-in timestamp method
+    sources:
+      - zinitrc

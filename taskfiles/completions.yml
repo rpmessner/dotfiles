@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+#
+version: 3
+
+tasks:
+  generate:
+    aliases: [gen]
+    desc: Generates completions for some CLI tools
+    summary: |
+      Generates completions for some CLI tools
+    silent: true
+    vars:
+      COMPLETIONS:
+        - 'bun|bun --print "await (await fetch(\"https://raw.githubusercontent.com/oven-sh/bun/refs/heads/main/completions/bun.zsh\")).text()"'
+        - 'delta|delta --generate-completion zsh'
+        - 'erd|erd --completions zsh'
+        - 'fx|fx --comp zsh'
+        - 'kubectl|kubectl completion zsh'
+        - 'ast-grep|ast-grep completions zsh'
+        - 'starship|starship completions zsh'
+        - 'uv|uv generate-shell-completion zsh'
+        - 'op|op completion zsh'
+        - 'mise|mise completion zsh'
+        - 'talosctl|talosctl completion zsh'
+        - 'task|task --completion zsh'
+        - 'pgroll|pgroll completion zsh'
+        - 'lefthook|lefthook completion zsh'
+        # Graphite CLI
+        - 'gt|gt completion'
+        - 'linear|linear completions zsh'
+        - 'argocd|argocd completion zsh'
+        - 'gitleaks|gitleaks completion zsh'
+        - 'usage|usage --completions zsh'
+        - 'helm|helm completion zsh'
+      CACHE_PATH:
+        sh: echo "$HOME/.cache/zsh/completions"
+
+    cmds:
+      - cmd: mkdir -p '{{.CACHE_PATH}}'
+      - for:
+          var: COMPLETIONS
+          as: COMP
+        cmd: |
+          app='{{splitList "|" .COMP | first}}'
+          cmd='{{splitList "|" .COMP | last}}'
+          comp_path="{{.CACHE_PATH}}/_$app"
+          echo -n "Generating completions for $app..."
+          if command -v "$app" >/dev/null 2>&1; then
+            eval "$cmd" > "$comp_path"
+            echo "DONE"
+          else
+            echo "SKIPPED (executable not found)"
+          fi
+      - task: cache:reload
+
+  cache:reload:
+    desc: Reloads completion cache
+    cmd: |
+      echo -n Reloading completions cache...
+      rm -f ~/.zcompdump*
+      zsh -c 'builtin autoload -Uz +X compinit'
+      zsh -c 'autoload -Uz compinit && compinit'
+      echo "DONE"
+    silent: true
+
+  sync:
+    desc: Generates and updates completions
+    cmds:
+      - task: generate

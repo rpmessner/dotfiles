@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Node.js itself via asdf
+    cmds:
+      - asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
+      - asdf install nodejs latest
+      - asdf global nodejs latest
+
+  tools:install:
+    desc: Installs common Node.js development tools globally
+    cmds:
+      - npm install -g typescript
+      - npm install -g ts-node
+      - npm install -g prettier
+      - npm install -g eslint
+      - npm install -g pnpm
+      - npm install -g yarn
+      - npm install -g npm-check-updates
+      - npm install -g serve
+      - npm install -g http-server
+
+  tools:update:
+    desc: Updates global npm packages
+    cmds:
+      - npm update -g
+
+  tools:outdated:
+    desc: Lists outdated global npm packages
+    cmds:
+      - npm outdated -g
+
+  clean:
+    desc: Cleans npm cache
+    cmds:
+      - npm cache clean --force

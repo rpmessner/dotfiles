@@ -1,0 +1,66 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  all:
+    desc: Runs all linters
+    cmds:
+      - task: shell
+      - task: yaml
+      - task: markdown
+      - task: editorconfig
+
+  shell:
+    desc: Lints shell scripts with shellcheck
+    cmds:
+      - shellcheck --version
+      - find . -name "*.sh" -not -path "*/\.*" -exec shellcheck {} +
+
+  yaml:
+    desc: Lints YAML files with yamllint
+    cmds:
+      - yamllint --version
+      - yamllint -c config/yamllint/config .
+
+  markdown:
+    desc: Lints markdown files with markdownlint
+    cmds:
+      - markdownlint --version || echo "Install with: npm install -g markdownlint-cli"
+      - markdownlint '**/*.md' --ignore node_modules --ignore .git
+
+  editorconfig:
+    desc: Checks EditorConfig compliance
+    cmds:
+      - editorconfig-checker --version || echo "Install with: brew install editorconfig-checker"
+      - editorconfig-checker
+
+  spelling:
+    desc: Checks spelling with codespell
+    cmds:
+      - codespell --version || echo "Install with: pip install codespell"
+      - codespell --skip=".git,.*.lock"
+
+  format:
+    desc: Auto-formats all formattable files
+    cmds:
+      - task: format:lua
+      - task: format:shell
+      - task: format:yaml
+
+  format:lua:
+    desc: Formats Lua files with stylua
+    cmds:
+      - stylua --version
+      - stylua config/nvim/
+
+  format:shell:
+    desc: Formats shell scripts with shfmt
+    cmds:
+      - shfmt --version || echo "Install with: brew install shfmt"
+      - find . -name "*.sh" -not -path "*/\.*" -exec shfmt -w -i 2 {} +
+
+  format:yaml:
+    desc: Formats YAML files with prettier
+    cmds:
+      - prettier --version || echo "Install with: npm install -g prettier"
+      - prettier --write "**/*.{yml,yaml}"

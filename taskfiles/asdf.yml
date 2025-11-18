@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs asdf itself
+    silent: true
+    cmds:
+      - cmd: brew install asdf
+        platforms: [darwin]
+
+      - cmd: |
+          if [[ -f /etc/debian_version ]] || command -v apt &>/dev/null; then
+            git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+          elif command -v pacman &> /dev/null; then
+            sudo pacman --noconfirm --needed -S asdf-vm
+          fi
+        platforms: [linux]
+
+  sync:
+    desc: Updates asdf tools (runtimes), asdf itself and installs packages for this project
+    cmds:
+      - task: tools:install
+      - task: update
+
+  tools:install:
+    desc: Installs/updates all asdf based tools from .tool-versions
+    cmds:
+      - cmd: asdf install
+
+  update:
+    desc: Updates asdf itself
+    cmds:
+      - cmd: asdf update
+        silent: true
+      - cmd: asdf plugin update --all
+        silent: true
+
+  tools:outdated:
+    desc: List all installed tools and their versions
+    cmds:
+      - cmd: asdf current
+        silent: true
+
+  reshim:
+    desc: Recreates shims for all installed tools
+    cmds:
+      - cmd: asdf reshim

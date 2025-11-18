@@ -8,6 +8,3 @@ config/nvim/plugin/packer_compiled.lua
 
 # ignore sumenko lua generated artifact
 .luarc.json
-
-# ignore nvim backup directories
-config/nvim.old/

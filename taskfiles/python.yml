@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Python itself via asdf
+    cmds:
+      - asdf plugin add python https://github.com/asdf-community/asdf-python.git || true
+      - asdf install python latest
+      - asdf global python latest
+
+  tools:install:
+    desc: Installs common Python development tools
+    cmds:
+      - pip install --upgrade pip
+      - pip install --upgrade setuptools wheel
+      - pip install black
+      - pip install ruff
+      - pip install isort
+      - pip install mypy
+      - pip install pylint
+      - pip install pytest
+      - pip install ipython
+      - pip install poetry
+      - pip install pipenv
+      - pip install virtualenv
+
+  tools:update:
+    desc: Updates Python development tools
+    cmds:
+      - pip install --upgrade pip setuptools wheel
+      - pip install --upgrade black ruff isort mypy pylint pytest ipython poetry pipenv virtualenv
+
+  tools:outdated:
+    desc: Lists outdated Python packages
+    cmds:
+      - pip list --outdated
+
+  clean:
+    desc: Cleans Python cache files
+    cmds:
+      - find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+      - find . -type f -name "*.pyc" -delete 2>/dev/null || true
+      - find . -type f -name "*.pyo" -delete 2>/dev/null || true

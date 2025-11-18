@@ -13,6 +13,9 @@ includes:
     aliases: [b]
     taskfile: ./taskfiles/brew.yml
 
+  ci:
+    taskfile: ./taskfiles/ci.yml
+
   comp:
     aliases: [c, completions]
     taskfile: ./taskfiles/completions.yml
@@ -68,17 +71,14 @@ tasks:
   install:
     desc: An alias to dot:install
     cmds:
+      - task: banner
       - task: dot:install
 
   sync:
     desc: An alias to dot:sync
     cmds:
+      - task: banner
       - task: dot:sync
-
-  sync:fast:
-    desc: An alias to dot:sync:fast
-    cmds:
-      - task: dot:sync:fast
 
   install:sudo-touch-id:
     desc: Sets up touch id as sufficient sudo permission
@@ -90,3 +90,20 @@ tasks:
     platforms: [darwin]
     cmds:
       - sed 's/^#auth/auth/' /etc/pam.d/sudo_local.template > /etc/pam.d/sudo_local
+
+  fmt:
+    desc: Formats all formattable files
+    summary: An alias to dot:fmt
+    aliases: [format]
+    cmds:
+      - task: dot:fmt
+
+  banner:
+    internal: true
+    desc: shows an animated banner
+    silent: true
+    cmds:
+      - cmd: clear
+      - cmd: ./scripts/banner.sh
+      # new line
+      - cmd: echo ''

@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Rust itself via asdf
+    cmds:
+      - asdf plugin add rust https://github.com/asdf-community/asdf-rust.git || true
+      - asdf install rust latest
+      - asdf global rust latest
+
+  tools:install:
+    desc: Installs common Rust development tools via cargo
+    cmds:
+      - cargo install cargo-edit
+      - cargo install cargo-watch
+      - cargo install cargo-outdated
+      - cargo install cargo-audit
+      - cargo install cargo-expand
+      - cargo install cargo-tree
+      - cargo install ripgrep
+      - cargo install fd-find
+      - cargo install bat
+      - cargo install exa
+      - cargo install tokei
+      - cargo install bottom
+      - cargo install du-dust
+
+  tools:update:
+    desc: Updates Rust and cargo packages
+    cmds:
+      - rustup update
+      - cargo install-update -a || echo "Run 'cargo install cargo-update' first"
+
+  tools:outdated:
+    desc: Lists outdated cargo packages
+    cmds:
+      - cargo install --list
+
+  clean:
+    desc: Cleans Rust build artifacts and cache
+    cmds:
+      - cargo clean || true
+      - rm -rf ~/.cargo/registry/cache
+      - rm -rf ~/.cargo/git/checkouts

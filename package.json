@@ -3,16 +3,9 @@
   "private": true,
   "version": "2.4.3",
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
-    "@commitlint/config-conventional": "^17.0.3",
-    "@prettier/plugin-ruby": "^3.2.2",
-    "husky": "^7.0.4",
-    "prettier": "^2.8.7"
-  },
-  "scripts": {
-    "prepare": "husky install"
-  },
-  "dependencies": {
-    "remark": "^14.0.2"
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@types/node": "24",
+    "typescript": "^5.3.3"
   }
 }
