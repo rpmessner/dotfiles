@@ -504,7 +504,12 @@ return {
         { "n", "g?", "<cmd>DiffviewToggleHelp<cr>", { desc = "Open the help panel" } },
       },
       option_panel = {
-        { "n", "<tab>", "<cmd>lua require('diffview.actions').select_entry()<cr>", { desc = "Change the current option" } },
+        {
+          "n",
+          "<tab>",
+          "<cmd>lua require('diffview.actions').select_entry()<cr>",
+          { desc = "Change the current option" },
+        },
         { "n", "q", "<cmd>lua require('diffview.actions').close()<cr>", { desc = "Close the panel" } },
         { "n", "g?", "<cmd>DiffviewToggleHelp<cr>", { desc = "Open the help panel" } },
       },

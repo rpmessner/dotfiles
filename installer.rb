@@ -190,7 +190,7 @@ class Installer
 
     print_title
 
-    return unless sync? || confirm('Run installer?')
+    return unless sync? || confirm?('Run installer?')
 
     TASKS.each { |task| run_task(task) }
 
@@ -218,7 +218,7 @@ class Installer
     end
 
     # ask for confirmation (automatically confirmed in `force` mode)
-    if task[:confirmation] && !confirm(task[:confirmation])
+    if task[:confirmation] && !confirm?(task[:confirmation])
       puts 'Skipping...'.yellow
       return
     end
@@ -279,7 +279,7 @@ class Installer
         ASDF_PLUGINS - ASDF_ARM_INCOMPATIBLE
       end
 
-    plugins.each do |plugin, _url|
+    plugins.each_key do |plugin|
       puts "Installing #{plugin}...".light_blue
       asdf_command(
         "asdf install #{plugin} latest && asdf global #{plugin} latest",
@@ -389,7 +389,7 @@ class Installer
   def reshim_asdf_tools
     puts '===== Reshimming'.blue
 
-    ASDF_PLUGINS.each do |plugin, _url|
+    ASDF_PLUGINS.each_key do |plugin|
       asdf_command("asdf reshim #{plugin}")
     end
   end
@@ -436,7 +436,7 @@ class Installer
     end
   end
 
-  def confirm(msg)
+  def confirm?(msg)
     return true if force?
 
     print "#{msg} [Y/n] "

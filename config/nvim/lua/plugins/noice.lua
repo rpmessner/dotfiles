@@ -1,24 +1,24 @@
 -- modern vim command line replacement, requires nvim 0.9 or higher
 ---@type LazySpec
 return {
-  'folke/noice.nvim',
+  "folke/noice.nvim",
   enabled = true,
-  event = 'VeryLazy',
+  event = "VeryLazy",
   ---@type NoiceConfig
   opts = {
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        ['cmp.entry.get_documentation'] = true,
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
       },
     },
     views = {
       cmdline_popup = {
         position = {
           row = 1,
-          col = '50%',
+          col = "50%",
         },
       },
     },
@@ -35,8 +35,8 @@ return {
       -- when there are multiple LSPs this can be annoying
       {
         filter = {
-          event = 'notify',
-          find = 'No information available',
+          event = "notify",
+          find = "No information available",
         },
         opts = { skip = true },
       },
@@ -44,11 +44,11 @@ return {
       -- show buffer written messages in mini
       {
         filter = {
-          event = 'msg_show',
-          kind = '',
-          find = 'written',
+          event = "msg_show",
+          kind = "",
+          find = "written",
         },
-        view = 'mini',
+        view = "mini",
         opts = {},
       },
 
@@ -56,25 +56,25 @@ return {
       -- was messing with it)
       {
         filter = {
-          event = 'msg_show',
-          kind = '',
-          find = 'Create alternate file?',
+          event = "msg_show",
+          kind = "",
+          find = "Create alternate file?",
         },
-        view = 'popup',
+        view = "popup",
         opts = {},
       },
 
       -- hide the annoying code_action notifications from null ls
       {
         filter = {
-          event = 'lsp',
-          kind = 'progress',
+          event = "lsp",
+          kind = "progress",
           cond = function(message)
-            local title = vim.tbl_get(message.opts, 'progress', 'title')
-            local client = vim.tbl_get(message.opts, 'progress', 'client')
+            local title = vim.tbl_get(message.opts, "progress", "title")
+            local client = vim.tbl_get(message.opts, "progress", "client")
 
             -- skip none-ls noisy messages
-            return client == 'null-ls' and title == 'code_action'
+            return client == "null-ls" and title == "code_action"
           end,
         },
         opts = { skip = true },
@@ -83,6 +83,6 @@ return {
   },
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    { 'MunifTanjim/nui.nvim', lazy = true },
+    { "MunifTanjim/nui.nvim", lazy = true },
   },
 }

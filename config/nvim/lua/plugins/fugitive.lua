@@ -1,21 +1,21 @@
 -- git integration
 ---@type LazySpec
 return {
-  'tpope/vim-fugitive',
-  event = 'VeryLazy',
+  "tpope/vim-fugitive",
+  event = "VeryLazy",
   config = function()
-    require('config.keymaps').fugitive_mappings()
+    require("config.keymaps").fugitive_mappings()
 
-    local augroup = require('config.utils').augroup
+    local augroup = require("config.utils").augroup
 
-    augroup('FugitiveUser', {
+    augroup("FugitiveUser", {
       -- add custom bindings for Git Blame buffer
       {
-        event = { 'FileType' },
-        pattern = { 'fugitiveblame' },
+        event = { "FileType" },
+        pattern = { "fugitiveblame" },
         command = function()
-          vim.keymap.set('n', 'q', ':q<CR>', { noremap = true, buffer = true, desc = 'Close Blame' })
-          vim.keymap.set('n', '<leader>gb', ':q<CR>', { noremap = true, buffer = true, desc = 'Close Blame' })
+          vim.keymap.set("n", "q", ":q<CR>", { noremap = true, buffer = true, desc = "Close Blame" })
+          vim.keymap.set("n", "<leader>gb", ":q<CR>", { noremap = true, buffer = true, desc = "Close Blame" })
         end,
       },
     })

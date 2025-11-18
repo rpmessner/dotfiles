@@ -8,3 +8,11 @@ nmap { '<leader>ml', "<cmd>s/\\v(.)(nore){-}map (.{-}) (.*)/\\1map { '\\3', '\\4
   { 'gR', '<cmd>Trouble lsp_references<cr>', desc = '[G]o to [R]eferences (Trouble)' },
   nmap { '<leader>nd', notify.dismiss, { desc = '[N]otification [D]ismiss' } }
   { '<leader>bc', telescope 'git_bcommits', desc = '[B]uffer [C]ommits' },
+      { "<leader>bc", picker("git_log_file"), desc = "[B]uffer [C]ommits" },
+      { "<leader>bh", picker("git_log_file"), desc = "[B]uffer [H]istory" },
+      { "<leader>ds", picker("lsp_symbols"), desc = "[D]ocument [S]ymbols" },
+      { "gd", picker("lsp_definitions"), desc = "[G]o to [d]efinition" },
+      { "gr", picker("lsp_references"), desc = "[G]o to [R]eferences" },
+        "<leader>fo",
+        picker("recent", { filter = { cwd = true, paths = { [".git/COMMIT_EDITMSG"] = false } } }),
+        desc = "[F]ile [O]ld files",

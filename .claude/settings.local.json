@@ -5,7 +5,12 @@
       "Bash(mkdir:*)",
       "Bash(gh run list:*)",
       "Bash(ollama list:*)",
-      "Bash(ollama run:*)"
+      "Bash(ollama run:*)",
+      "Bash(~/.local/share/nvim/mason/bin/stylua --check config/nvim/lua/)",
+      "Bash(~/.local/share/nvim/mason/bin/stylua config/nvim/lua/)",
+      "Bash(~/.local/share/nvim/mason/bin/rubocop:*)",
+      "Bash(task --list:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

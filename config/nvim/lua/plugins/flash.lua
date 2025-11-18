@@ -1,6 +1,6 @@
 ---@type LazySpec
 return {
-  'folke/flash.nvim',
+  "folke/flash.nvim",
   -- event = 'VeryLazy',
   ---@module "flash"
   ---@type Flash.Config
@@ -16,11 +16,11 @@ return {
       rainbow = {
         enabled = true,
         shade = 5,
-      }
+      },
     },
     highlight = {
       backdrop = false,
     },
   },
-  keys = require('config.keymaps').flash_mappings,
+  keys = require("config.keymaps").flash_mappings,
 }

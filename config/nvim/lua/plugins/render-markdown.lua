@@ -25,7 +25,7 @@ return {
       --  block: width of the code block
       --  full: full width of the window
       width = "full",
-      -- Determins how the top / bottom of code block are rendered:
+      -- Determines how the top / bottom of code block are rendered:
       --  thick: use the same highlight as the code body
       --  thin: when lines are empty overlay the above & below icons
       border = "thin",
@@ -95,7 +95,7 @@ return {
       checked = {
         -- Replaces '[x]' of 'task_list_marker_checked'
         icon = "󰱒 ",
-        -- Highligh for the checked icon
+        -- Highlight for the checked icon
         highlight = "RenderMarkdownChecked",
       },
       -- Define custom checkbox states, more involved as they are not part of the markdown grammar
