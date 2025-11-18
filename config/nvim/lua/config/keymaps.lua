@@ -80,6 +80,7 @@ nmap({ "<leader>wh", "<C-w>h", { desc = "Move to left window" } })
 nmap({ "<leader>wl", "<C-w>l", { desc = "Move to right window" } })
 
 -- Create autocmd for AI-specific buffer keymaps
+-- Note: This runs when the FileType is detected
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "Avante", "AvanteInput", "claude-code" },
   callback = function(args)
@@ -90,6 +91,26 @@ vim.api.nvim_create_autocmd("FileType", {
     -- Keep horizontal navigation for switching to code
     vim.keymap.set("n", "<C-h>", "<C-w>h", { buffer = bufnr, desc = "Jump to left window" })
     vim.keymap.set("n", "<C-l>", "<C-w>l", { buffer = bufnr, desc = "Jump to right window" })
+  end,
+})
+
+-- Also add TermOpen autocmd for AI terminal buffers
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "*",
+  callback = function(args)
+    local bufnr = args.buf
+    -- Check if this is a Claude Code or Avante terminal
+    vim.defer_fn(function()
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if bufname:match("claude") or bufname:match("Claude") or bufname:match("avante") or bufname:match("Avante") then
+        -- In normal mode, allow scrolling with C-j/k
+        vim.keymap.set("n", "<C-j>", "5j", { buffer = bufnr, desc = "Scroll down in AI terminal" })
+        vim.keymap.set("n", "<C-k>", "5k", { buffer = bufnr, desc = "Scroll up in AI terminal" })
+        -- Horizontal navigation still works
+        vim.keymap.set("n", "<C-h>", "<C-w>h", { buffer = bufnr, desc = "Jump to left window" })
+        vim.keymap.set("n", "<C-l>", "<C-w>l", { buffer = bufnr, desc = "Jump to right window" })
+      end
+    end, 100)
   end,
 })
 
