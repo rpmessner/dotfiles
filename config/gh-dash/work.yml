@@ -1,0 +1,38 @@
+prSections:
+  - title: My Pull Requests
+    filters: is:open author:@me org:pdq
+    layout:
+      author:
+        hidden: true
+
+  - title: Needs My Review
+    filters: is:pr is:open sort:updated-desc draft:false review-requested:@me org:pdq
+
+  - title: Involved
+    filters: is:pr is:open -author:@me involves:@me sort:updated-desc org:pdq
+
+  - title: Subscribed
+    filters: is:open -author:@me draft:false sort:updated-desc org:pdq
+    limit: 50
+
+defaults:
+  layout:
+    prs:
+      repo:
+        grow: true,
+        width: 10
+        hidden: false
+  prsLimit: 20 # global limit
+  issuesLimit: 20 # global limit
+  preview:
+    open: true # whether to have the preview pane open by default
+    width: 60 # width in columns
+  refetchIntervalMinutes: 30 # will refetch all sections every 30 minutes
+
+repoPaths:
+  :owner/:repo: ~/dev/forks/:owner/:repo # template if you always clone GitHub repos in a consistent location
+  dkarter/*: ~/dev/*
+  pdq/*: ~/dev/*
+
+pager:
+  diff: delta

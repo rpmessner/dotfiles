@@ -1,0 +1,28 @@
+# Cargo configuration
+# Place this at ~/.cargo/config.toml
+
+[build]
+# Number of parallel jobs, defaults to # of CPUs
+jobs = 8
+
+# Incremental compilation
+incremental = true
+
+[term]
+# Use color in terminal output
+color = 'auto'
+verbose = false
+
+[net]
+# Network timeout in seconds
+git-fetch-with-cli = true
+
+[alias]
+# Useful cargo aliases
+b = "build"
+c = "check"
+t = "test"
+r = "run"
+rr = "run --release"
+br = "build --release"
+w = "watch"
