@@ -57,6 +57,7 @@ local picker = function(fun, opts)
   end
 
   return function()
+    ---@diagnostic disable-next-line: undefined-global
     Snacks.picker[fun](opts)
   end
 end
@@ -274,7 +275,6 @@ M.fugitive_mappings = function()
   nmap({ "<Leader>gR", ":Gread<CR>", { silent = true, desc = "[G]it [R]ead (reverts file)" } })
 end
 
----@type LazyKeysSpec[]
 M.vim_test_mappings = {
   { "<leader>tn", ":TestNearest<CR>", silent = true, desc = "[T]est [N]earest" },
   { "<leader>tf", ":TestFile<CR>", silent = true, desc = "[T]est [F]ile" },
@@ -305,6 +305,131 @@ M.flash_mappings = {
   { "T" },
   { ";" },
   { "," },
+}
+
+M.oil_mappings = {
+  { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
+  { "<leader>o", "<CMD>Oil<CR>", desc = "[O]il - Open parent directory" },
+  { "<leader>O", "<CMD>Oil --float<CR>", desc = "[O]il - Open parent directory (float)" },
+}
+
+M.claude_code_mappings = {
+  { "<leader>a", nil, desc = "AI/Claude Code" },
+  { "<C-,", "<cmd>ClaudeCodeFocus<cr>", desc = "Toggle Claude", mode = { "n", "t" } },
+  { "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+  { "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+  { "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+  { "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+  { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+  { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+  { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+  {
+    "<leader>as",
+    "<cmd>ClaudeCodeTreeAdd<cr>",
+    desc = "Add file",
+    ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+  },
+  { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+  { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+}
+
+M.avante_mappings = {
+  { "<leader>av", "<cmd>AvanteToggle<cr>", desc = "[AI] Toggle Avante" },
+  { "<leader>ax", "<cmd>AvanteAsk<cr>", desc = "[AI] Ask Avante", mode = { "n", "v" } },
+  { "<leader>ae", "<cmd>AvanteEdit<cr>", desc = "[AI] Edit with Avante", mode = "v" },
+  { "<leader>aR", "<cmd>AvanteRefresh<cr>", desc = "[AI] Refresh Avante" },
+  { "<leader>aF", "<cmd>AvanteFocus<cr>", desc = "[AI] Focus Avante" },
+  { "<leader>aX", "<cmd>AvanteClear<cr>", desc = "[AI] Clear Avante" },
+}
+
+M.diffview_mappings = {
+  { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "[G]it [D]iff view" },
+  { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "[G]it [H]istory (current file)" },
+  { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "[G]it [H]istory (all)" },
+  { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "[G]it diff [C]lose" },
+}
+
+M.trouble_mappings = {
+  { "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", desc = "Workspace Diagnostics" },
+  { "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Document Diagnostics" },
+  { "<leader>xl", "<cmd>Trouble loclist toggle<cr>", desc = "Open Loclist" },
+  { "<leader>xq", "<cmd>Trouble qflist toggle<cr>", desc = "Open Quickfix" },
+  {
+    "<leader>ss",
+    "<cmd>Trouble symbols toggle focus=true<cr>",
+    desc = "Symbols (Trouble)",
+  },
+  {
+    "<leader>sx",
+    "<cmd>Trouble lsp toggle focus=true win.position=right<cr>",
+    desc = "LSP Definitions / references / ... (Trouble)",
+  },
+  {
+    "[q",
+    function()
+      if require("trouble").is_open() then
+        ---@diagnostic disable-next-line: missing-parameter, missing-fields
+        require("trouble").prev({ skip_groups = true, jump = true })
+      else
+        local ok, err = pcall(vim.cmd.cprev)
+        if not ok then
+          vim.notify(err, vim.log.levels.ERROR)
+        end
+      end
+    end,
+    desc = "Previous trouble/quickfix item",
+  },
+  {
+    "]q",
+    function()
+      if require("trouble").is_open() then
+        ---@diagnostic disable-next-line: missing-parameter, missing-fields
+        require("trouble").next({ skip_groups = true, jump = true })
+      else
+        local ok, err = pcall(vim.cmd.cnext)
+        if not ok then
+          vim.notify(err, vim.log.levels.ERROR)
+        end
+      end
+    end,
+    desc = "Next trouble/quickfix item",
+  },
+  { "gR", "<cmd>Trouble lsp_references<cr>", desc = "[G]o to [R]eferences (Trouble)" },
+}
+
+M.conform_mappings = {
+  {
+    "<leader>cf",
+    function()
+      require("conform").format({ async = true, lsp_fallback = true })
+    end,
+    mode = { "n", "v" },
+    desc = "[C]ode [F]ormat",
+  },
+}
+
+M.ripgrep_mappings = {
+  { "<leader>rg", 'y :Rg "<CR>', mode = "v", desc = "[R]ip[G]rep selection" },
+  { "<Leader>rg", ":Rg <C-r><C-w><CR>", desc = "[R]ip[G]rep word under cursor" },
+}
+
+M.portal_mappings = {
+  { "[j", "<cmd>Portal jumplist backward<cr>", desc = "portal backward" },
+  { "]j", "<cmd>Portal jumplist forward<cr>", desc = "portal forward" },
+}
+
+M.hardtime_mappings = {
+  {
+    "<leader>th",
+    function()
+      require("hardtime").toggle()
+    end,
+    desc = "[T]oggle [H]ardtime",
+  },
+}
+
+M.vim_be_good_mappings = {
+  { "<leader>vg", "<cmd>VimBeGood<cr>", desc = "[V]im Be [G]ood - Practice motions" },
 }
 
 return M

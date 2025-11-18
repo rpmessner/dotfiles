@@ -1,5 +1,7 @@
 -- diffview.nvim - Beautiful git diff and merge conflict viewer
 -- Complements fugitive for visualizing diffs
+local keymaps = require("config.keymaps")
+
 return {
   "sindrets/diffview.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
@@ -11,12 +13,7 @@ return {
     "DiffviewRefresh",
     "DiffviewFileHistory",
   },
-  keys = {
-    { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "[G]it [D]iff view" },
-    { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "[G]it [H]istory (current file)" },
-    { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "[G]it [H]istory (all)" },
-    { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "[G]it diff [C]lose" },
-  },
+  keys = keymaps.diffview_mappings,
   opts = {
     diff_binaries = false, -- Show diffs for binaries
     enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'

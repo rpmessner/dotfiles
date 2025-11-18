@@ -120,12 +120,5 @@ return {
       ft = { "markdown", "Avante" },
     },
   },
-  keys = {
-    { "<leader>av", "<cmd>AvanteToggle<cr>", desc = "[AI] Toggle Avante" },
-    { "<leader>ax", "<cmd>AvanteAsk<cr>", desc = "[AI] Ask Avante", mode = { "n", "v" } },
-    { "<leader>ae", "<cmd>AvanteEdit<cr>", desc = "[AI] Edit with Avante", mode = "v" },
-    { "<leader>aR", "<cmd>AvanteRefresh<cr>", desc = "[AI] Refresh Avante" },
-    { "<leader>aF", "<cmd>AvanteFocus<cr>", desc = "[AI] Focus Avante" },
-    { "<leader>aX", "<cmd>AvanteClear<cr>", desc = "[AI] Clear Avante" },
-  },
+  keys = require("config.keymaps").avante_mappings,
 }

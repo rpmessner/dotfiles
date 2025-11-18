@@ -45,13 +45,5 @@ return {
       "snacks_dashboard",
     },
   },
-  keys = {
-    {
-      "<leader>th",
-      function()
-        require("hardtime").toggle()
-      end,
-      desc = "[T]oggle [H]ardtime",
-    },
-  },
+  keys = require("config.keymaps").hardtime_mappings,
 }

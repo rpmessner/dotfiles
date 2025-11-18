@@ -1,14 +1,12 @@
 -- oil.nvim - Edit your filesystem like a buffer
 -- Navigate and modify files/directories with vim motions
+local keymaps = require("config.keymaps")
+
 return {
   "stevearc/oil.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   lazy = false,
-  keys = {
-    { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
-    { "<leader>o", "<CMD>Oil<CR>", desc = "[O]il - Open parent directory" },
-    { "<leader>O", "<CMD>Oil --float<CR>", desc = "[O]il - Open parent directory (float)" },
-  },
+  keys = keymaps.oil_mappings,
   opts = {
     -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
     default_file_explorer = true,

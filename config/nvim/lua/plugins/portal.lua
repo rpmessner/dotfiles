@@ -1,10 +1,8 @@
 -- Improved jumplist experience with preview
----@type LazySpec
+local keymaps = require("config.keymaps")
+
 return {
   "cbochs/portal.nvim",
-  keys = {
-    { "[j", "<cmd>Portal jumplist backward<cr>", desc = "portal backward" },
-    { "]j", "<cmd>Portal jumplist forward<cr>", desc = "portal forward" },
-  },
+  keys = keymaps.portal_mappings,
   opts = {},
 }

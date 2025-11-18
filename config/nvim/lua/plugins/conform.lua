@@ -1,19 +1,12 @@
 -- conform.nvim - Modern async formatting
 -- Replaces null-ls which is no longer maintained
+local keymaps = require("config.keymaps")
+
 return {
   "stevearc/conform.nvim",
   event = { "BufWritePre" },
   cmd = { "ConformInfo" },
-  keys = {
-    {
-      "<leader>cf",
-      function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end,
-      mode = { "n", "v" },
-      desc = "[C]ode [F]ormat",
-    },
-  },
+  keys = keymaps.conform_mappings,
   opts = {
     -- Define your formatters
     formatters_by_ft = {
