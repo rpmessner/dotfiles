@@ -12,7 +12,7 @@ cask 'cleanshot'
 # setup a hyper key modifier
 cask 'hyperkey'
 
-# note taking app and Zettlekasten
+# a note taking app and Zettlekasten
 cask 'obsidian'
 
 # spotlight alternative
@@ -95,7 +95,7 @@ brew 'direnv'
 brew 'fzf'
 
 # fonts
-cask "font-fira-code-nerd-font"
+cask 'font-fira-code-nerd-font'
 
 # c++ compiler
 brew 'gcc'

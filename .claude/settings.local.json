@@ -10,7 +10,9 @@
       "Bash(~/.local/share/nvim/mason/bin/stylua config/nvim/lua/)",
       "Bash(~/.local/share/nvim/mason/bin/rubocop:*)",
       "Bash(task --list:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []
