@@ -16,3 +16,10 @@ nmap { '<leader>ml', "<cmd>s/\\v(.)(nore){-}map (.{-}) (.*)/\\1map { '\\3', '\\4
         "<leader>fo",
         picker("recent", { filter = { cwd = true, paths = { [".git/COMMIT_EDITMSG"] = false } } }),
         desc = "[F]ile [O]ld files",
+--- Thie module provides annotions for all the built-in Hammerspoon modules/classes
+  { "<leader>tn", ":TestNearest<CR>", silent = true, desc = "[T]est [N]earest" },
+  { "<leader>ts", ":TestSuite<CR>", silent = true, desc = "[T]est [S]uite" },
+      { "gS", telescope("lsp_dynamic_workspace_symbols"), desc = "[G]o to [S]ymbol" },
+  tage = 1,
+  uite = 1,
+      rin,
