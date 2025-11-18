@@ -5,12 +5,25 @@ return {
   opts = {
     -- Provider configuration
     provider = "ollama",
+    auto_add_current_file = true,
+    system_prompt = "You are an expert coding assistant. Always analyze the current file and project context before responding. Pay attention to the programming language and framework being used.",
     providers = {
       ollama = {
         ["local"] = true,
         endpoint = "http://127.0.0.1:11434",
         model = "qwen2.5-coder:1.5b",
+        timeout = 30000,
+        extra_request_body = {
+          options = {
+            temperature = 0.7,
+            num_ctx = 8192,
+            keep_alive = "5m",
+          },
+        },
       },
+    },
+    repo_map = {
+      ignore_patterns = { "%.git", "%.worktree", "__pycache__", "node_modules", "build", "dist" },
     },
     behaviour = {
       auto_suggestions = false, -- Experimental stage
