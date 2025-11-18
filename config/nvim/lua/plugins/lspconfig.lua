@@ -2,6 +2,18 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            workspace = {
+              -- Make lua_ls aware of our custom type definitions
+              library = {
+                [vim.fn.expand("$HOME/.config/nvim/lua")] = true,
+              },
+            },
+          },
+        },
+      },
       -- python = {
       --   -- Force Pyright to use your asdf Python
       --   pythonPath = "/Users/ryanmessner/.asdf/shims/python",

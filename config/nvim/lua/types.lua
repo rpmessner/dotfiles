@@ -1,0 +1,31 @@
+-- Type definitions for lazy.nvim to help LSP understand plugin specs
+-- These are simplified versions of the actual lazy.nvim types
+
+---@class LazyKeysBase
+---@field desc? string
+---@field noremap? boolean
+---@field remap? boolean
+---@field expr? boolean
+---@field nowait? boolean
+---@field ft? string|string[]
+
+---@class LazyKeysSpec: LazyKeysBase
+---@field [1] string lhs
+---@field [2]? string|fun():string?|false rhs
+---@field mode? string|string[]
+
+---@class LazySpec
+---@field [1]? string Plugin name/url
+---@field name? string
+---@field enabled? boolean|(fun():boolean)
+---@field cond? boolean|(fun():boolean)
+---@field dependencies? string|string[]|LazySpec[]
+---@field init? fun(self:table)
+---@field config? fun(self:table, opts:table)|boolean
+---@field opts? table|fun(self:table, opts:table):table
+---@field keys? string|string[]|LazyKeysSpec[]
+---@field cmd? string|string[]
+---@field ft? string|string[]
+---@field event? string|string[]
+---@field lazy? boolean
+---@field priority? number
