@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test -f:*)",
+      "Bash(mkdir:*)",
+      "Bash(gh run list:*)",
+      "Bash(ollama list:*)",
+      "Bash(ollama run:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
