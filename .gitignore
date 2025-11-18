@@ -11,6 +11,3 @@ config/nvim/plugin/packer_compiled.lua
 
 # ignore nvim backup directories
 config/nvim.old/
-
-# ignore nvim formatter config
-config/nvim/stylua.toml
