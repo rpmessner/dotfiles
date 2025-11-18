@@ -1,0 +1,24 @@
+# NPM Configuration
+
+# Save exact versions instead of ranges
+save-exact=true
+
+# Use package-lock.json
+package-lock=true
+
+# Progress bar in CI
+progress=false
+
+# Audit level
+audit-level=moderate
+
+# Update notifier
+update-notifier=true
+
+# Engine strict - enforce engine requirements
+engine-strict=false
+
+# Init defaults
+init-author-name=Ryan Messner
+init-license=MIT
+init-version=0.1.0

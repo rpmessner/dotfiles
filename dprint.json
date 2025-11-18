@@ -1,0 +1,68 @@
+{
+  "$schema": "https://dprint.dev/schemas/v0.json",
+  "lineWidth": 120,
+  "biome": {
+    "indentStyle": "space",
+    "quoteStyle": "single"
+  },
+  "json": {
+    "trailingCommas": "never"
+  },
+  "markdown": {
+  },
+  "markup": {
+  },
+  "yaml": {
+    "quotes": "preferSingle",
+    "formatComments": true
+  },
+  "exec": {
+    "commands": [
+      {
+        "command": "stylua --allow-hidden --respect-ignores --stdin-filepath {{file_path}} -",
+        "exts": [".lua"]
+      },
+      {
+        "command": "taplo format -",
+        "exts": [".toml"]
+      },
+      {
+        "command": "shfmt -i 2 -ci -bn -s -",
+        "exts": [".sh", ".bash", ".zsh"]
+      },
+      {
+        "command": "shfmt -i 2 -ci -bn -s -",
+        "fileNames": [
+          "bic",
+          "bip",
+          "command-history-preview",
+          "figprev",
+          "ghprs",
+          "git_better_branch",
+          "nvims",
+          "pingf",
+          "pplay",
+          "tmux-fork-repo",
+          "tmux-new-session",
+          "v",
+          "wait_for_port"
+        ]
+      }
+    ]
+  },
+  "excludes": [
+    "**/*-lock.yaml",
+    "**/*lock.json",
+    "CHANGELOG.md",
+    "config/hammerspoon/Spoons/*.spoon/**",
+    "gitleaks-report.json"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/json-0.20.0.wasm",
+    "https://plugins.dprint.dev/markdown-0.19.0.wasm",
+    "https://plugins.dprint.dev/g-plane/markup_fmt-v0.22.0.wasm",
+    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm",
+    "https://plugins.dprint.dev/exec-0.5.1.json@492414e39dea4dccc07b4af796d2f4efdb89e84bae2bd4e1e924c0cc050855bf",
+    "https://plugins.dprint.dev/biome-0.10.0.wasm"
+  ]
+}
