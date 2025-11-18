@@ -188,10 +188,10 @@ vmap({ "gy", '"+y', { desc = "Yank to clipboard" } })
 nmap({ "gY", '"+y$', { desc = "Yank to clipboard EOL" } })
 
 -- copy entire file
-nmap({ "<C-g>y", "ggyG", { desc = "Copy Entire File" } })
+nmap({ "<leader>ya", "ggyG", { desc = "[Y]ank [A]ll" } })
 
 -- copy entire file to system clipboard
-nmap({ "<C-g>Y", 'gg"+yG', { desc = "Copy Entire File To System Clipboard" } })
+nmap({ "<leader>yA", 'gg"+yG', { desc = "[Y]ank [A]ll to clipboard" } })
 
 -- Open files relative to current path:
 nmap({ "<leader>ed", ':edit <C-R>=expand("%:p:h") . "/" <CR>', { desc = "[ED]it file" } })
@@ -199,8 +199,8 @@ nmap({ "<leader>sp", ':split <C-R>=expand("%:p:h") . "/" <CR>', { desc = "[SP]li
 nmap({ "<leader>vs", ':vsplit <C-R>=expand("%:p:h") . "/" <CR>', { desc = "[V]ertical [S]plit file" } })
 
 -- move lines up and down in visual mode
-vmap({ "<S-Up>", ":move '<-2<CR>gv=gv", { desc = "Move selection up" } })
-vmap({ "<S-Down>", ":move '>+1<CR>gv=gv", { desc = "Move selection down" } })
+vmap({ "J", ":move '>+1<CR>gv=gv", { desc = "Move selection down" } })
+vmap({ "K", ":move '<-2<CR>gv=gv", { desc = "Move selection up" } })
 
 -- source current file (useful when iterating on config)
 nmap({
