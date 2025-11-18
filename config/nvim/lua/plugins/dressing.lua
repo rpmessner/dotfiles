@@ -54,7 +54,8 @@ return {
       -- Set to false to disable the vim.ui.select implementation
       enabled = true,
       -- Priority list of preferred vim.select implementations
-      backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+      -- Note: Using Snacks.picker as main picker, not telescope
+      backend = { "fzf_lua", "fzf", "builtin", "nui" },
       -- Trim trailing `:` from prompt
       trim_prompt = true,
       -- Options for telescope selector
