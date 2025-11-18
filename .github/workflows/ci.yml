@@ -33,10 +33,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: RuboCop Linter Action
-        uses: andrewmcodes/rubocop-linter-action@v3.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: false
+
+      - name: Install RuboCop
+        run: gem install rubocop
+
+      - name: Run RuboCop
+        run: rubocop --config config/rubocop/config.yml
 
   lua-formatting:
     name: 'Format: Lua'
