@@ -121,11 +121,11 @@ return {
     },
   },
   keys = {
-    { "<leader>aiv", "<cmd>AvanteToggle<cr>", desc = "[AI] Toggle Avante" },
-    { "<leader>ait", "<cmd>AvanteToggle<cr>", desc = "[AI] Toggle Avante" },
-    { "<leader>aix", "<cmd>AvanteAsk<cr>", desc = "[AI] Ask Avante", mode = { "n", "v" } },
-    { "<leader>aie", "<cmd>AvanteEdit<cr>", desc = "[AI] Edit with Avante", mode = "v" },
-    { "<leader>aiR", "<cmd>AvanteRefresh<cr>", desc = "[AI] Refresh Avante" },
-    { "<leader>aiF", "<cmd>AvanteFocus<cr>", desc = "[AI] Focus Avante" },
+    { "<leader>av", "<cmd>AvanteToggle<cr>", desc = "[AI] Toggle Avante" },
+    { "<leader>ax", "<cmd>AvanteAsk<cr>", desc = "[AI] Ask Avante", mode = { "n", "v" } },
+    { "<leader>ae", "<cmd>AvanteEdit<cr>", desc = "[AI] Edit with Avante", mode = "v" },
+    { "<leader>aR", "<cmd>AvanteRefresh<cr>", desc = "[AI] Refresh Avante" },
+    { "<leader>aF", "<cmd>AvanteFocus<cr>", desc = "[AI] Focus Avante" },
+    { "<leader>aX", "<cmd>AvanteClear<cr>", desc = "[AI] Clear Avante" },
   },
 }
