@@ -39,9 +39,9 @@ jt() {
   jira i "$(jira i | fzf | awk '{ print $1 }')" -t
 }
 
-alias et="et -I"
-alias tree="et"
-alias gtree="et"
+alias et="eza --tree -I '.git|node_modules'"
+alias tree="eza --tree -I '.git|node_modules'"
+alias gtree="eza --tree -I '.git|node_modules'"
 
 # Bundler
 alias b="bundle"
