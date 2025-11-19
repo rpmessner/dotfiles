@@ -5,6 +5,10 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            diagnostics = {
+              -- Recognize the `vim` global
+              globals = { "vim" },
+            },
             workspace = {
               -- Make lua_ls aware of our custom type definitions
               library = {
