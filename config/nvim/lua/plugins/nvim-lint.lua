@@ -7,6 +7,9 @@ return {
     -- Configure linters by filetype
     linters_by_ft = {
       markdown = { "markdownlint-cli2" },
+      ruby = { "rubocop" },
+      eruby = { "erb_lint" },
+      elixir = { "credo" },
     },
   },
 }
