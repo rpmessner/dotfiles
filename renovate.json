@@ -3,7 +3,7 @@
   "extends": ["config:recommended"],
   "packageRules": [
     {
-      "matchManagers": ["mise"],
+      "matchManagers": ["asdf"],
       "enabled": false
     }
   ]

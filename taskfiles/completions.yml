@@ -20,7 +20,6 @@ tasks:
         - 'starship|starship completions zsh'
         - 'uv|uv generate-shell-completion zsh'
         - 'op|op completion zsh'
-        - 'mise|mise completion zsh'
         - 'talosctl|talosctl completion zsh'
         - 'task|task --completion zsh'
         - 'pgroll|pgroll completion zsh'
