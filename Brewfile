@@ -35,7 +35,11 @@ brew 'wxwidgets'
 brew 'autoconf'
 brew 'fop'
 brew 'libiodbc'
+brew 'unixodbc'
 brew 'openjdk'
+
+# for Phoenix Live Reload on macOS
+brew 'fswatch'
 
 # for generating graphics
 brew 'graphviz'
