@@ -7,12 +7,7 @@
     "default": true,
 
     // Disable or relax overly strict rules
-    "MD013": {
-      // Line length - increase from 80 to 120 for technical docs
-      "line_length": 120,
-      "code_blocks": false, // Don't check code blocks
-      "tables": false // Don't check tables
-    },
+    "MD013": false, // Disable line length checking - use editor wrapping instead
 
     "MD032": false, // Lists don't require blank lines around them
     "MD031": false, // Code blocks don't require blank lines around them
@@ -20,6 +15,9 @@
 
     // Allow emphasis (bold) as pseudo-headings for subsections
     "MD036": false,
+
+    // Allow bare URLs (common in technical docs and AI-generated content)
+    "MD034": false,
 
     // Keep these enabled for quality
     "MD001": true, // Heading levels should increment by one
@@ -38,7 +36,6 @@
     "MD027": true, // Multiple spaces after blockquote symbol
     "MD030": true, // Spaces after list markers
     "MD033": false, // Allow inline HTML (sometimes needed)
-    "MD034": true, // Bare URLs should be wrapped in angle brackets
     "MD037": true, // Spaces inside emphasis markers
     "MD038": true, // Spaces inside code span elements
     "MD039": true, // Spaces inside link text

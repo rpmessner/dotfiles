@@ -3,28 +3,27 @@
 {
   // Default: all rules enabled
   "default": true,
-
   // Disable or relax overly strict rules
-  "MD013": {
-    // Line length - increase from 80 to 120 for technical docs
-    "line_length": 120,
-    "code_blocks": false, // Don't check code blocks
-    "tables": false // Don't check tables
-  },
-
+  "MD013": false, // Disable line length checking - use editor wrapping instead
   "MD032": false, // Lists don't require blank lines around them
   "MD031": false, // Code blocks don't require blank lines around them
   "MD022": false, // Headings don't require blank lines around them
-
   // Allow emphasis (bold) as pseudo-headings for subsections
   "MD036": false,
-
+  // Allow bare URLs (common in technical docs and AI-generated content)
+  "MD034": false,
   // Keep these enabled for quality
   "MD001": true, // Heading levels should increment by one
-  "MD003": { "style": "atx" }, // Use ATX style headings (##)
-  "MD004": { "style": "dash" }, // Use dashes for unordered lists
+  "MD003": {
+    "style": "atx"
+  }, // Use ATX style headings (##)
+  "MD004": {
+    "style": "dash"
+  }, // Use dashes for unordered lists
   "MD005": true, // Inconsistent indentation for list items
-  "MD007": { "indent": 2 }, // Unordered list indentation (2 spaces)
+  "MD007": {
+    "indent": 2
+  }, // Unordered list indentation (2 spaces)
   "MD009": true, // Trailing spaces
   "MD010": true, // Hard tabs
   "MD011": true, // Reversed link syntax
@@ -36,14 +35,19 @@
   "MD027": true, // Multiple spaces after blockquote symbol
   "MD030": true, // Spaces after list markers
   "MD033": false, // Allow inline HTML (sometimes needed)
-  "MD034": true, // Bare URLs should be wrapped in angle brackets
   "MD037": true, // Spaces inside emphasis markers
   "MD038": true, // Spaces inside code span elements
   "MD039": true, // Spaces inside link text
   "MD040": false, // Code blocks should specify language (too strict)
   "MD041": false, // First line doesn't have to be a top-level heading
-  "MD046": { "style": "fenced" }, // Code block style (prefer fenced ```)
+  "MD046": {
+    "style": "fenced"
+  }, // Code block style (prefer fenced ```)
   "MD047": true, // File should end with a single newline
-  "MD049": { "style": "underscore" }, // Emphasis style (prefer _italic_)
-  "MD050": { "style": "asterisk" } // Strong style (prefer **bold**)
+  "MD049": {
+    "style": "underscore"
+  }, // Emphasis style (prefer _italic_)
+  "MD050": {
+    "style": "asterisk"
+  } // Strong style (prefer **bold**)
 }

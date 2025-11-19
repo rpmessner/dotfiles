@@ -20,3 +20,13 @@ vim.api.nvim_create_autocmd("User", {
     -- vim.api.nvim_set_hl(0, "SnacksPickerInputBorder", { fg = bg, bg = bg })
   end,
 })
+
+-- Markdown settings: enable line wrapping and soft wrapping at word boundaries
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true -- Enable line wrapping
+    vim.opt_local.linebreak = true -- Wrap at word boundaries (don't break words)
+    vim.opt_local.breakindent = true -- Preserve indentation in wrapped lines
+  end,
+})
