@@ -49,7 +49,7 @@ using Task automation and asdf for dependency management.
 ### Package Management
 
 - **Homebrew:** GUI applications (casks) and system libraries
-- **Mise:** Runtime management (Node, Ruby, Python, etc.) and CLI tools
+- **asdf:** Runtime management (Node, Ruby, Python, etc.)
 - **pnpm:** Node.js package management
 - **Mason:** Neovim LSP/formatter/linter management
 
@@ -65,7 +65,7 @@ using Task automation and asdf for dependency management.
 ### Initial Installation
 
 ```bash
-git clone git@github.com:dkarter/dotfiles.git
+git clone git@github.com:rpmessner/dotfiles.git
 cd dotfiles
 ./setup.sh
 ```
@@ -214,7 +214,7 @@ The CI pipeline (`task ci:run`) includes:
 ### Regular Updates
 
 - Daily: `git pull && task sync`
-- Monthly: Review and update tool versions in `mise.toml`
+- Monthly: Review and update tool versions in `.tool-versions`
 - As needed: Update Brewfile for new applications
 
 ### Version Management
@@ -236,7 +236,7 @@ The CI pipeline (`task ci:run`) includes:
 
 ### Common Modifications
 
-- Adding new tools: Update appropriate taskfile and mise.toml
+- Adding new tools: Update appropriate taskfile and `.tool-versions`
 - Neovim plugins: Add to `config/nvim/lua/plugins/`
 - Shell functions: Add to `config/zsh/functions.zsh`
 - Git configuration: Modify `gitconfig` or related files
