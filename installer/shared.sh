@@ -13,6 +13,7 @@ if ! command -v asdf &>/dev/null; then
   # shellcheck disable=1091
   source "$HOME/.asdf/asdf.sh"
   asdf plugin add ruby
-  asdf install ruby latest
-  asdf global ruby latest
+  # Install Ruby version from .tool-versions to ensure consistency
+  asdf install ruby 3.3.8
+  asdf set -p ruby 3.3.8
 fi
