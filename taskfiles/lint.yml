@@ -25,8 +25,8 @@ tasks:
   markdown:
     desc: Lints markdown files with markdownlint
     cmd: |
-      markdownlint --version || echo "Install with: npm install -g markdownlint-cli"
-      markdownlint '**/*.md' --ignore node_modules --ignore .git
+      markdownlint-cli2 --version || echo "Install with: npm install -g markdownlint-cli2"
+      markdownlint-cli2 '**/*.md' --config .markdownlint-cli2.jsonc
 
   editorconfig:
     desc: Checks EditorConfig compliance
