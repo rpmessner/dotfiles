@@ -38,6 +38,57 @@ return {
           "--header-insertion=iwyu",
         },
       },
+      -- Ruby LSP configuration (optimized for Rails)
+      ruby_lsp = {
+        init_options = {
+          enabledFeatures = {
+            "documentSymbols",
+            "documentHighlights",
+            "foldingRanges",
+            "selectionRanges",
+            "semanticHighlighting",
+            "formatting",
+            "codeActions",
+            "diagnostics",
+            "rename",
+            "hover",
+            "completion",
+            "signatureHelp",
+          },
+          featuresConfiguration = {
+            inlayHint = {
+              enableAll = false,
+            },
+          },
+        },
+        settings = {},
+      },
+      -- Solargraph as fallback/complement for better intellisense
+      solargraph = {
+        settings = {
+          solargraph = {
+            diagnostics = false, -- Disable to avoid conflicts with ruby-lsp
+            completion = true,
+            hover = true,
+            symbols = true,
+            definitions = true,
+            references = true,
+          },
+        },
+      },
+      -- Elixir LSP configuration
+      elixirls = {
+        cmd = { vim.fn.expand("~/.local/share/nvim/mason/bin/elixir-ls") },
+        settings = {
+          elixirLS = {
+            dialyzerEnabled = true,
+            fetchDeps = false,
+            enableTestLenses = true,
+            suggestSpecs = true,
+            signatureAfterComplete = true,
+          },
+        },
+      },
     },
   },
 }
