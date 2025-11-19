@@ -28,7 +28,7 @@ return {
     behaviour = {
       auto_suggestions = false, -- Experimental stage
       auto_set_highlight_group = true,
-      auto_set_keymaps = true,
+      auto_set_keymaps = false, -- Disabled to prevent conflicts with our custom keymaps
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
     },
