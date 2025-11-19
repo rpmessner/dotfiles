@@ -20,6 +20,13 @@ YYYY-MM-DD-brief-description.md
 
 ## Index
 
+- [2025-11-19: Elixir and Phoenix Development Environment Setup](./2025-11-19-elixir-phoenix-setup.md)
+  - Added Elixir 1.19.3, Erlang 28.1.1, Rebar 3.25.1 to tool versions
+  - Configured ElixirLS LSP with Dialyzer and test lenses
+  - Added Credo linting support
+  - Created comprehensive Elixir/Phoenix zsh configuration
+  - Added Phoenix dependencies (fswatch, unixodbc) to Brewfile
+
 - [2025-01-19: Ruby Upgrade and Documentation Cleanup](./2025-01-19-ruby-upgrade-and-cleanup.md)
   - Fixed Rails 8.1.1 compatibility by upgrading Ruby 3.3.0 → 3.3.8
   - Corrected documentation (mise → asdf)
