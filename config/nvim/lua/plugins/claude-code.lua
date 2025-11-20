@@ -12,6 +12,14 @@ local keymaps = require("config.keymaps")
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
-  config = true,
+  config = function()
+    require("claudecode").setup()
+
+    -- Setup history tracking
+    require("plugins.claude-history.tracker").setup()
+
+    -- Setup history commands
+    require("plugins.claude-history.commands").setup()
+  end,
   keys = keymaps.claude_code_mappings,
 }
