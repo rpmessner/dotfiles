@@ -16,10 +16,10 @@ return {
     require("claudecode").setup()
 
     -- Setup history tracking
-    require("plugins.claude-history.tracker").setup()
+    require("claude-history.tracker").setup()
 
     -- Setup history commands
-    require("plugins.claude-history.commands").setup()
+    require("claude-history.commands").setup()
   end,
   keys = keymaps.claude_code_mappings,
 }
