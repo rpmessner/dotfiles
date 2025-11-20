@@ -46,8 +46,18 @@ function M.setup()
   -- Show session info
   vim.api.nvim_create_user_command("ClaudeHistoryInfo", function()
     local entries = history.get_current_entries()
+    local sessions = history.get_sessions()
     local session_id = history.current_session_id or "none"
-    local msg = string.format("Session ID: %s\nEntries: %d", session_id, #entries)
+    local cwd = history.current_cwd and vim.fn.fnamemodify(history.current_cwd, ":~") or "none"
+
+    local msg = string.format(
+      "Current Directory: %s\nCurrent Session: %s\nTotal Sessions: %d\nCurrent Entries: %d\n\nStorage: %s",
+      cwd,
+      session_id,
+      #sessions,
+      #entries,
+      vim.fn.stdpath("data") .. "/claude-history/"
+    )
     vim.notify(msg, vim.log.levels.INFO, { title = "Claude Code History" })
   end, {
     desc = "Show Claude Code history session info",
@@ -55,11 +65,15 @@ function M.setup()
 
   -- Seed test data (for testing the viewer)
   vim.api.nvim_create_user_command("ClaudeHistorySeed", function()
-    -- Start a session if needed
-    history.get_or_create_session()
-
-    -- Add test entries simulating what would be captured
+    -- Initialize history for current directory if not already
     local cwd = vim.fn.getcwd()
+    if not history.current_cwd then
+      history.init(cwd)
+    end
+
+    -- Create multiple sessions for testing
+    -- Session 1 (oldest)
+    history.start_session()
     history.add_entry({
       type = "tool",
       tool_name = "open_file",
@@ -138,8 +152,37 @@ return M]]
       timestamp = os.time() - 50,
     })
 
-    local count = #history.get_current_entries()
-    vim.notify(string.format("Seeded %d test entries", count), vim.log.levels.INFO)
+    -- Session 2 (recent)
+    history.start_session()
+    history.add_entry({
+      type = "bash",
+      command = "git diff HEAD~1",
+      timestamp = os.time() - 50,
+    })
+    history.add_entry({
+      type = "tool",
+      tool_name = "Grep",
+      params = { pattern = "function", glob = "*.lua" },
+      timestamp = os.time() - 30,
+    })
+
+    -- Session 3 (most recent)
+    history.start_session()
+    history.add_entry({
+      type = "bash",
+      command = "fd -t f '.lua' config/nvim",
+      timestamp = os.time() - 10,
+    })
+
+    local total_sessions = #history.get_sessions()
+    local total_entries = 0
+    for _, session in ipairs(history.get_sessions()) do
+      total_entries = total_entries + #session.entries
+    end
+    vim.notify(
+      string.format("Seeded %d sessions with %d total entries", total_sessions, total_entries),
+      vim.log.levels.INFO
+    )
   end, {
     desc = "Seed test data for Claude Code history",
   })
