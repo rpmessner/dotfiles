@@ -3,8 +3,11 @@
 # Set GOPATH to ~/.go
 export GOPATH="$HOME/.go"
 
-# Add Go binaries to PATH
-export PATH="$GOPATH/bin:$PATH"
+# Add Go installation to PATH
+path_prepend "/usr/local/go/bin"
+
+# Add Go workspace binaries to PATH
+path_append "$GOPATH/bin"
 
 # Enable Go modules
 export GO111MODULE=on
