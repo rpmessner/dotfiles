@@ -32,9 +32,6 @@ function M.wrap_tools(tools_module)
   -- Store original handle_invoke
   local original_handle_invoke = tools_module.handle_invoke
 
-  -- Start a session when wrapping
-  history.start_session()
-
   -- Wrap handle_invoke to capture all tool calls
   tools_module.handle_invoke = function(client, params)
     -- Record the tool invocation
@@ -91,10 +88,28 @@ function M.setup_terminal_tracking()
 
       -- Check if this is a Claude Code terminal
       if bufname:match("claude") or bufname:match("Claude") then
-        history.start_session()
+        -- Get the working directory for this terminal
+        -- First try buffer-local CWD, then fall back to global CWD
+        local cwd = vim.fn.getcwd(-1, args.buf)
+        if not cwd or cwd == "" then
+          cwd = vim.fn.getcwd()
+        end
+
+        -- Initialize history for this directory (loads existing sessions)
+        history.init(cwd)
+
+        -- Start a new session if there isn't one
+        if not history.current_session_id then
+          history.start_session()
+        end
 
         -- Set up buffer-local tracking
         M.track_terminal_buffer(args.buf)
+
+        vim.notify(
+          string.format("Claude history tracking started for: %s", vim.fn.fnamemodify(cwd, ":~")),
+          vim.log.levels.INFO
+        )
       end
     end,
   })
