@@ -41,14 +41,11 @@ fi
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 
-# set cabal and haskell binaries on path
-export PATH="$HOME/.cabal/bin:$HOME/.local/bin:$PATH"
-
-# Golang
-export PATH="/usr/local/go/bin:$PATH"
-
 # dotfiles scripts
-export PATH="$HOME/dotfiles/bin:$PATH"
+path_prepend "$HOME/dotfiles/bin"
+
+# User local binaries
+path_prepend "$HOME/.local/bin"
 
 # for android sdk (installed via homebrew)
 export ANDROID_HOME=/usr/local/opt/android-sdk
@@ -75,9 +72,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
-# add go path bin to path
-export PATH=$PATH:$GOPATH/bin
 
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
@@ -113,7 +107,7 @@ case "$(uname -s)" in
     ;;
 esac
 
-export PATH="$HOME/.cargo/bin:$PATH"
+# Rust/Cargo binaries are added by config/zsh/rust.zsh or via cargo itself
 
 
 # Prompt Configuration
@@ -131,4 +125,5 @@ fi
 # export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 # eval "$(starship init zsh)"
 
-[[ -f ${HOME}/.ghcup/env ]] && source ${HOME}/.ghcup/env
+# Note: Haskell/GHCup PATH configuration is handled in config/zsh/haskell.zsh
+# The ~/.ghcup/env file is sourced there to avoid duplicate PATH entries
