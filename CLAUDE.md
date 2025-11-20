@@ -30,11 +30,20 @@ using Task automation and asdf for dependency management.
 │   ├── wezterm/           # Terminal emulator config
 │   ├── hammerspoon/       # macOS automation (Lua)
 │   └── [various tools]/   # Tool-specific configurations
+├── docs/                  # Documentation
+│   └── sessions/          # Development session notes (see below)
 ├── taskfiles/             # Task automation definitions
 ├── installer/             # Platform-specific setup scripts
 ├── scripts/               # Utility scripts
 └── [dotfiles]             # Home directory dotfiles (no dot prefix)
 ```
+
+**Session Documentation (`docs/sessions/`):**
+
+This directory contains detailed notes from development/configuration sessions. When
+asked about previous work, custom features, or "how was X implemented", check this
+folder for session documentation. Each file follows the format:
+`YYYY-MM-DD-descriptive-name.md`
 
 ## Key Technologies & Tools
 
