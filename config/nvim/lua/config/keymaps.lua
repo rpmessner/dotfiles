@@ -281,14 +281,14 @@ M.claude_code_mappings = {
   {
     "<leader>ah",
     function()
-      require("plugins.claude-history.picker").open()
+      require("claude-history.picker").open()
     end,
     desc = "Claude [H]istory (current session)",
   },
   {
     "<leader>aH",
     function()
-      require("plugins.claude-history.picker").open({ all = true })
+      require("claude-history.picker").open({ all = true })
     end,
     desc = "Claude [H]istory (all sessions)",
   },
