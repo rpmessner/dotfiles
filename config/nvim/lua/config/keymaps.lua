@@ -73,13 +73,6 @@ end
 
 local silent = { silent = true }
 
--- AI assistant window navigation
--- Use <C-w>w or <C-w>h/l to navigate between code and AI windows
--- Use <C-w>o to close AI window and focus code
-nmap({ "<leader>ww", "<C-w>w", { desc = "Cycle windows" } })
-nmap({ "<leader>wh", "<C-w>h", { desc = "Move to left window" } })
-nmap({ "<leader>wl", "<C-w>l", { desc = "Move to right window" } })
-
 -- a more useful gf
 nmap({ "gf", "gF", { desc = "Go to file under cursor", silent = true } })
 
@@ -284,6 +277,21 @@ M.claude_code_mappings = {
   },
   { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
   { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+  -- Claude History
+  {
+    "<leader>ah",
+    function()
+      require("plugins.claude-history.picker").open()
+    end,
+    desc = "Claude [H]istory (current session)",
+  },
+  {
+    "<leader>aH",
+    function()
+      require("plugins.claude-history.picker").open({ all = true })
+    end,
+    desc = "Claude [H]istory (all sessions)",
+  },
 }
 
 M.avante_mappings = {
