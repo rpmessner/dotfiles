@@ -34,6 +34,9 @@ return {
       rust = { "rustfmt" },
       -- go
       go = { "gofmt", "goimports" },
+      -- ruby
+      ruby = { "rubocop" },
+      eruby = { "erb_format" },
       -- toml
       toml = { "taplo" },
       -- terraform
