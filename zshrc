@@ -15,12 +15,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-export LANG="en_US.UTF-8"
+export LANG="${LANG:-C.UTF-8}"
 
-# set XDG paths
-export XDG_CACHE_HOME="${HOME}/.cache"
-export XDG_DATA_HOME="${HOME}/.local/share"
-export XDG_CONFIG_HOME="${HOME}/.config"
+# XDG paths are set in .zshenv
 
 # load zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -55,7 +52,7 @@ export PATH="$HOME/dotfiles/bin:$PATH"
 
 # for android sdk (installed via homebrew)
 export ANDROID_HOME=/usr/local/opt/android-sdk
-export SSH_FINGERPRINT=$(ssh-keygen -lf ~/.ssh/id_rsa.pub | awk '{print $2}')
+export SSH_FINGERPRINT=$(ssh-keygen -lf ~/.ssh/id_ed25519.pub 2>/dev/null | awk '{print $2}')
 
 case "$(uname -s)" in
   Darwin*)
@@ -119,12 +116,19 @@ esac
 export PATH="$HOME/.cargo/bin:$PATH"
 
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# NOTE: Comment out this line if using starship prompt instead
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Prompt Configuration
+# Choose ONE of the following options:
 
-# set up starship prompt (comment out p10k above to use this)
+# Option 1: Powerlevel10k (default)
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+if [[ -f ~/.p10k.zsh ]]; then
+  source ~/.p10k.zsh
+else
+  echo "⚠️  Powerlevel10k not configured. Run 'p10k configure' to set up your prompt."
+fi
+
+# Option 2: Starship (uncomment below and comment out p10k above)
 # export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 # eval "$(starship init zsh)"
 
-source ${HOME}/.ghcup/env
+[[ -f ${HOME}/.ghcup/env ]] && source ${HOME}/.ghcup/env

@@ -1,3 +1,8 @@
+# set XDG paths (must be set before zshrc loads)
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/sbin:$PATH"
 
