@@ -26,7 +26,7 @@
   }, // Unordered list indentation (2 spaces)
   "MD009": true, // Trailing spaces
   "MD010": true, // Hard tabs
-  "MD011": true, // Reversed link syntax
+  "MD011": false, // Reversed link syntax - disabled, causes false positives with em-dash
   "MD012": true, // Multiple consecutive blank lines
   "MD014": true, // Dollar signs before commands without showing output
   "MD018": true, // No space after hash on atx style heading

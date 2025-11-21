@@ -1,0 +1,14 @@
+// markdownlint-cli2 configuration
+// This file is automatically discovered by markdownlint-cli2
+// Extends the main .markdownlint.jsonc config
+{
+  // Reference the main markdownlint config file
+  "config": "markdownlint.jsonc",
+
+  // Globs to ignore
+  "ignores": [
+    "node_modules/**",
+    ".git/**",
+    "**/CHANGELOG.md" // Auto-generated, often violates rules
+  ]
+}
