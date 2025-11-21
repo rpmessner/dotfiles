@@ -82,6 +82,18 @@ jobs:
       - name: ASDF Install
         uses: asdf-vm/actions/install@v1
 
+      - name: Create lua-language-server config
+        run: |
+          cat > config/nvim/.luarc.json << 'EOF'
+          {
+            "runtime.version": "LuaJIT",
+            "runtime.path": ["lua/?.lua", "lua/?/init.lua"],
+            "diagnostics.globals": ["vim"],
+            "workspace.checkThirdParty": false,
+            "workspace.library": ["$VIMRUNTIME", "${3rd}/luv/library"]
+          }
+          EOF
+
       - name: Run Diagnostics Check
         run: |
           lua-language-server --check config/nvim/lua --checklevel=Warning
