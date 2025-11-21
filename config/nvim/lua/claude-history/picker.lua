@@ -63,6 +63,12 @@ end
 ---@param name string
 ---@return number
 local function create_scratch_buffer(name)
+  -- Check if buffer with this name already exists and delete it
+  local existing_buf = vim.fn.bufnr(name)
+  if existing_buf ~= -1 and vim.api.nvim_buf_is_valid(existing_buf) then
+    vim.api.nvim_buf_delete(existing_buf, { force = true })
+  end
+
   local buf = vim.api.nvim_create_buf(false, true)
   vim.api.nvim_buf_set_name(buf, name)
   vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf })
@@ -203,6 +209,22 @@ local function setup_keybindings(ui, buf, is_sessions)
     ui.layout:close()
   end, opts)
 
+  -- <C-j> to move to entries pane (works from both panes)
+  vim.keymap.set("n", "<C-j>", function()
+    local entries_win = ui.layout.wins.entries
+    if entries_win and entries_win.win and vim.api.nvim_win_is_valid(entries_win.win) then
+      vim.api.nvim_set_current_win(entries_win.win)
+    end
+  end, opts)
+
+  -- <C-k> to move to sessions pane (works from both panes)
+  vim.keymap.set("n", "<C-k>", function()
+    local sessions_win = ui.layout.wins.sessions
+    if sessions_win and sessions_win.win and vim.api.nvim_win_is_valid(sessions_win.win) then
+      vim.api.nvim_set_current_win(sessions_win.win)
+    end
+  end, opts)
+
   if is_sessions then
     -- Session list keybindings
     vim.keymap.set("n", "<CR>", function()
@@ -213,20 +235,6 @@ local function setup_keybindings(ui, buf, is_sessions)
       update_diff_preview(ui)
 
       -- Move cursor to entries buffer
-      local entries_win = ui.layout.wins.entries
-      if entries_win and entries_win.win and vim.api.nvim_win_is_valid(entries_win.win) then
-        vim.api.nvim_set_current_win(entries_win.win)
-      end
-    end, opts)
-
-    vim.keymap.set("n", "<Tab>", function()
-      -- Same as Enter - select session and move to entries
-      local line = vim.api.nvim_win_get_cursor(0)[1]
-      ui.current_session_idx = line
-      ui.current_entry_idx = 1
-      populate_entries(ui)
-      update_diff_preview(ui)
-
       local entries_win = ui.layout.wins.entries
       if entries_win and entries_win.win and vim.api.nvim_win_is_valid(entries_win.win) then
         vim.api.nvim_set_current_win(entries_win.win)
@@ -258,21 +266,24 @@ local function setup_keybindings(ui, buf, is_sessions)
       update_diff_preview(ui)
     end, opts)
 
-    -- Tab to go back to sessions
-    vim.keymap.set("n", "<Tab>", function()
-      local sessions_win = ui.layout.wins.sessions
-      if sessions_win and sessions_win.win and vim.api.nvim_win_is_valid(sessions_win.win) then
-        vim.api.nvim_set_current_win(sessions_win.win)
-      end
-    end, opts)
-
-    -- Enter to open file in full diff
+    -- Enter in entries pane: context-aware behavior
     vim.keymap.set("n", "<CR>", function()
       if not ui.current_entry_idx or ui.current_entry_idx > #ui.entries then
         return
       end
 
       local entry = ui.entries[ui.current_entry_idx]
+
+      -- For bash commands: move back to sessions pane
+      if entry.type == "bash" then
+        local sessions_win = ui.layout.wins.sessions
+        if sessions_win and sessions_win.win and vim.api.nvim_win_is_valid(sessions_win.win) then
+          vim.api.nvim_set_current_win(sessions_win.win)
+        end
+        return
+      end
+
+      -- For file changes: open the file/diff
       if entry.type == "diff" and entry.old_file_contents and entry.new_file_contents then
         -- Close the UI and open full diff
         ui.layout:close()
