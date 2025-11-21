@@ -26,10 +26,10 @@ brew bundle
 
 if ! command -v sudo-touchid &>/dev/null; then
   echo 'Installing Sudo TouchID...'
-  curl -# https://raw.githubusercontent.com/artginzburg/sudo-touchid/main/sudo-touchid.sh -o /usr/local/bin/sudo-touchid &&
-    chmod +x /usr/local/bin/sudo-touchid &&
-    sudo curl -# https://raw.githubusercontent.com/artginzburg/sudo-touchid/main/com.user.sudo-touchid.plist -o /Library/LaunchDaemons/com.user.sudo-touchid.plist &&
-    /usr/local/bin/sudo-touchid
+  curl -# https://raw.githubusercontent.com/artginzburg/sudo-touchid/main/sudo-touchid.sh -o /usr/local/bin/sudo-touchid \
+    && chmod +x /usr/local/bin/sudo-touchid \
+    && sudo curl -# https://raw.githubusercontent.com/artginzburg/sudo-touchid/main/com.user.sudo-touchid.plist -o /Library/LaunchDaemons/com.user.sudo-touchid.plist \
+    && /usr/local/bin/sudo-touchid
 fi
 
 # TODO: this requires XCode to be installed, maybe it can be added via `mas`
@@ -49,11 +49,11 @@ if ! command -v unicornleap &>/dev/null; then
 
   # Install
   # shellcheck disable=2164
-  pushd ~/dev/forks/unicornleap &&
-    make &&
-    make images &&
-    cp build/unicornleap ~/.bin/ &&
-    popd || exit
+  pushd ~/dev/forks/unicornleap \
+    && make \
+    && make images \
+    && cp build/unicornleap ~/.bin/ \
+    && popd || exit
 fi
 
 # Install TerminalVim

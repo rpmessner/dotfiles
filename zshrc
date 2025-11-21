@@ -15,7 +15,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-export LANG="${LANG:-C.UTF-8}"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # XDG paths are set in .zshenv
 
@@ -120,10 +121,6 @@ if [[ -f ~/.p10k.zsh ]]; then
 else
   echo "⚠️  Powerlevel10k not configured. Run 'p10k configure' to set up your prompt."
 fi
-
-# Option 2: Starship (uncomment below and comment out p10k above)
-# export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
-# eval "$(starship init zsh)"
 
 # Note: Haskell/GHCup PATH configuration is handled in config/zsh/haskell.zsh
 # The ~/.ghcup/env file is sourced there to avoid duplicate PATH entries

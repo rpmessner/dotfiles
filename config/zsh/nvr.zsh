@@ -10,7 +10,7 @@
 [[ -z $__is_editor_nvim ]] && alias e=$EDITOR && return 0
 
 # Check for NVR
-(( $+commands[nvr] )) && __is_nvr_installed="yes"
+(($ + commands[nvr])) && __is_nvr_installed="yes"
 
 # If we don't have NVR installed, just alias e to $EDITOR and be done with it
 [[ -z $__is_nvr_installed ]] && alias e=$EDITOR && return 0

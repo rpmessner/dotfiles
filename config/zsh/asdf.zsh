@@ -5,7 +5,7 @@
 if [[ -f "$HOME/.asdf/asdf.sh" ]]; then
   # Direct installation (Linux, manual install)
   source "$HOME/.asdf/asdf.sh"
-elif command -v brew &> /dev/null && [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
+elif command -v brew &>/dev/null && [[ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]]; then
   # Homebrew installation (macOS)
   . "$(brew --prefix asdf)/libexec/asdf.sh"
 fi
