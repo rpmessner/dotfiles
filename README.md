@@ -99,8 +99,7 @@ Releases and versioning is done using [Release Please](https://github.com/google
 # Development
 
 - This repo uses conventional commits for versioning and automated releases
-- For contributors: Git hooks are automatically installed by `task install` (via lefthook)
-- Alternatively, you can run `yarn` to install commitlint hooks manually
+- Git hooks are automatically installed by `task install` (via lefthook)
 - To start development use [airmux](https://github.com/dermoumi/airmux) (alias `mux`) inside the project directory
 
 ---

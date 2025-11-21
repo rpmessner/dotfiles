@@ -140,7 +140,7 @@ git push
 
 ### Git Configuration
 
-- **Conventional Commits:** Enforced via commitlint
+- **Conventional Commits:** Enforced via cocogitto (cog)
 - **Semantic Versioning:** Automated via Release Please
 - **Hooks:** Managed by Lefthook
 - **Templates:** Custom commit message templates
