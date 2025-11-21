@@ -31,6 +31,7 @@ return {
       scope = { enabled = true },
       input = { enabled = true },
       explorer = { enabled = false },
+      layout = { enabled = true },
 
       picker = {
         enabled = true,
