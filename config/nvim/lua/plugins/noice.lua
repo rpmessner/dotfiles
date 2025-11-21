@@ -4,6 +4,10 @@ return {
   "folke/noice.nvim",
   enabled = true,
   event = "VeryLazy",
+  -- track main branch for nightly compatibility
+  branch = "main",
+  -- Pin to specific commit to avoid nightly breaking changes
+  commit = nil, -- Use latest from main
   ---@type NoiceConfig
   opts = {
     lsp = {
@@ -11,6 +15,7 @@ return {
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
         ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
       },
     },
     views = {
