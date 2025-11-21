@@ -53,7 +53,7 @@ the setup script. The installation uses a two-phase approach:
 
 1. **Bootstrap phase** ([setup.sh](./setup.sh)) - Installs system packages and prerequisites
    - For macOS: [Brewfile](./Brewfile) via Homebrew
-   - For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh)
+   - For Linux: [installer/platforms/ubuntu.sh](./installer/platforms/ubuntu.sh)
 2. **Orchestration phase** (Taskfile) - Installs tools, plugins, and symlinks dotfiles
    - Run `task -l` to see all available installation tasks
 
