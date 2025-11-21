@@ -5,6 +5,8 @@ return {
   event = { "CmdlineEnter", "InsertEnter" },
   -- use a release tag to download pre-built binaries
   version = "1.*",
+  -- build from source for nightly compatibility
+  build = "cargo build --release",
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
