@@ -5,6 +5,12 @@ extend-ignore-re = [
   "(?Rm)^.*(#|//|--)\\s*spellchecker:disable-line$",
   # ignore block with # spellchecker:<on|off>
   "(?s)(#|//|--)\\s*spellchecker:off.*?\\n\\s*(#|//|--)\\s*spellchecker:on",
+  # ignore bracketed mnemonics like [M]anager [I]nstall [d]efinition
+  "\\[[A-Za-z]\\][a-z]+",
+  # ignore vim leader keymaps like <leader>fo
+  "<leader>[a-z]+",
+  # ignore LESS_TERMCAP variables
+  "LESS_TERMCAP_[a-z]+",
 ]
 
 [files]
@@ -14,7 +20,9 @@ extend-exclude = [
   "iterm/xterm-256color-italic.ti",
   "config/vifm/vifm-help.txt",
   "config/vifm/devicons",
+  "config/bat/themes/**",
   "CHANGELOG.md",
   "package-lock.json",
   "lazy-lock.json",
+  "installer.rb",
 ]
