@@ -1,58 +1,29 @@
 #!/bin/bash
 
-# DETECT OS
-# Shamelessly copied from stackoverflow:
-# https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
-# =================================================================================
-lowercase() {
-  echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
-}
+# Source OS detection
+# shellcheck disable=1091
+source ./installer/lib/detect-os.sh
 
-OS="$(lowercase "$(uname)")"
-KERNEL="$(uname -r)"
-MACH="$(uname -m)"
-
-if [ "${OS}" = "darwin" ]; then
-  OS='mac'
-else
-  OS="$(uname)"
-  if [ "${OS}" = "Linux" ]; then
-    if [ -f /etc/debian_version ]; then
-      DISTRO_BASE='debian'
-      DIST=$(grep '^DISTRIB_ID' </etc/lsb-release | awk -F= '{ print $2 }')
-    fi
-    if [ -f /etc/UnitedLinux-release ]; then
-      DIST="${DIST}[$(tr "\n" ' ' </etc/UnitedLinux-release | sed s/VERSION.*//)]"
-    fi
-    OS="$(lowercase "$OS")"
-    readonly OS
-    readonly DIST
-    readonly DISTRO_BASE
-    readonly KERNEL
-    readonly MACH
-  fi
-
-fi
-
-echo
-echo "==========================================="
-echo "$OS"
-echo "$DISTRO_BASE"
-echo "$DIST"
-echo "$KERNEL"
-echo "$MACH"
-echo "==========================================="
-echo
-
+# Run shared installation steps
 echo 'Installing shared steps...'
-./installer/shared.sh
+./installer/lib/shared.sh
 
-if [[ $DIST == 'Ubuntu' ]]; then
-  echo "Ubuntu detected, getting required packages..."
-  ./installer/ubuntu-setup.sh
-elif [[ $OS == 'mac' ]]; then
-  echo 'macOS detected'
-  ./installer/mac-setup.sh
-fi
+# Run platform-specific installation
+case "$PLATFORM" in
+  darwin)
+    echo 'macOS detected'
+    ./installer/platforms/darwin.sh
+    ;;
+  ubuntu)
+    echo 'Ubuntu detected, getting required packages...'
+    ./installer/platforms/ubuntu.sh
+    ;;
+  *)
+    echo "ERROR: Unsupported platform detected"
+    echo "This installer supports macOS and Ubuntu only"
+    echo "Detected: OS=$OS DIST=$DIST PLATFORM=$PLATFORM"
+    exit 1
+    ;;
+esac
 
 task install "$@"
