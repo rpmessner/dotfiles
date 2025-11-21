@@ -41,5 +41,5 @@ tasks:
       - task: spelling:lint
         silent: true
     cmds:
-      - cmd: figlet -f rectangles done! | lolcrab -g warm
+      - cmd: command -v lolcrab >/dev/null && figlet -f rectangles done! | lolcrab -g warm || echo "✅ All CI checks passed"
         silent: true
