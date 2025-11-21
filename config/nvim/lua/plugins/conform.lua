@@ -25,7 +25,8 @@ return {
       json = { "prettier" },
       jsonc = { "prettier" },
       yaml = { "prettier" },
-      markdown = { "prettier" },
+      -- markdown linting handled by markdownlint-cli2 via nvim-lint
+      -- markdown = { "prettier" },
       -- elixir
       elixir = { "mix" },
       -- python
