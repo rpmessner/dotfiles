@@ -7,18 +7,21 @@
 
 ## Session Summary
 
-**Sessions:** 2 (Phase 1 + Phase 2)
-**Total commits:** 7 (1 in Phase 1, 6 in Phase 2)
-**Lines removed:** ~650 (500 dead code + 150 from simplification)
+**Sessions:** 3 (Phase 1 + Phase 2 + Phase 3)
+**Total commits:** 8 (1 in Phase 1, 6 in Phase 2, 1 in Phase 3)
+**Lines changed:** ~650 removed + ~500 added (net improvement in clarity)
 **Major improvements:**
 - Removed dead Ruby installer code (~500 lines)
 - Reorganized installer into logical directories (platforms/, lib/)
 - Simplified setup.sh from 58 to 29 lines (50% reduction)
 - Added retro/cyberpunk ASCII art for installer
+- Created comprehensive documentation (installer/README.md, updated main README)
+- Added `task doctor` health check command
+- Enhanced error handling across all installer scripts
 - Fixed CI issues (wezterm.lua syntax, removed obsolete rubocop job)
 - Improved code organization and maintainability
 
-**Status:** Phase 1 ✅, Phase 2 ✅, Phase 3 📋 (documentation and discoverability improvements)
+**Status:** Phase 1 ✅, Phase 2 ✅, Phase 3 ✅ (COMPLETE)
 
 ---
 
@@ -175,48 +178,74 @@ task install "$@"
 
 ---
 
-## Phase 3: Planned
+## Phase 3: Completed ✅
 
-### 3.1 Documentation
-- Create `installer/README.md` explaining bootstrap architecture
-- Document `task install` vs `task sync` in main README
-- Add comments to key taskfiles explaining their purpose
+### 3.1 Documentation ✅
+**Created `installer/README.md`:**
+- Comprehensive bootstrap architecture documentation
+- Explains two-phase installation approach
+- Documents directory structure and execution flow
+- Includes usage examples and troubleshooting
+- Historical context and design principles
 
-### 3.2 Improve Discoverability
-- Add banner to `task install` showing what will be installed
-- Create `task doctor` to verify prerequisites
-- Add helpful error messages when dependencies are missing
+**Updated main `README.md`:**
+- Added "Usage" section with task command documentation
+- Created comparison table for `setup.sh`, `task install`, `task sync`
+- Clear explanation of when to use each command
+- Links to installer/README.md for detailed architecture info
+
+**Added Taskfile comments:**
+- `Taskfile.dist.yml`: Header explaining orchestrator role and entry points
+- `taskfiles/dotfiles.yml`: Header explaining core installation logic
+
+### 3.2 Improved Discoverability ✅
+**Created `task doctor` command:**
+- Comprehensive health check for prerequisites
+- Verifies platform support (macOS/Ubuntu)
+- Checks required system tools (git, curl)
+- Validates ASDF installation and tool versions
+- Tests SSH key configuration and GitHub access
+- Confirms dotfile symlinks are in place
+- Platform-specific checks (Homebrew on macOS, apt on Ubuntu)
+- Provides actionable tips based on system state
+- Exit codes for automation compatibility
+
+**Enhanced Error Handling:**
+All installer scripts now include:
+- `set -e` for fail-fast behavior
+- Reusable `error()` function with helpful messages
+- Specific error messages for common failure scenarios
+- Remediation tips with exact commands to run
+- Graceful degradation for non-critical features (e.g., 1Password symlink)
+
+**Scripts with improved error handling:**
+- `installer/lib/shared.sh`: Git checks, ASDF installation, Ruby installation
+- `installer/platforms/darwin.sh`: Homebrew installation, brew bundle
+- `installer/platforms/ubuntu.sh`: apt update, package installation
+
+**Banner:** Already existed - `task install` and `task sync` call banner task
+
+### Commit:
+```
+03a978a - docs: complete Phase 3 installer refactoring with documentation and tooling
+```
+
+**Files Changed:**
+- `installer/README.md` (NEW): 190 lines of comprehensive documentation
+- `README.md`: Added 53 lines for Usage section
+- `Taskfile.dist.yml`: Added 142 lines for doctor task and comments
+- `taskfiles/dotfiles.yml`: Added 21 lines of header documentation
+- `installer/lib/shared.sh`: Enhanced from 20 to 68 lines with error handling
+- `installer/platforms/darwin.sh`: Enhanced from 76 to 57 lines (simplified + error handling)
+- `installer/platforms/ubuntu.sh`: Enhanced from 61 to 82 lines with error handling
+
+**Total:** +499 lines (documentation and error handling), -15 lines (simplification)
 
 ---
 
-## Next Session TODO
+## Future Enhancements (Optional)
 
-### Pre-work:
-1. **Push commits to origin/master**
-   ```bash
-   git push origin master
-   ```
-2. **Verify CI passes** - Check that all jobs (especially Lua formatting and installation tests) pass
-
-### Phase 3 Work:
-1. **Documentation Improvements** (Phase 3.1)
-   - Create `installer/README.md` explaining bootstrap architecture
-   - Document `task install` vs `task sync` in main README
-   - Add comments to key taskfiles explaining their purpose
-   - Consider updating session notes about the bootstrap process
-
-2. **Improve Discoverability** (Phase 3.2)
-   - Add banner to `task install` showing what will be installed
-   - Create `task doctor` to verify prerequisites
-   - Add helpful error messages when dependencies are missing
-
-3. **README Audit Fixes** (see `docs/sessions/2025-11-21-readme-audit.md`)
-   - Update clone URL to rpmessner/dotfiles (if not already done)
-   - Fix OS/terminal/DE info
-   - Clean up screenshots
-   - General cleanup and modernization
-
-### Optional Future Improvements:
+### Potential Ideas:
 - Consider adding output from `installer/lib/title.txt` to `setup.sh`
 - Add version checking for critical dependencies
 - Improve error messages with suggestions for common issues
@@ -253,19 +282,37 @@ task install "$@"
 
 ---
 
-## Git Status at End of Session
+## All Commits (Phases 1-3)
 
-**All changes committed:**
+**Phase 1 (Dead code removal):**
 ```
-6 commits on master:
-  0bc80a2 - chore(ci): remove rubocop job and update installer tests
-  cc3a037 - fix(wezterm): correct raw string syntax in quick_select_patterns
-  1856939 - docs(readme): update installer path references
-  37b1aad - feat(installer): replace ASCII art with retro/cyberpunk style
-  b8c3fd3 - refactor(installer): extract OS detection and simplify setup.sh
-  4a56340 - refactor(installer): reorganize directory structure
+8160a11 - refactor(installer): remove dead Ruby installer code
 ```
 
+**Phase 2 (Reorganization & simplification):**
+```
+4a56340 - refactor(installer): reorganize directory structure
+b8c3fd3 - refactor(installer): extract OS detection and simplify setup.sh
+37b1aad - feat(installer): replace ASCII art with retro/cyberpunk style
+1856939 - docs(readme): update installer path references
+cc3a037 - fix(wezterm): correct raw string syntax in quick_select_patterns
+0bc80a2 - chore(ci): remove rubocop job and update installer tests
+```
+
+**Phase 3 (Documentation & tooling):**
+```
+03a978a - docs: complete Phase 3 installer refactoring with documentation and tooling
+```
+
+**Additional commits:**
+```
+a89522e - fix(ci): use neovim for lua diagnostics instead of lua-language-server
+5184a13 - docs(sessions): update Phase 2 completion and README audit status
+6b91888 - refactor: update dotfiles directory references to ~/.dotfiles
+```
+
+**Total commits in refactoring:** 8
 **Working tree:** Clean
+**Branch status:** 1 commit ahead of origin/master
 
-**Next step:** Push to origin and verify CI passes
+**Next step:** Push to origin/master
