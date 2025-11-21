@@ -1,6 +1,7 @@
 elixir 1.19.3-otp-28
 erlang 28.1.1
 lua-language-server 3.15.0
+neovim nightly
 nodejs 24.11.0
 python 3.14.0
 rebar 3.25.1
