@@ -6,6 +6,9 @@ cask 'marta'
 # Fast GPU rendered terminal emulator
 cask 'wezterm'
 
+# Modern native macOS terminal emulator (Swift/Zig)
+cask 'ghostty'
+
 # best screenshot tool on mac
 cask 'cleanshot'
 
