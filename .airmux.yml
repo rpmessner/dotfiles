@@ -2,7 +2,7 @@
 name: dotfiles
 
 # Root directory of the session
-root: ~/dotfiles
+root: ~/.dotfiles
 
 clear_panes: true
 

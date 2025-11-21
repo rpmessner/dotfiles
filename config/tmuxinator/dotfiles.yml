@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/SchemaStore/schemastore/refs/heads/master/src/schemas/json/tmuxinator.json
 name: dotfiles
-root: ~/dotfiles
+root: ~/.dotfiles
 
 windows:
   - editor:

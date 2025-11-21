@@ -126,6 +126,7 @@ tasks:
         - markdownlint.jsonc
         - markdownlint-cli2.jsonc
         - npmrc
+        - p10k.zsh
         - prettierrc
         - pryrc
         - psqlrc

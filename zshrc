@@ -43,7 +43,7 @@ fi
 export SSH_KEY_PATH="$HOME/.ssh/id_rsa"
 
 # dotfiles scripts
-path_prepend "$HOME/dotfiles/bin"
+path_prepend "$HOME/.dotfiles/bin"
 
 # User local binaries
 path_prepend "$HOME/.local/bin"

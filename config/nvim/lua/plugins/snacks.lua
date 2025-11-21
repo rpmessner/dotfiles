@@ -104,7 +104,7 @@ return {
       { "<leader>fu", picker("undo"), desc = "[F]ind [U]ndo" },
       { "<leader>lg", picker("grep", { need_search = false }), desc = "[L]ive [G]rep" },
       { "<leader>fw", picker("grep_word"), mode = { "n", "v" }, desc = "[F]ind [W]ord" },
-      { "<leader>fd", picker("files", { cwd = "~/dotfiles" }), desc = "[F]ind [D]otfiles" },
+      { "<leader>fd", picker("files", { cwd = "~/.dotfiles" }), desc = "[F]ind [D]otfiles" },
       { "<leader>gF", picker("git_diff"), desc = "[F]ind [G]it [D]iff" },
       { "<leader>f:", picker("commands"), desc = "Command search" },
       { "<leader>f;", picker("command_history"), desc = "Command History" },
