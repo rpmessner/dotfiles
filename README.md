@@ -53,12 +53,13 @@ Feel free to "steal" anything you want, and if you have a question please open a
 # Dependencies
 
 The goal is to have all dependencies for the config automatically installed with
-the setup script. More details can be found by reading the following files:
+the setup script. The installation uses a two-phase approach:
 
-- [setup.sh](./setup.sh)
-  - For mac: [Brewfile](./Brewfile)
-  - For linux: [debian-setup.sh](./installer/debian-setup.sh)
-- [installer.rb](./installer.rb)
+1. **Bootstrap phase** ([setup.sh](./setup.sh)) - Installs system packages and prerequisites
+   - For macOS: [Brewfile](./Brewfile) via Homebrew
+   - For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh) or [installer/debian-setup.sh](./installer/debian-setup.sh)
+2. **Orchestration phase** (Taskfile) - Installs tools, plugins, and symlinks dotfiles
+   - Run `task -l` to see all available installation tasks
 
 Gotchas for NeoVim setup:
 

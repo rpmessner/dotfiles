@@ -132,3 +132,5 @@
 ; https://git-scm.com/docs/git-config#_includes
 [include]
   path = ~/.gitconfig.local
+[safe]
+	directory = /mnt/c/Users/rpmes/ElvUI
