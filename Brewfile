@@ -240,6 +240,9 @@ brew 'typos-cli'
 # shell script formatter
 brew 'shfmt'
 
+# Lua formatter
+brew 'stylua'
+
 # TOML formatter
 brew 'taplo'
 
