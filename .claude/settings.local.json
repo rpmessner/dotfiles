@@ -12,7 +12,8 @@
       "Bash(task --list:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(xargs:*)"
+      "Bash(xargs:*)",
+      "Bash(markdownlint-cli2:*)"
     ],
     "deny": [],
     "ask": []
