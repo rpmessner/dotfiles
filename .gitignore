@@ -8,3 +8,12 @@ config/nvim/plugin/packer_compiled.lua
 
 # ignore sumenko lua generated artifact
 .luarc.json
+
+# ignore local/user-specific configuration files
+*.local
+.dotfiles.local
+
+# ignore prompt configurations (managed per-host)
+p10k.zsh
+.p10k.zsh
+config/starship/
