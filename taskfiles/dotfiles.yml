@@ -1,4 +1,25 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
+#
+# Dotfiles Core - Installation & Synchronization
+# ============================================================
+# This taskfile contains the core logic for installing and synchronizing
+# dotfiles. It orchestrates all the specialized taskfiles and handles
+# file symlinking, directory creation, and dependency installation.
+#
+# Main tasks:
+#   - install: Complete dotfiles installation (called by setup.sh)
+#   - sync:    Synchronize configurations and update tools
+#
+# Prerequisites:
+#   - Bootstrap phase must be complete (setup.sh)
+#   - ASDF, Ruby, and system packages already installed
+#
+# What it does:
+#   - Creates necessary directories
+#   - Symlinks dotfiles from repo to home directory
+#   - Installs and updates all tools (zsh, tmux, nvim, etc.)
+#   - Syncs fonts, completions, and platform-specific settings
+#
 version: '3'
 
 includes:

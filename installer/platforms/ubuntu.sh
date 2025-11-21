@@ -1,10 +1,26 @@
 #!/bin/bash
 
+set -e  # Exit on error
+
+# Function to display error messages
+error() {
+  echo "❌ ERROR: $1" >&2
+  echo "💡 $2" >&2
+  exit 1
+}
+
 # Install all Ubuntu packages needed for dotfiles
 # Compatible with Ubuntu 24.04 LTS (Noble) and later
 # Works on both bare metal and WSL2
 
-sudo apt -y install \
+echo "Updating apt package index..."
+if ! sudo apt update; then
+  error "Failed to update apt package index" \
+        "Check your internet connection and /etc/apt/sources.list configuration"
+fi
+
+echo "Installing required Ubuntu packages..."
+if ! sudo apt -y install \
   autoconf \
   autojump \
   automake \
@@ -57,4 +73,9 @@ sudo apt -y install \
   xsltproc \
   xz-utils \
   zlib1g-dev \
-  zsh
+  zsh; then
+  error "Failed to install Ubuntu packages" \
+        "Check the error messages above. Some packages may not be available on your Ubuntu version. Try running 'sudo apt update' first."
+fi
+
+echo "✅ All Ubuntu packages installed successfully"

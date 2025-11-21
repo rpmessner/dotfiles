@@ -1,13 +1,26 @@
 #!/bin/bash
 
+set -e  # Exit on error
+
+# Function to display error messages
+error() {
+  echo "❌ ERROR: $1" >&2
+  echo "💡 $2" >&2
+  exit 1
+}
+
 # symlink 1password ssh agent sock file so that the paths are compatible between
 # mac and linux (linux uses the ~/.1password, and mac uses that ugly path below)
 if [ ! -d "$HOME/.1password" ]; then
   echo 'Symlinking 1Password SSH Agent Sock'
-  mkdir -p ~/.1password && ln -s ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.1password/agent.sock
+  if ! mkdir -p ~/.1password; then
+    echo "⚠️  Warning: Failed to create ~/.1password directory" >&2
+  elif ! ln -s ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.1password/agent.sock 2>/dev/null; then
+    echo "⚠️  Warning: Failed to symlink 1Password SSH agent (1Password may not be installed)" >&2
+  fi
 fi
 
-echo 'Disabling annoying features...'
+echo 'Configuring macOS settings...'
 # disables the hold key menu to allow key repeat
 defaults write -g ApplePressAndHoldEnabled -bool false
 # The speed of repetition of characters
@@ -17,12 +30,31 @@ defaults write -g InitialKeyRepeat -int 15
 
 if ! command -v brew &>/dev/null; then
   echo 'Homebrew not installed, installing...'
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  # Check for curl
+  if ! command -v curl &>/dev/null; then
+    error "curl is not installed" \
+          "curl should be pre-installed on macOS. Try reinstalling Command Line Tools."
+  fi
+
+  if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+    error "Failed to install Homebrew" \
+          "Check https://brew.sh for troubleshooting. Ensure you have Command Line Tools: 'xcode-select --install'"
+  fi
+
+  if ! eval "$(/opt/homebrew/bin/brew shellenv)"; then
+    error "Failed to configure Homebrew environment" \
+          "Homebrew may have installed to a non-standard location. Check /opt/homebrew/bin/brew"
+  fi
+
+  echo "✅ Homebrew installed successfully"
 fi
 
-echo 'Getting brew packages...'
-brew bundle
+echo 'Installing Homebrew packages from Brewfile...'
+if ! brew bundle; then
+  error "Failed to install Homebrew packages" \
+        "Check Brewfile for issues. Try running 'brew bundle' manually to see detailed errors."
+fi
 
 if ! command -v sudo-touchid &>/dev/null; then
   echo 'Installing Sudo TouchID...'

@@ -1,4 +1,21 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
+#
+# Main Taskfile - Orchestrator
+# ============================================================
+# This is the root Taskfile that coordinates all dotfiles automation.
+# It includes specialized taskfiles for different tools and provides
+# convenient aliases for common operations.
+#
+# Entry points:
+#   - task install: Complete installation (after setup.sh bootstrap)
+#   - task sync:    Update configurations and tool versions
+#   - task -l:      List all available tasks
+#
+# Architecture:
+#   - This file defines top-level tasks and includes
+#   - Implementation lives in taskfiles/ directory
+#   - Core installation logic is in taskfiles/dotfiles.yml
+#
 version: 3
 
 includes:
@@ -97,6 +114,131 @@ tasks:
     aliases: [format]
     cmds:
       - task: dot:fmt
+
+  doctor:
+    desc: Verify system prerequisites and dotfiles health
+    summary: |
+      Checks system prerequisites and dotfiles installation status.
+
+      Verifies:
+      - Platform support (macOS or Ubuntu)
+      - Required system tools (git, curl, etc.)
+      - ASDF installation and tools
+      - SSH key configuration
+      - Symlink status
+
+      Use this to diagnose issues before or after installation.
+    cmds:
+      - cmd: |
+          echo "🔍 Dotfiles Health Check"
+          echo "========================"
+          echo ""
+
+          # Track failures
+          FAILURES=0
+
+          # Check platform
+          echo "📋 Platform Check"
+          OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+          if [[ "$OS" == "darwin" ]]; then
+            echo "  ✅ macOS detected"
+            PLATFORM="darwin"
+          elif [[ -f /etc/lsb-release ]] && grep -q "Ubuntu" /etc/lsb-release; then
+            echo "  ✅ Ubuntu detected"
+            PLATFORM="ubuntu"
+          else
+            echo "  ❌ Unsupported platform: $OS"
+            FAILURES=$((FAILURES + 1))
+            PLATFORM="unsupported"
+          fi
+          echo ""
+
+          # Check required commands
+          echo "🛠️  Required Commands"
+          for cmd in git curl; do
+            if command -v "$cmd" &>/dev/null; then
+              echo "  ✅ $cmd: $(command -v $cmd)"
+            else
+              echo "  ❌ $cmd: NOT FOUND"
+              FAILURES=$((FAILURES + 1))
+            fi
+          done
+          echo ""
+
+          # Check ASDF
+          echo "📦 ASDF Version Manager"
+          if command -v asdf &>/dev/null; then
+            echo "  ✅ asdf: $(asdf version)"
+
+            # Check for installed tools
+            if asdf current &>/dev/null; then
+              echo "  ✅ Tools from .tool-versions:"
+              asdf current | sed 's/^/    /'
+            fi
+          else
+            echo "  ⚠️  asdf: NOT INSTALLED (will be installed by setup.sh)"
+          fi
+          echo ""
+
+          # Check SSH keys
+          echo "🔑 SSH Configuration"
+          if [[ -f ~/.ssh/id_rsa ]] || [[ -f ~/.ssh/id_ed25519 ]]; then
+            echo "  ✅ SSH key found"
+            if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+              echo "  ✅ GitHub SSH access verified"
+            else
+              echo "  ⚠️  GitHub SSH access not verified (may need key setup)"
+            fi
+          else
+            echo "  ⚠️  No SSH key found in ~/.ssh/"
+            echo "     You may need to generate one for git operations"
+          fi
+          echo ""
+
+          # Check if dotfiles are symlinked
+          echo "🔗 Dotfiles Symlinks"
+          if [[ -L ~/.zshrc ]] && [[ -L ~/.gitconfig ]]; then
+            echo "  ✅ Core dotfiles are symlinked"
+          else
+            echo "  ⚠️  Dotfiles not yet symlinked (run 'task install')"
+          fi
+          echo ""
+
+          # macOS specific checks
+          if [[ "$PLATFORM" == "darwin" ]]; then
+            echo "🍎 macOS Specific"
+            if command -v brew &>/dev/null; then
+              echo "  ✅ Homebrew: $(brew --version | head -1)"
+            else
+              echo "  ⚠️  Homebrew: NOT INSTALLED (will be installed by setup.sh)"
+            fi
+            echo ""
+          fi
+
+          # Ubuntu specific checks
+          if [[ -f /etc/lsb-release ]] && grep -q "Ubuntu" /etc/lsb-release; then
+            echo "🐧 Ubuntu Specific"
+            echo "  ✅ apt: $(apt --version | head -1)"
+            echo ""
+          fi
+
+          # Summary
+          echo "📊 Summary"
+          if [[ $FAILURES -eq 0 ]]; then
+            echo "  ✅ All critical checks passed!"
+            echo ""
+            echo "💡 Tips:"
+            echo "   - First time? Run: ./setup.sh"
+            echo "   - Already set up? Run: task sync"
+            echo "   - See all tasks: task -l"
+          else
+            echo "  ⚠️  $FAILURES critical check(s) failed"
+            echo ""
+            echo "💡 Next steps:"
+            echo "   - Install missing dependencies"
+            echo "   - Run ./setup.sh to complete bootstrap"
+            exit 1
+          fi
 
   banner:
     internal: true

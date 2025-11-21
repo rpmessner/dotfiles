@@ -96,6 +96,59 @@ Releases and versioning is done using [Release Please](https://github.com/google
 
 ---
 
+# Usage
+
+After installation, the dotfiles use [Task](https://taskfile.dev/) for automation and maintenance.
+
+## Common Commands
+
+### `task install`
+Complete installation of all dotfiles, tools, and configurations. This is automatically called by `setup.sh` but can be run independently:
+```sh
+task install
+```
+
+Use this when:
+- Setting up on a fresh machine (after `setup.sh` bootstrap)
+- Major version updates or system changes
+- You've modified the Taskfile installation logic
+
+### `task sync`
+Synchronize and update existing configurations without full reinstallation:
+```sh
+task sync
+```
+
+Use this for:
+- Daily/weekly updates (`git pull && task sync`)
+- Updating tool versions from `.tool-versions`
+- Refreshing symlinks after configuration changes
+- Quick updates without reinstalling everything
+
+### `task -l`
+List all available tasks and their descriptions:
+```sh
+task -l
+```
+
+Shows specialized tasks like:
+- `task nvim:commit` - Sync Neovim plugin lockfile
+- `task ci:run` - Run all linting and validation checks
+- `task shell:lint` - Lint shell scripts
+- And many more...
+
+## The Difference
+
+| Command | Bootstrap Phase | Tool Installation | Config Sync | Use Case |
+|---------|----------------|-------------------|-------------|----------|
+| `./setup.sh` | ✅ Yes | ✅ Yes | ✅ Yes | Fresh machine setup |
+| `task install` | ❌ No | ✅ Yes | ✅ Yes | Reinstall after bootstrap |
+| `task sync` | ❌ No | 🔄 Update | ✅ Yes | Regular updates |
+
+For more details on the bootstrap architecture, see [installer/README.md](./installer/README.md).
+
+---
+
 # Development
 
 - This repo uses conventional commits for versioning and automated releases
