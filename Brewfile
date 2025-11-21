@@ -243,6 +243,12 @@ brew 'shfmt'
 # Lua formatter
 brew 'stylua'
 
+# Lua language server (for CI linting)
+brew 'lua-language-server'
+
+# YAML linter (for CI)
+brew 'yamllint'
+
 # TOML formatter
 brew 'taplo'
 
