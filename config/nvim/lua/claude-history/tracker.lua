@@ -90,8 +90,11 @@ function M.setup_terminal_tracking()
       if bufname:match("claude") or bufname:match("Claude") then
         -- Get the working directory for this terminal
         -- First try buffer-local CWD, then fall back to global CWD
-        local cwd = vim.fn.getcwd(-1, args.buf)
-        if not cwd or cwd == "" then
+        local cwd = nil
+        local ok, result = pcall(vim.fn.getcwd, -1, args.buf)
+        if ok and result and result ~= "" then
+          cwd = result
+        else
           cwd = vim.fn.getcwd()
         end
 
