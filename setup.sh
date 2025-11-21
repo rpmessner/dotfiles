@@ -47,7 +47,10 @@ echo
 echo 'Installing shared steps...'
 ./installer/shared.sh
 
-if [[ $DISTRO_BASE = 'debian' ]]; then
+if [[ $DIST = 'Ubuntu' ]]; then
+  echo "Ubuntu detected, getting required packages..."
+  ./installer/ubuntu-setup.sh
+elif [[ $DISTRO_BASE = 'debian' ]]; then
   echo "Debian based distro detected, getting required packages..."
   ./installer/debian-setup.sh
 elif [[ $OS = 'mac' ]]; then
