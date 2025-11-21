@@ -1,7 +1,7 @@
 # README.md Audit - Issues Found
 
 **Date**: November 21, 2025
-**Status**: Documented, not yet fixed
+**Status**: Partially fixed (2/5 critical issues resolved)
 
 ---
 
@@ -26,7 +26,7 @@ git clone git@github.com:rpmessner/dotfiles.git
 
 ---
 
-### 2. Debian Setup Reference - Line 60
+### 2. Debian Setup Reference - Line 60 ✅ FIXED
 **Current:**
 ```
 - For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh) or [installer/debian-setup.sh](./installer/debian-setup.sh)
@@ -34,53 +34,53 @@ git clone git@github.com:rpmessner/dotfiles.git
 
 **Should be:**
 ```
-- For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh)
+- For Linux: [installer/platforms/ubuntu.sh](./installer/platforms/ubuntu.sh)
 ```
 
-**Reason:** We don't use Debian, only Ubuntu. debian-setup.sh will be deleted in Phase 2.
+**Status:** Fixed in commit `1856939` (Phase 2)
+- Updated path to reflect new directory structure
+- Removed debian-setup.sh reference
 
 ---
 
-### 3. Operating System - Line 28
-**Current:**
+### 3. Operating System - Line 28 ✅ FIXED (Pre-existing)
+**Was:**
 ```
 - **OS**: [Pop!\_OS](https://pop.system76.com/) / macOS
 ```
 
-**Should be:**
+**Now:**
 ```
 - **OS**: Ubuntu (WSL2) / macOS
 ```
 
-**Reason:** Ryan uses WSL2 Ubuntu, not Pop!_OS
+**Status:** Already correct - fixed in previous session
 
 ---
 
-### 4. Desktop Environment / Window Manager - Lines 29-30
-**Current:**
+### 4. Desktop Environment / Window Manager - Lines 29-30 ✅ FIXED (Pre-existing)
+**Was:**
 ```
 - **DE**: [Gnome](https://www.gnome.org)
 - **WM**: [Mutter](https://gitlab.gnome.org/GNOME/mutter)
 ```
 
-**Should be:** Remove these lines entirely
-
-**Reason:** Not applicable to WSL2 environment
+**Status:** Already removed - fixed in previous session
 
 ---
 
-### 5. Terminal Emulator - Line 41
-**Current:**
+### 5. Terminal Emulator - Line 39 ✅ FIXED (Pre-existing)
+**Was:**
 ```
 - **Terminal**: [Alacritty](https://alacritty.org/)
 ```
 
-**Should be:**
+**Now:**
 ```
 - **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/)
 ```
 
-**Reason:** Brewfile shows `cask 'wezterm'`, not Alacritty
+**Status:** Already correct - fixed in previous session
 
 ---
 
@@ -141,22 +141,44 @@ git clone git@github.com:rpmessner/dotfiles.git
 
 ---
 
-## Recommended Approach for Next Session
+## Summary
 
-1. **Quick fixes** (Lines to change):
-   - Line 28: OS
-   - Lines 29-30: Delete DE/WM
-   - Line 41: Terminal
-   - Line 60: Remove debian-setup.sh reference
-   - Line 77: Fix clone URL
+**Critical Issues:**
+- ✅ Issue #2: Debian setup reference (Fixed in Phase 2)
+- ✅ Issue #3: OS information (Already fixed)
+- ✅ Issue #4: DE/WM information (Already fixed)
+- ✅ Issue #5: Terminal emulator (Already fixed)
+- ❌ **Issue #1: Clone URL (Still needs fix)** - Line 77
 
-2. **Content improvements**:
-   - Lines 45-47: Clean up screenshots
-   - Line 105: Clarify yarn/hooks
+**Minor Issues:**
+- ❌ Issue #6: Screenshot links (Still needs cleanup) - Lines 45-47
+- ❌ Issue #7: Yarn/hooks clarification (Still needs improvement) - Line 105
 
-3. **Optional enhancements**:
-   - Add a "Key Features" or "Highlights" section
-   - Add links to interesting configs (nvim, tmux, zsh)
+---
+
+## Remaining Work for Next Session
+
+### Critical (Must Fix):
+1. **Line 77: Fix clone URL**
+   ```sh
+   # Change from:
+   git clone git@github.com:dkarter/dotfiles.git
+   # To:
+   git clone git@github.com:rpmessner/dotfiles.git
+   ```
+
+### Minor (Nice to Have):
+2. **Lines 45-47: Clean up screenshots**
+   - Keep local `screenshot.png`
+   - Remove or replace external GitHub images from Dorian's account
+
+3. **Line 105: Clarify yarn/hooks**
+   - Make it clear yarn is only for contributors
+   - Mention lefthook as preferred method
+
+### Optional:
+- Add "Key Features" or "Highlights" section
+- Add direct links to interesting configs (nvim, tmux, zsh)
    - Consider adding badges (license, version, etc.)
 
 ---
