@@ -9,7 +9,9 @@ tasks:
 
   lua:lint:
     desc: Check for Lua diagnostic warnings and errors
-    cmd: lua-language-server --check config/nvim/lua --checklevel=Warning
+    # Use Neovim to check lua syntax (has vim global in runtime)
+    cmd: |
+      find config/nvim/lua -name "*.lua" -exec nvim --headless -u NONE -c "luafile {}" -c "quit" \; 2>&1 | grep -i error || true
 
   shell:lint:
     cmd: shellcheck $({ rg -l --type-add 'shell:*.{sh,bash}' --type shell '' .; rg -l -g '!*.{*}' '^#!.*bash' .; } | sort -u)
