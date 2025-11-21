@@ -13,7 +13,8 @@ export PHOENIX_LIVE_RELOAD_ENABLED="${PHOENIX_LIVE_RELOAD_ENABLED:-true}"
 export ELIXIR_LS_PATH="$HOME/.local/share/nvim/mason/packages/elixir-ls"
 
 # Aliases for common Elixir/Phoenix commands
-alias iex='iex -S mix'
+# Note: iex with mix is handled by 'im' and 'imix' aliases in main aliases file
+# alias iex='iex -S mix'  # Removed - causes recursive expansion
 alias mdg='mix deps.get'
 alias mdc='mix deps.compile'
 alias mdu='mix deps.update --all'
