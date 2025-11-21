@@ -1,14 +1,14 @@
 ```
-           ▓█████▄  ▒█████  ▄▄▄█████▓  █████▒██▓ ██▓    ▓█████   ██████
-           ▒██▀ ██▌▒██▒  ██▒▓  ██▒ ▓▒▓██   ▒▓██▒▓██▒    ▓█   ▀ ▒██    ▒
-           ░██   █▌▒██░  ██▒▒ ▓██░ ▒░▒████ ░▒██▒▒██░    ▒███   ░ ▓██▄
-           ░▓█▄   ▌▒██   ██░░ ▓██▓ ░ ░▓█▒  ░░██░▒██░    ▒▓█  ▄   ▒   ██▒
-           ░▒████▓ ░ ████▓▒░  ▒██▒ ░ ░▒█░   ░██░░██████▒░▒████▒▒██████▒▒
-           ▒▒▓  ▒ ░ ▒░▒░▒░   ▒ ░░    ▒ ░   ░▓  ░ ▒░▓  ░░░ ▒░ ░▒ ▒▓▒ ▒ ░
-           ░ ▒  ▒   ░ ▒ ▒░     ░     ░      ▒ ░░ ░ ▒  ░ ░ ░  ░░ ░▒  ░ ░
-           ░ ░  ░ ░ ░ ░ ▒    ░       ░ ░    ▒ ░  ░ ░      ░   ░  ░  ░
-             ░        ░ ░                   ░      ░  ░   ░  ░      ░
-           ░
+                     ▓█████▄  ▒█████  ▄▄▄█████▓  █████▒██▓ ██▓    ▓█████   ██████
+                     ▒██▀ ██▌▒██▒  ██▒▓  ██▒ ▓▒▓██   ▒▓██▒▓██▒    ▓█   ▀ ▒██    ▒
+                     ░██   █▌▒██░  ██▒▒ ▓██░ ▒░▒████ ░▒██▒▒██░    ▒███   ░ ▓██▄
+                     ░▓█▄   ▌▒██   ██░░ ▓██▓ ░ ░▓█▒  ░░██░▒██░    ▒▓█  ▄   ▒   ██▒
+                     ░▒████▓ ░ ████▓▒░  ▒██▒ ░ ░▒█░   ░██░░██████▒░▒████▒▒██████▒▒
+                     ▒▒▓  ▒ ░ ▒░▒░▒░   ▒ ░░    ▒ ░   ░▓  ░ ▒░▓  ░░░ ▒░ ░▒ ▒▓▒ ▒ ░
+                     ░ ▒  ▒   ░ ▒ ▒░     ░     ░      ▒ ░░ ░ ▒  ░ ░ ░  ░░ ░▒  ░ ░
+                     ░ ░  ░ ░ ░ ░ ▒    ░       ░ ░    ▒ ░  ░ ░      ░   ░  ░  ░
+                       ░        ░ ░                   ░      ░  ░   ░  ░      ░
+                     ░
 ```
 
 <p align="center">
@@ -25,9 +25,7 @@ This is my personal collection of configuration files.
 
 Here are some details about my setup:
 
-- **OS**: [Pop!\_OS](https://pop.system76.com/) / macOS
-- **DE**: [Gnome](https://www.gnome.org)
-- **WM**: [Mutter](https://gitlab.gnome.org/GNOME/mutter)
+- **OS**: Ubuntu (WSL2) / macOS
 - **Shell**: [zsh](https://www.zsh.org/)
 - **Editor**: [Neovim](https://github.com/neovim/neovim/)
   - utilizes the built-in lsp ❤️
@@ -43,8 +41,6 @@ Here are some details about my setup:
 - **Terminal Multiplexer**: [Tmux](https://github.com/tmux/tmux)
 
 ![screenshot](./screenshot.png)
-![image](https://user-images.githubusercontent.com/551858/188434274-2df6fe83-7824-4b45-a797-51a96a1b928b.png)
-<img width="2226" alt="image" src="https://user-images.githubusercontent.com/551858/189501141-a442b7b8-4089-4721-aaff-7d467b3d8bf4.png">
 
 Feel free to "steal" anything you want, and if you have a question please open an issue.
 
@@ -57,7 +53,7 @@ the setup script. The installation uses a two-phase approach:
 
 1. **Bootstrap phase** ([setup.sh](./setup.sh)) - Installs system packages and prerequisites
    - For macOS: [Brewfile](./Brewfile) via Homebrew
-   - For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh) or [installer/debian-setup.sh](./installer/debian-setup.sh)
+   - For Linux: [installer/ubuntu-setup.sh](./installer/ubuntu-setup.sh)
 2. **Orchestration phase** (Taskfile) - Installs tools, plugins, and symlinks dotfiles
    - Run `task -l` to see all available installation tasks
 
@@ -74,7 +70,7 @@ Gotchas for NeoVim setup:
 Easy..
 
 ```sh
-git clone git@github.com:dkarter/dotfiles.git
+git clone git@github.com:rpmessner/dotfiles.git
 ```
 
 Cd into the dotfiles dir: `cd dotfiles`
@@ -83,7 +79,7 @@ Cd into the dotfiles dir: `cd dotfiles`
 ./setup.sh
 ```
 
-I don't recommend using other people's dotfiles, at least not when you're just starting with Vim.. these are customized to my personal taste and preferences, and are subject to change at any time. Instead consider forking [kickstart.nvim](https://github.com/nvim-lua/kickstart.nvim), which is modern and very minimal, and using it as your base to build upon.
+I don't recommend using other people's dotfiles, at least not when you're just starting with Vim.. these are customized to my personal taste and preferences, and are subject to change at any time. Instead consider using [LazyVim](https://www.lazyvim.org/), which is a modern, well-structured Neovim starter config that's easy to extend and customize.
 
 ## Ended up cloning anyway?
 
@@ -102,7 +98,9 @@ Releases and versioning is done using [Release Please](https://github.com/google
 
 # Development
 
-- This repo now uses conventional commits. To install the git hooks simply run `yarn` in the project directory
+- This repo uses conventional commits for versioning and automated releases
+- For contributors: Git hooks are automatically installed by `task install` (via lefthook)
+- Alternatively, you can run `yarn` to install commitlint hooks manually
 - To start development use [airmux](https://github.com/dermoumi/airmux) (alias `mux`) inside the project directory
 
 ---
