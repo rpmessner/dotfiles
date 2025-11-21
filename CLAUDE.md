@@ -50,7 +50,7 @@ folder for session documentation. Each file follows the format:
 ### Core Development Stack
 
 - **Editor:** Neovim (modern Lua configuration)
-- **Terminal:** Ghostty, WezTerm as fallback
+- **Terminal:** WezTerm
 - **Shell:** Zsh with custom configuration
 - **Multiplexer:** tmux with extensive plugin ecosystem
 - **Version Control:** Git with conventional commits

@@ -37,9 +37,7 @@ DOTFILES = %w[
 SYMLINK_DIRS = [
   %w[./config/bat ~/.config/bat],
   %w[./config/nvim ~/.config/nvim],
-  %w[./config/kitty ~/.config/kitty],
   %w[./config/ripgrep ~/.config/ripgrep],
-  %w[./config/alacritty ~/.config/alacritty],
   %w[./config/vifm ~/.config/vifm],
   %w[./config/rubocop ~/.config/rubocop],
   %w[./config/yamllint ~/.config/yamllint],

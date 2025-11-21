@@ -38,7 +38,7 @@ Here are some details about my setup:
   - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) — status line
   - [bufferline](https://github.com/akinsho/nvim-bufferline.lua)
 - **Browser**: [Firefox](https://www.mozilla.org/en-US/firefox/new/)
-- **Terminal**: [Alacritty](https://alacritty.org/)
+- **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/)
 - **Term Prompt**: [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - **Terminal Multiplexer**: [Tmux](https://github.com/tmux/tmux)
 
