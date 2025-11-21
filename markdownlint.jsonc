@@ -28,6 +28,7 @@
   "MD010": true, // Hard tabs
   "MD011": false, // Reversed link syntax - disabled, causes false positives with em-dash
   "MD012": true, // Multiple consecutive blank lines
+  "MD044": false, // Proper names should have correct capitalization - causes m-dash warnings
   "MD014": true, // Dollar signs before commands without showing output
   "MD018": true, // No space after hash on atx style heading
   "MD019": true, // Multiple spaces after hash on atx style heading
@@ -49,5 +50,8 @@
   }, // Emphasis style (prefer _italic_)
   "MD050": {
     "style": "asterisk"
-  } // Strong style (prefer **bold**)
+  }, // Strong style (prefer **bold**)
+  // Additional rules to prevent m-dash/hyphen warnings
+  "MD052": false, // Reference links should not use bare URLs
+  "MD053": false // Link and image reference definitions should be needed
 }
