@@ -1,7 +1,7 @@
 -- WezTerm Configuration
 -- Modern, performant terminal emulator with Lua configuration
 
-local wezterm = require("wezterm")
+local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- ============================================================================
@@ -9,21 +9,21 @@ local config = wezterm.config_builder()
 -- ============================================================================
 
 -- Color scheme
-config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = 'Catppuccin Mocha'
 
 -- Font configuration
-config.font = wezterm.font_with_fallback({
-  "FiraCode Nerd Font",
-  "JetBrains Mono",
-})
+config.font = wezterm.font_with_fallback {
+  'FiraCode Nerd Font',
+  'JetBrains Mono',
+}
 config.font_size = 16.0
 config.line_height = 1.2
 
 -- Enable font ligatures
-config.harfbuzz_features = { "calt=1", "clig=1", "liga=1" }
+config.harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
 
 -- Window appearance
-config.window_decorations = "RESIZE"
+config.window_decorations = 'RESIZE'
 config.window_padding = {
   left = 4,
   right = 4,
@@ -43,10 +43,10 @@ config.window_background_opacity = 0.98
 config.macos_window_background_blur = 20
 
 -- Cursor
-config.default_cursor_style = "BlinkingBar"
+config.default_cursor_style = 'BlinkingBar'
 config.cursor_blink_rate = 500
-config.cursor_blink_ease_in = "Constant"
-config.cursor_blink_ease_out = "Constant"
+config.cursor_blink_ease_in = 'Constant'
+config.cursor_blink_ease_out = 'Constant'
 
 -- ============================================================================
 -- Performance
@@ -54,7 +54,7 @@ config.cursor_blink_ease_out = "Constant"
 
 config.max_fps = 120
 config.animation_fps = 60
-config.front_end = "WebGpu"
+config.front_end = 'WebGpu'
 
 -- Scrollback
 config.scrollback_lines = 10000
@@ -74,98 +74,98 @@ config.native_macos_fullscreen_mode = false
 -- ============================================================================
 
 -- True color support
-config.term = "wezterm"
+config.term = 'wezterm'
 
 -- Copy mode (vim-like)
 config.keys = {
   -- Copy mode
   {
-    key = "[",
-    mods = "CMD",
+    key = '[',
+    mods = 'CMD',
     action = wezterm.action.ActivateCopyMode,
   },
 
   -- Pane navigation (when not using tmux)
   {
-    key = "h",
-    mods = "CMD|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Left"),
+    key = 'h',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.ActivatePaneDirection 'Left',
   },
   {
-    key = "j",
-    mods = "CMD|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Down"),
+    key = 'j',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.ActivatePaneDirection 'Down',
   },
   {
-    key = "k",
-    mods = "CMD|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Up"),
+    key = 'k',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.ActivatePaneDirection 'Up',
   },
   {
-    key = "l",
-    mods = "CMD|SHIFT",
-    action = wezterm.action.ActivatePaneDirection("Right"),
+    key = 'l',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.ActivatePaneDirection 'Right',
   },
 
   -- Pane splitting
   {
-    key = "d",
-    mods = "CMD",
-    action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+    key = 'd',
+    mods = 'CMD',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
   {
-    key = "d",
-    mods = "CMD|SHIFT",
-    action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+    key = 'd',
+    mods = 'CMD|SHIFT',
+    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
   },
 
   -- Close pane
   {
-    key = "w",
-    mods = "CMD",
-    action = wezterm.action.CloseCurrentPane({ confirm = true }),
+    key = 'w',
+    mods = 'CMD',
+    action = wezterm.action.CloseCurrentPane { confirm = true },
   },
 
   -- New tab
   {
-    key = "t",
-    mods = "CMD",
-    action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+    key = 't',
+    mods = 'CMD',
+    action = wezterm.action.SpawnTab 'CurrentPaneDomain',
   },
 
   -- Tab navigation
   {
-    key = "[",
-    mods = "CMD|SHIFT",
+    key = '[',
+    mods = 'CMD|SHIFT',
     action = wezterm.action.ActivateTabRelative(-1),
   },
   {
-    key = "]",
-    mods = "CMD|SHIFT",
+    key = ']',
+    mods = 'CMD|SHIFT',
     action = wezterm.action.ActivateTabRelative(1),
   },
 
   -- Font size
   {
-    key = "+",
-    mods = "CMD",
+    key = '+',
+    mods = 'CMD',
     action = wezterm.action.IncreaseFontSize,
   },
   {
-    key = "-",
-    mods = "CMD",
+    key = '-',
+    mods = 'CMD',
     action = wezterm.action.DecreaseFontSize,
   },
   {
-    key = "0",
-    mods = "CMD",
+    key = '0',
+    mods = 'CMD',
     action = wezterm.action.ResetFontSize,
   },
 
   -- Quick select (URL/path picker)
   {
-    key = "Space",
-    mods = "CMD|SHIFT",
+    key = 'Space',
+    mods = 'CMD|SHIFT',
     action = wezterm.action.QuickSelect,
   },
 }
@@ -173,27 +173,27 @@ config.keys = {
 -- Copy mode key table (vim-like navigation)
 config.key_tables = {
   copy_mode = {
-    { key = "Escape", mods = "NONE", action = wezterm.action.CopyMode("Close") },
-    { key = "q", mods = "NONE", action = wezterm.action.CopyMode("Close") },
-    { key = "h", mods = "NONE", action = wezterm.action.CopyMode("MoveLeft") },
-    { key = "j", mods = "NONE", action = wezterm.action.CopyMode("MoveDown") },
-    { key = "k", mods = "NONE", action = wezterm.action.CopyMode("MoveUp") },
-    { key = "l", mods = "NONE", action = wezterm.action.CopyMode("MoveRight") },
-    { key = "w", mods = "NONE", action = wezterm.action.CopyMode("MoveForwardWord") },
-    { key = "b", mods = "NONE", action = wezterm.action.CopyMode("MoveBackwardWord") },
-    { key = "0", mods = "NONE", action = wezterm.action.CopyMode("MoveToStartOfLine") },
-    { key = "$", mods = "NONE", action = wezterm.action.CopyMode("MoveToEndOfLineContent") },
-    { key = "g", mods = "NONE", action = wezterm.action.CopyMode("MoveToScrollbackTop") },
-    { key = "G", mods = "NONE", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
-    { key = "v", mods = "NONE", action = wezterm.action.CopyMode({ SetSelectionMode = "Cell" }) },
-    { key = "V", mods = "NONE", action = wezterm.action.CopyMode({ SetSelectionMode = "Line" }) },
+    { key = 'Escape', mods = 'NONE', action = wezterm.action.CopyMode 'Close' },
+    { key = 'q', mods = 'NONE', action = wezterm.action.CopyMode 'Close' },
+    { key = 'h', mods = 'NONE', action = wezterm.action.CopyMode 'MoveLeft' },
+    { key = 'j', mods = 'NONE', action = wezterm.action.CopyMode 'MoveDown' },
+    { key = 'k', mods = 'NONE', action = wezterm.action.CopyMode 'MoveUp' },
+    { key = 'l', mods = 'NONE', action = wezterm.action.CopyMode 'MoveRight' },
+    { key = 'w', mods = 'NONE', action = wezterm.action.CopyMode 'MoveForwardWord' },
+    { key = 'b', mods = 'NONE', action = wezterm.action.CopyMode 'MoveBackwardWord' },
+    { key = '0', mods = 'NONE', action = wezterm.action.CopyMode 'MoveToStartOfLine' },
+    { key = '$', mods = 'NONE', action = wezterm.action.CopyMode 'MoveToEndOfLineContent' },
+    { key = 'g', mods = 'NONE', action = wezterm.action.CopyMode 'MoveToScrollbackTop' },
+    { key = 'G', mods = 'NONE', action = wezterm.action.CopyMode 'MoveToScrollbackBottom' },
+    { key = 'v', mods = 'NONE', action = wezterm.action.CopyMode { SetSelectionMode = 'Cell' } },
+    { key = 'V', mods = 'NONE', action = wezterm.action.CopyMode { SetSelectionMode = 'Line' } },
     {
-      key = "y",
-      mods = "NONE",
-      action = wezterm.action.Multiple({
-        { CopyTo = "ClipboardAndPrimarySelection" },
-        { CopyMode = "Close" },
-      }),
+      key = 'y',
+      mods = 'NONE',
+      action = wezterm.action.Multiple {
+        { CopyTo = 'ClipboardAndPrimarySelection' },
+        { CopyMode = 'Close' },
+      },
     },
   },
 }
@@ -202,8 +202,8 @@ config.key_tables = {
 config.mouse_bindings = {
   -- Click to open URLs
   {
-    event = { Up = { streak = 1, button = "Left" } },
-    mods = "CMD",
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'CMD',
     action = wezterm.action.OpenLinkAtMouseCursor,
   },
 }
@@ -213,7 +213,7 @@ config.mouse_bindings = {
 -- ============================================================================
 
 -- Default shell
-config.default_prog = { "/bin/zsh", "-l" }
+config.default_prog = { '/bin/zsh', '-l' }
 
 -- Detect and integrate with shell
 config.detect_password_input = true
@@ -228,13 +228,13 @@ config.hyperlink_rules = wezterm.default_hyperlink_rules()
 -- Add custom patterns for quick select
 table.insert(config.hyperlink_rules, {
   regex = [[["]?([\w\d]{1}[-\w\d]+)(/){1}([-\w\d\.]+)["]?]],
-  format = "https://github.com/$1/$3",
+  format = 'https://github.com/$1/$3',
 })
 
 -- Quick select patterns
 config.quick_select_patterns = {
   -- File paths
-  [[[/\w\S+]]],
+  [[/\w\S+]],
   -- Git commit hashes
   [[\b[0-9a-f]{7,40}\b]],
   -- IPv4 addresses
@@ -247,53 +247,53 @@ config.quick_select_patterns = {
 -- Bell & Notifications
 -- ============================================================================
 
-config.audible_bell = "Disabled"
+config.audible_bell = 'Disabled'
 config.visual_bell = {
   fade_in_duration_ms = 75,
   fade_out_duration_ms = 75,
-  target = "CursorColor",
+  target = 'CursorColor',
 }
 
 -- ============================================================================
 -- Status & Tab Bar Customization
 -- ============================================================================
 
-wezterm.on("update-right-status", function(window, pane)
-  local date = wezterm.strftime("%Y-%m-%d %H:%M")
-  local bat = ""
+wezterm.on('update-right-status', function(window, pane)
+  local date = wezterm.strftime '%Y-%m-%d %H:%M'
+  local bat = ''
 
   for _, b in ipairs(wezterm.battery_info()) do
-    bat = string.format("%.0f%%", b.state_of_charge * 100)
+    bat = string.format('%.0f%%', b.state_of_charge * 100)
   end
 
-  window:set_right_status(wezterm.format({
-    { Text = bat .. " | " .. date .. " " },
-  }))
+  window:set_right_status(wezterm.format {
+    { Text = bat .. ' | ' .. date .. ' ' },
+  })
 end)
 
 -- Format tab titles
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
+wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local pane = tab.active_pane
   local cwd = pane.current_working_dir
 
   local title = tab.tab_index + 1
   if cwd then
-    local path = cwd.file_path or ""
-    local home = os.getenv("HOME")
+    local path = cwd.file_path or ''
+    local home = os.getenv 'HOME'
     if home and path:sub(1, #home) == home then
-      path = "~" .. path:sub(#home + 1)
+      path = '~' .. path:sub(#home + 1)
     end
     local segments = {}
-    for segment in string.gmatch(path, "[^/]+") do
+    for segment in string.gmatch(path, '[^/]+') do
       table.insert(segments, segment)
     end
     if #segments > 0 then
-      title = title .. " " .. segments[#segments]
+      title = title .. ' ' .. segments[#segments]
     end
   end
 
   return {
-    { Text = " " .. title .. " " },
+    { Text = ' ' .. title .. ' ' },
   }
 end)
 
