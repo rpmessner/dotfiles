@@ -119,11 +119,17 @@ D  installer/string.rb  # From Phase 1
 
 ## Ready for Next Session
 
-**Start with:** "Let's continue the installer refactoring - Phase 2"
+**IMPORTANT - Start with:**
+1. Rebase on origin/master and resolve any conflicts
+2. Continue with Phase 2 and README updates
 
 **Context files:**
 - This plan: `docs/INSTALLER_REFACTOR_PLAN.md`
+- README issues: `docs/sessions/2025-11-21-readme-audit.md`
 - Session history: `docs/sessions/2025-11-21-installer-refactoring.md`
-- Current changes: `git status` in ~/.dotfiles/
 
-**First action:** Delete `installer/debian-setup.sh` and update references
+**Actions for next session:**
+1. `git fetch origin && git rebase origin/master` (resolve conflicts if any)
+2. Fix README.md (see README audit doc)
+3. Delete `installer/debian-setup.sh` and update references
+4. Continue with rest of Phase 2

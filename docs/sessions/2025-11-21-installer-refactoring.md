@@ -131,12 +131,26 @@ task install "$@"
 
 ## Next Session TODO
 
-1. Execute Phase 2.1 - Remove debian-setup.sh
-2. Get feedback and iterate
-3. Execute Phase 2.2 - Reorganize directory structure
-4. Get feedback and iterate
-5. Execute Phase 2.3 & 2.4 - ASCII art and simplify setup.sh
-6. Get feedback, then move to Phase 3 if approved
+### Pre-work (CRITICAL):
+1. **Rebase on origin/master** and resolve any conflicts
+   ```bash
+   git fetch origin
+   git rebase origin/master
+   # Resolve conflicts if any
+   ```
+
+### Main work:
+1. Fix README.md issues (see `docs/sessions/2025-11-21-readme-audit.md`)
+   - Update clone URL to rpmessner/dotfiles
+   - Fix OS/terminal/DE info
+   - Remove debian-setup.sh reference
+   - Clean up screenshots
+2. Execute Phase 2.1 - Remove debian-setup.sh
+3. Get feedback and iterate
+4. Execute Phase 2.2 - Reorganize directory structure
+5. Get feedback and iterate
+6. Execute Phase 2.3 & 2.4 - ASCII art and simplify setup.sh
+7. Get feedback, then move to Phase 3 if approved
 
 ---
 
