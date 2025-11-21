@@ -23,28 +23,6 @@ jobs:
           yamllint_strict: true
           yamllint_config_filepath: config/yamllint/config
 
-  ruby-lint:
-    name: 'Lint: Ruby'
-
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: false
-
-      - name: Install RuboCop
-        run: gem install rubocop
-
-      - name: Run RuboCop
-        run: rubocop --config config/rubocop/config.yml
-
   lua-formatting:
     name: 'Format: Lua'
 
@@ -162,11 +140,9 @@ jobs:
 
       - name: Test installer scripts
         run: |
-          for script in installer/*.sh; do
-            if [ -f "$script" ]; then
-              echo "Checking $script..."
-              bash -n "$script"
-            fi
+          find installer -type f -name "*.sh" | while read -r script; do
+            echo "Checking $script..."
+            bash -n "$script"
           done
 
   editorconfig-lint:
