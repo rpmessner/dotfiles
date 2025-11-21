@@ -5,6 +5,8 @@ tasks:
   install:
     desc: Installs asdf itself
     silent: true
+    status:
+      - test -d ~/.asdf || command -v asdf &>/dev/null
     cmds:
       - cmd: brew install asdf
         platforms: [darwin]

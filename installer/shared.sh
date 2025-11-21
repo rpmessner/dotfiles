@@ -9,11 +9,11 @@ fi
 # of ruby that don't exist on the pre-installed version bundled with the OS
 if ! command -v asdf &>/dev/null; then
   echo "Installing ASDF"
-  git clone git@github.com:asdf-vm/asdf.git ~/.asdf
+  git clone git@github.com:asdf-vm/asdf.git ~/.asdf --branch v0.14.1
   # shellcheck disable=1091
   source "$HOME/.asdf/asdf.sh"
   asdf plugin add ruby
   # Install Ruby version from .tool-versions to ensure consistency
   asdf install ruby 3.3.8
-  asdf set -p ruby 3.3.8
+  asdf global ruby 3.3.8
 fi
