@@ -16,7 +16,7 @@ local data_path = vim.fn.stdpath("data") .. "/claude-history"
 ---@return string
 local function sanitize_path(path)
   -- Replace path separators and special chars with underscores
-  return path:gsub("[/\\:*?\"<>|]", "_")
+  return path:gsub('[/\\:*?"<>|]', "_")
 end
 
 ---Get storage file path for a directory
