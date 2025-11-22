@@ -284,9 +284,199 @@ Changes verified:
 
 5. **Intentional disables have purpose:** Not all "disabled" code is dead. Example files and override configs serve documentation/configuration purposes.
 
+## Part 2: Installer Cleanup and Language Task Improvements
+
+### Investigation: Why Does shared.sh Install Ruby?
+
+User questioned why `installer/lib/shared.sh` was installing Ruby during the initial setup phase. Investigation revealed:
+
+**Finding:** The comment in shared.sh claimed "the install script uses features of ruby that don't exist on the pre-installed version bundled with the OS" but this was **FALSE** - no part of the installer actually uses Ruby.
+
+**Root cause:** The setup process works as follows:
+1. `setup.sh` runs `shared.sh` (installs git, asdf, and Ruby)
+2. `setup.sh` runs platform installer (darwin.sh or ubuntu.sh)
+3. `setup.sh` runs `task install`
+4. `task install` runs `task asdf:tools:install` which installs ALL tools from `.tool-versions`
+
+**Conclusion:** Ruby installation in `shared.sh` was redundant - it gets installed again by `task asdf:tools:install`.
+
+### Problem: Inconsistent Language Installation
+
+**Issue:** Not all supported languages had dedicated taskfiles for installation:
+
+**Existing taskfiles:**
+- ✅ `go.yml` - Go installation and dev tools
+- ✅ `node.yml` - Node.js installation and dev tools
+- ✅ `python.yml` - Python installation and dev tools
+- ✅ `rust.yml` - Rust installation and dev tools
+
+**Missing taskfiles:**
+- ❌ `ruby.yml` - Despite Ruby being in `.tool-versions`
+- ❌ `elixir.yml` - Despite Elixir being in `.tool-versions`
+- ❌ `erlang.yml` - Despite Erlang being in `.tool-versions`
+
+### Solution: Created Missing Language Taskfiles
+
+Following the established pattern from existing language taskfiles, created three new taskfiles:
+
+#### 1. taskfiles/ruby.yml
+
+```yaml
+tasks:
+  install:
+    desc: Installs Ruby itself via asdf
+    cmds:
+      - asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git || true
+      - asdf install ruby latest
+      - asdf global ruby latest
+
+  tools:install:
+    desc: Installs common Ruby development tools (gems)
+    cmds:
+      - gem install bundler
+      - gem install rubocop
+      - gem install solargraph
+      - gem install rails
+      - gem install rspec
+      - gem install pry
+      - gem install rake
+      - gem install debug
+
+  tools:update:
+    desc: Updates Ruby gems
+
+  tools:outdated:
+    desc: Lists outdated Ruby gems
+
+  clean:
+    desc: Cleans Ruby gem cache
+```
+
+**Included tools:**
+- bundler - Dependency management
+- rubocop - Linter/formatter
+- solargraph - Language server (referenced in `aliases`)
+- rails - Web framework
+- rspec - Testing framework (referenced in `aliases`)
+- pry - Debugger
+- rake - Build tool
+- debug - Modern debugger
+
+#### 2. taskfiles/erlang.yml
+
+```yaml
+tasks:
+  install:
+    desc: Installs Erlang itself via asdf
+
+  tools:install:
+    desc: Installs common Erlang development tools
+    # Installs rebar (Erlang build tool) via asdf
+
+  clean:
+    desc: Cleans Erlang build artifacts
+```
+
+**Note:** Erlang is required by Elixir (Elixir runs on the BEAM VM).
+
+#### 3. taskfiles/elixir.yml
+
+```yaml
+tasks:
+  install:
+    desc: Installs Elixir itself via asdf (requires Erlang)
+
+  tools:install:
+    desc: Installs common Elixir development tools
+    # Installs hex (package manager), rebar, and phoenix framework
+
+  clean:
+    desc: Cleans Elixir build artifacts
+```
+
+**Included tools:**
+- hex - Elixir package manager
+- rebar - Erlang build tool
+- phx_new - Phoenix framework installer
+
+### Installer Improvements
+
+#### Removed Ruby from shared.sh
+
+**File:** `installer/lib/shared.sh`
+
+**Before:**
+```bash
+# asdf and Ruby are installed from here because the install script uses features
+# of ruby that don't exist on the pre-installed version bundled with the OS
+if ! command -v asdf &>/dev/null; then
+  # ... install asdf ...
+  # ... install Ruby plugin ...
+  # ... install Ruby 3.3.8 ...
+  echo "✅ ASDF and Ruby installed successfully"
+fi
+```
+
+**After:**
+```bash
+# Install asdf version manager
+# Language runtimes (Ruby, Python, Node, etc.) are installed via 'task asdf:tools:install'
+# which reads from .tool-versions file
+if ! command -v asdf &>/dev/null; then
+  # ... install asdf ...
+  echo "✅ ASDF installed successfully"
+  echo "ℹ️  Language runtimes will be installed via 'task asdf:tools:install'"
+fi
+```
+
+**Impact:**
+- Reduced installer complexity
+- Removed 20+ lines of Ruby-specific installation code
+- Clarified separation of concerns: installer sets up asdf, tasks install languages
+- All language installations now go through consistent task-based approach
+
+#### Removed System Ruby Package
+
+**File:** `taskfiles/apt.yml`
+
+Removed `ruby` from the Ubuntu system package list. Ruby should be installed via asdf (from `.tool-versions`), not as a system package.
+
+**Rationale:** Using system Ruby conflicts with asdf-managed Ruby and can cause version conflicts.
+
+#### Deleted Unused Installer Files
+
+**File:** `installer/lib/gitconfig.sh` (10 lines)
+- Required 1Password CLI (`op`) which is not installed
+- Never called by any installer script
+- User doesn't use 1Password CLI
+
+**File:** `installer/lib/title.txt` (33 lines, 3.0KB)
+- ASCII art banner "RYAN'S DOTFILES"
+- Never displayed anywhere in installation process
+- Session doc from 2025-11-21 mentioned "Consider adding" but never implemented
+
+### Benefits
+
+**Consistent language installation pattern:**
+- All supported languages now have dedicated taskfiles
+- Clear separation: `lang:install` for runtime, `lang:tools:install` for dev tools
+- Users can selectively install/update languages: `task ruby:install`, `task elixir:tools:install`
+
+**Cleaner installer:**
+- `shared.sh` reduced from 69 to 52 lines (-25%)
+- No language-specific code in installer - only core setup (git, asdf, tmux terminfo)
+- Languages installed on-demand via tasks rather than forced during setup
+
+**Better user experience:**
+- Can install languages individually without running full setup
+- Clear task names: `task ruby:install`, `task elixir:tools:install`
+- Consistent pattern across all 7 supported languages
+
 ## Commits Made
 
 1. `chore(cleanup): remove dead code and unused configurations` - All deletions and alias cleanup
+2. `feat(tasks): add language installation tasks for Ruby, Elixir, and Erlang` - New taskfiles
+3. `refactor(installer): remove redundant Ruby installation from setup` - Installer cleanup
 
 ## Action Items for Future Sessions
 

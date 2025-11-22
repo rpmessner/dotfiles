@@ -24,8 +24,9 @@ if [[ ! -f "/tmp/terminfo/terminfo.src" ]]; then
   fi
 fi
 
-# asdf and Ruby are installed from here because the install script uses features
-# of ruby that don't exist on the pre-installed version bundled with the OS
+# Install asdf version manager
+# Language runtimes (Ruby, Python, Node, etc.) are installed via 'task asdf:tools:install'
+# which reads from .tool-versions file
 if ! command -v asdf &>/dev/null; then
   echo "Installing ASDF version manager..."
 
@@ -46,23 +47,6 @@ if ! command -v asdf &>/dev/null; then
           "Check if ~/.asdf/asdf.sh exists and is valid"
   fi
 
-  echo "Adding Ruby plugin to asdf..."
-  if ! asdf plugin add ruby; then
-    error "Failed to add Ruby plugin to asdf" \
-          "Check asdf installation and internet connection"
-  fi
-
-  echo "Installing Ruby 3.3.8..."
-  # Install Ruby version from .tool-versions to ensure consistency
-  if ! asdf install ruby 3.3.8; then
-    error "Failed to install Ruby 3.3.8" \
-          "Check build dependencies. On macOS: 'brew install openssl readline'. On Ubuntu: 'sudo apt install build-essential libssl-dev libreadline-dev'"
-  fi
-
-  if ! asdf global ruby 3.3.8; then
-    error "Failed to set Ruby 3.3.8 as global version" \
-          "Check asdf installation"
-  fi
-
-  echo "✅ ASDF and Ruby installed successfully"
+  echo "✅ ASDF installed successfully"
+  echo "ℹ️  Language runtimes will be installed via 'task asdf:tools:install'"
 fi

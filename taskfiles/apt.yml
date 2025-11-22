@@ -70,7 +70,6 @@ tasks:
             postgresql-client \
             pspg \
             python3-tk \
-            ruby \
             squashfs-tools \
             ssh-askpass \
             tk-dev \
