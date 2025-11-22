@@ -182,14 +182,48 @@ Updated pane navigation bindings:
 - Maintains muscle memory (still uses h/j/k/l)
 - Consistent behavior across all four directions
 
+## Enhancement: Vim-like Split Bindings
+
+### Context
+
+After implementing the new tmux prefix and smart navigation, identified an opportunity to unify split keybindings across vim, tmux, and WezTerm for consistent muscle memory.
+
+### Problem
+
+Different tools used different split bindings:
+- Vim: `C-w s` (horizontal), `C-w v` (vertical)
+- tmux: `Leader -` (horizontal), `Leader \` (vertical)
+- WezTerm: `Leader Shift+"` (horizontal), `Leader Shift+%` (vertical)
+
+This inconsistency makes it harder to develop muscle memory across environments.
+
+### Solution
+
+Unified split bindings to match vim's convention:
+- `Leader s` → horizontal split (matches vim `C-w s`)
+- `Leader v` → vertical split (matches vim `C-w v`)
+
+**File:** `config/tmux/tmux.conf`
+- Replaced `Leader -` and `Leader \` with `Leader s` and `Leader v`
+- Moved fuzzy session finder from `Leader s` to `Leader Shift+S`
+- Kept default bindings (`Leader "` and `Leader %`) as passive fallbacks
+
+**File:** `config/wezterm/wezterm.lua`
+- Added `Leader s` and `Leader v` bindings
+- Kept `Leader Shift+"` and `Leader Shift+%` as alternatives
+
+**Rationale:** Creating consistent bindings across all environments reduces cognitive load and makes switching between vim, tmux, and WezTerm seamless.
+
 ## Files Modified
 
 1. `config/zsh/settings.zsh` - Added TTY check for stty command
-2. `config/tmux/tmux.conf` - Added Ctrl+Z as secondary prefix, smart pane navigation bindings
-3. `taskfiles/ubuntu.yml` - Added xdg-utils package
-4. `scripts/tmux-smart-select-pane.sh` - New script for intelligent pane selection
-5. `CLAUDE.md` - Updated key bindings documentation
-6. `docs/sessions/2025-11-22-tmux-leader-key-change.md` - Added follow-up section
+2. `config/tmux/tmux.conf` - Added Ctrl+Z as secondary prefix, smart pane navigation, vim-like split bindings
+3. `config/wezterm/wezterm.lua` - Added vim-like split bindings
+4. `taskfiles/ubuntu.yml` - Added xdg-utils package
+5. `scripts/tmux-smart-select-pane.sh` - New script for intelligent pane selection
+6. `.airmux.yml` - Renamed editor window to dots
+7. `CLAUDE.md` - Updated key bindings documentation
+8. `docs/sessions/2025-11-22-tmux-leader-key-change.md` - Added follow-up section
 
 ## Testing Results
 
@@ -201,6 +235,8 @@ All changes tested and working:
 - ✅ Tab switches between windows
 - ✅ Ctrl+Z still works in non-tmux sessions
 - ✅ Smart pane navigation selects topmost/leftmost panes predictably
+- ✅ Vim-like split bindings (Leader s/v) work in both tmux and WezTerm
+- ✅ Fuzzy session finder accessible via Leader Shift+S
 
 ## Key Decisions
 
@@ -212,6 +248,8 @@ All changes tested and working:
 
 **Smart pane navigation over default:** Rather than using tmux's default directional selection which can be unpredictable in complex layouts, we implemented a script that consistently prefers topmost/leftmost panes. This makes navigation more predictable and reduces cognitive load.
 
+**Vim-like splits over traditional:** Changed split bindings to match vim's convention (`Leader s`/`Leader v` instead of `Leader -`/`Leader \`) for consistency across environments. Kept tmux defaults (`Leader "`/`Leader %`) as passive fallbacks rather than unbinding them—they don't cause confusion since they're just available, not actively competing.
+
 ## Lessons Learned
 
 1. **TTY assumptions:** Always check if stdin/stdout is a TTY before running commands like `stty`, `tput`, or other terminal-specific utilities
@@ -219,6 +257,7 @@ All changes tested and working:
 3. **Secondary prefix pattern:** Tmux's `prefix2` feature is perfect for intercepting dangerous keybindings while maintaining a primary ergonomic prefix
 4. **Cross-platform testing:** Testing on WSL revealed the missing `xdg-utils` dependency that wouldn't appear on macOS
 5. **UX improvements from dogfooding:** Testing the new tmux prefix keys revealed navigation inconsistencies in complex pane layouts, leading to the smart pane selection enhancement
+6. **Unified keybindings reduce cognitive load:** Matching split bindings across vim, tmux, and WezTerm creates seamless muscle memory across environments. The small effort to unify pays dividends in daily use
 
 ## Related Sessions
 
