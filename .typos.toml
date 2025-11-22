@@ -24,5 +24,5 @@ extend-exclude = [
   "CHANGELOG.md",
   "package-lock.json",
   "lazy-lock.json",
-  "installer.rb",
+  "docs/**",
 ]
