@@ -21,7 +21,11 @@
 
 This is my personal collection of configuration files.
 
-> Originally based on [Dorian Karter's dotfiles](https://github.com/dkarter/dotfiles) with extensive custom modifications and additions.
+> **The Ship of Theseus of Dotfiles**
+>
+> Born from [thoughtbot's](https://github.com/thoughtbot/dotfiles) original dotfiles (Dan Croak, Joe Ferris, Derek Prior, Mike Burns, and crew), forked and extensively rebuilt by [Dorian Karter](https://github.com/dkarter/dotfiles), and now thoroughly customized for my workflow.
+>
+> With 61 contributors and counting, this repo is less of a fork and more of a lineage. The original thoughtbot foundation is still in there somewhere... I think? 🤔⚓
 
 Here are some details about my setup:
 
