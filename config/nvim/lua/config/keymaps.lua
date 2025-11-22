@@ -120,6 +120,9 @@ vmap({ "*", '"xy/<C-R>x<CR>' })
 tmap({ "<esc><esc>", "<C-\\><C-n><esc><cr>" })
 tmap({ "<C-o>", "<C-\\><C-n><esc><cr>" })
 
+-- prevent ctrl+z from suspending processes in terminal mode
+tmap({ "<C-z>", "<nop>", { desc = "Disabled (use exit or <C-d> instead)" } })
+
 -- resize windows with alt+hjkl in terminal mode (matches tmux behavior)
 tmap({
   "<M-h>",

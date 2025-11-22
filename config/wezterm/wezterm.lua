@@ -408,6 +408,20 @@ config.keys = {
     action = wezterm.action.ReloadConfiguration,
   },
 
+  -- Disable Ctrl+Z to prevent accidental suspends
+  {
+    key = 'z',
+    mods = 'CTRL',
+    action = wezterm.action.DisableDefaultAssignment,
+  },
+
+  -- Suspend process (safer alternative via leader key)
+  {
+    key = 'z',
+    mods = 'LEADER',
+    action = wezterm.action.SendKey { key = 'z', mods = 'CTRL' },
+  },
+
   -- Quick select (URL/path picker)
   {
     key = 'Space',
