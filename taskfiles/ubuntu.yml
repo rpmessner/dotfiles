@@ -1,0 +1,88 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+#
+# Ubuntu Package Management
+# ============================================================
+# This taskfile manages Ubuntu system packages via apt.
+# Similar to how Brewfile works on macOS.
+#
+# Called by:
+#   - installer/platforms/ubuntu.sh (during bootstrap)
+#   - task sync (during regular updates)
+#
+version: 3
+
+tasks:
+  sync:
+    desc: Synchronize Ubuntu packages
+    summary: |
+      Installs/updates Ubuntu packages from the package list.
+
+      This is idempotent and safe to run multiple times.
+      Similar to 'brew bundle' on macOS.
+
+      Called during both bootstrap and regular sync operations.
+    platforms: ['linux']
+    cmds:
+      - cmd: |
+          echo "📦 Updating apt package index..."
+          sudo apt update
+      - cmd: |
+          echo "📦 Installing/updating Ubuntu packages..."
+          sudo apt install -y \
+            autoconf \
+            autojump \
+            automake \
+            bat \
+            bison \
+            build-essential \
+            clangd-18 \
+            curl \
+            fop \
+            git \
+            git-delta \
+            global \
+            httpie \
+            inotify-tools \
+            libbz2-dev \
+            libclang-18-dev \
+            libffi-dev \
+            libgl1-mesa-dev \
+            libglu1-mesa-dev \
+            libmnl-dev \
+            liblzma-dev \
+            libncurses-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            libpng-dev \
+            libreadline-dev \
+            libsqlite3-dev \
+            libssh-dev \
+            libssl-dev \
+            libwxgtk3.2-dev \
+            libxml2-dev \
+            libyaml-dev \
+            libxml2-utils \
+            libxmlsec1-dev \
+            m4 \
+            openjdk-11-jdk \
+            pkg-config \
+            postgresql \
+            postgresql-client \
+            pspg \
+            python3-tk \
+            ruby \
+            squashfs-tools \
+            ssh-askpass \
+            tk-dev \
+            tmux \
+            tree \
+            universal-ctags \
+            unixodbc-dev \
+            wx-common \
+            xdg-utils \
+            xsltproc \
+            xz-utils \
+            zlib1g-dev \
+            zsh
+      - cmd: |
+          echo "✅ Ubuntu packages installed/updated successfully"

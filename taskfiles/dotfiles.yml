@@ -62,6 +62,10 @@ includes:
     dir: ../
     internal: true
 
+  ubuntu:
+    taskfile: ./ubuntu.yml
+    internal: true
+
   wezterm:
     taskfile: ./wezterm.yml
     internal: true
@@ -92,6 +96,7 @@ tasks:
       - task: git:hooks:sync
       - task: fonts:sync
       - task: brew:sync
+      - task: ubuntu:sync
       - task: bat:sync
       - task: tmux:plugins:install
       - task: tmux:airmux:install
@@ -116,6 +121,7 @@ tasks:
       - task: asdf:sync
       - task: git:hooks:sync
       - task: brew:sync
+      - task: ubuntu:sync
       - task: bat:sync
       - task: tmux:sync
       - task: tmux:airmux:install
