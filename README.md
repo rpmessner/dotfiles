@@ -48,14 +48,37 @@ Feel free to "steal" anything you want, and if you have a question please open a
 
 # Dependencies
 
-The goal is to have all dependencies for the config automatically installed with
-the setup script. The installation uses a two-phase approach:
+All dependencies are automatically installed using a two-phase approach:
 
-1. **Bootstrap phase** ([setup.sh](./setup.sh)) - Installs system packages and prerequisites
-   - For macOS: [Brewfile](./Brewfile) via Homebrew
-   - For Linux: [installer/platforms/ubuntu.sh](./installer/platforms/ubuntu.sh)
-2. **Orchestration phase** (Taskfile) - Installs tools, plugins, and symlinks dotfiles
-   - Run `task -l` to see all available installation tasks
+## 1. Bootstrap Phase: OS-Specific System Packages
+
+Platform-specific installers ([installer/platforms/](./installer/platforms/)) handle system package installation:
+
+**macOS** ([darwin.sh](./installer/platforms/darwin.sh)):
+- Installs Homebrew (if needed)
+- Runs `brew bundle` using [Brewfile](./Brewfile)
+- Configures macOS-specific settings (key repeat, TouchID, etc.)
+
+**Ubuntu/WSL** ([ubuntu.sh](./installer/platforms/ubuntu.sh)):
+- Installs Task (if needed)
+- Runs `task ubuntu:sync` using [taskfiles/ubuntu.yml](./taskfiles/ubuntu.yml)
+- Installs apt packages declaratively (similar to Brewfile)
+
+**Key Pattern:** Both platforms use declarative package lists for consistency:
+- macOS: `Brewfile` → `brew bundle`
+- Ubuntu: `taskfiles/ubuntu.yml` → `task ubuntu:sync`
+
+This parallel structure makes it easy to maintain OS-specific dependencies while keeping the orchestration phase cross-platform.
+
+## 2. Orchestration Phase: Tools and Configuration
+
+Task automation ([Taskfile.dist.yml](./Taskfile.dist.yml)) handles cross-platform setup:
+- Symlinks dotfiles to home directory
+- Installs language runtimes via asdf/mise
+- Configures Neovim, tmux, zsh, etc.
+- Sets up shell plugins and completions
+
+Run `task -l` to see all available installation tasks.
 
 Gotchas for NeoVim setup:
 
@@ -137,13 +160,17 @@ Shows specialized tasks like:
 - `task shell:lint` - Lint shell scripts
 - And many more...
 
-## The Difference
+## Command Comparison
 
-| Command | Bootstrap Phase | Tool Installation | Config Sync | Use Case |
-|---------|----------------|-------------------|-------------|----------|
-| `./setup.sh` | ✅ Yes | ✅ Yes | ✅ Yes | Fresh machine setup |
-| `task install` | ❌ No | ✅ Yes | ✅ Yes | Reinstall after bootstrap |
-| `task sync` | ❌ No | 🔄 Update | ✅ Yes | Regular updates |
+| Command | Bootstrap (System Packages) | Orchestration (Tools/Config) | Use Case |
+|---------|----------------------------|------------------------------|----------|
+| `./setup.sh` | ✅ Runs platform installer | ✅ Full installation | Fresh machine setup |
+| `task install` | ❌ Assumes already done | ✅ Full installation | Re-run after bootstrap |
+| `task sync` | ❌ No | 🔄 Updates only | Daily updates (`git pull && task sync`) |
+
+**Platform-specific sync tasks:**
+- `task ubuntu:sync` - Update Ubuntu/WSL system packages (equivalent to re-running bootstrap)
+- `brew bundle` - Update macOS Homebrew packages (macOS only)
 
 For more details on the bootstrap architecture, see [installer/README.md](./installer/README.md).
 
