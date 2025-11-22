@@ -56,7 +56,8 @@
     "gitleaks-report.json",
     "config/wezterm/wezterm.lua",
     "config/zsh/completions.zsh",
-    "config/zsh/functions.zsh"
+    "config/zsh/functions.zsh",
+    "config/zsh/fzf-tab.zsh"
   ],
   "plugins": [
     "https://plugins.dprint.dev/json-0.20.0.wasm",
