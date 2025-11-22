@@ -677,6 +677,88 @@ keys = {
 }
 ```
 
+#### 5.4 Unified Pane Resizing Bindings
+**Status**: ⬜ Not implemented
+**Effort**: 20 minutes
+**Impact**: MEDIUM - Consistent muscle memory across tools
+
+**Rationale**: Similar to how we unified split bindings (`Leader s`/`Leader v`), pane resizing should be consistent across vim, tmux, and WezTerm. Use Shift+hjkl (uppercase HJKL) as the natural "bigger version" of navigation's hjkl.
+
+**Current State (Inconsistent)**:
+
+**Vim/Neovim:**
+- `Alt+hjkl` - Resize windows (via better-vim-tmux-resizer)
+
+**tmux:**
+- `Prefix+HJKL` - Resize by 10 units ✅ **Already correct!**
+- `Shift+Arrows` - Small resize (2/1 units) - redundant
+- `Ctrl+Arrows` - Large resize (10/5 units) - redundant
+- `Alt+hjkl` - Resize (via better-vim-tmux-resizer plugin) - can remove
+
+**WezTerm:**
+- No resize bindings configured
+
+**Proposed Solution**:
+
+Use **Shift+hjkl** (uppercase HJKL) consistently across all three tools:
+- **Pattern**: Shifted version of navigation keys (hjkl → HJKL)
+- **No Alt key needed** (user preference)
+- **Vim**: `Ctrl+W` + `HJKL`
+- **tmux**: `Leader` + `HJKL` (already exists!)
+- **WezTerm**: `Leader` + `HJKL`
+
+**Implementation**:
+
+**1. Update vim** (`config/nvim/lua/config/keymaps.lua`):
+Replace `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` mappings with:
+```lua
+-- resize windows with Ctrl+W + HJKL (Shift+hjkl)
+map({
+  "<C-w>H",
+  function()
+    require("config.tmux_resizer").resize_left()
+  end,
+  silent,
+})
+-- ... repeat for J, K, L
+```
+
+**2. tmux** (`config/tmux/tmux.conf`):
+- ✅ Already has `bind H/J/K/L resize-pane` - no changes needed!
+- Optional: Remove arrow key bindings and Alt+hjkl for consistency
+
+**3. Add to WezTerm** (`config/wezterm/wezterm.lua`):
+```lua
+-- Pane resizing (Leader + Shift+hjkl)
+{
+  key = 'H',
+  mods = 'LEADER|SHIFT',
+  action = wezterm.action.AdjustPaneSize { 'Left', 5 },
+},
+{
+  key = 'J',
+  mods = 'LEADER|SHIFT',
+  action = wezterm.action.AdjustPaneSize { 'Down', 5 },
+},
+{
+  key = 'K',
+  mods = 'LEADER|SHIFT',
+  action = wezterm.action.AdjustPaneSize { 'Up', 5 },
+},
+{
+  key = 'L',
+  mods = 'LEADER|SHIFT',
+  action = wezterm.action.AdjustPaneSize { 'Right', 5 },
+},
+```
+
+**Benefits:**
+- ✅ Consistent pattern: **Shift+hjkl** resizes everywhere
+- ✅ Natural mnemonic: shifted navigation = resizing
+- ✅ Leverages existing tmux bindings (Prefix+HJKL)
+- ✅ No Alt key usage (ergonomic, user preference)
+- ✅ vim uses natural Ctrl+W prefix, tmux/WezTerm use Leader
+
 ---
 
 ### Category 6: Documentation & Learning 📚
