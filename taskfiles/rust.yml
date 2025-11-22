@@ -13,7 +13,11 @@ tasks:
     desc: Installs common Rust development tools via cargo
     cmds:
       - cargo install cargo-edit
-      - cargo install cargo-watch
+      # cargo-watch has issues building from source on macOS arm64, use Homebrew instead
+      - cmd: brew install cargo-watch
+        platforms: [darwin]
+      - cmd: cargo install cargo-watch
+        platforms: [linux]
       - cargo install cargo-outdated
       - cargo install cargo-audit
       - cargo install cargo-expand
