@@ -27,20 +27,36 @@ Here are some details about my setup:
 
 - **OS**: Ubuntu (WSL2) / macOS
 - **Shell**: [zsh](https://www.zsh.org/)
-- **Editor**: [Neovim](https://github.com/neovim/neovim/)
-  - utilizes the built-in lsp ❤️
-  - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp) — autocompletion
-  - [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter)
-  - [tokyonight](https://github.com/folke/tokyonight.nvim) — color theme
-  - [telescope](https://github.com/nvim-telescope/telescope.nvim) — fuzzy finder
-  - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) — status line
-  - [bufferline](https://github.com/akinsho/nvim-bufferline.lua)
-- **Browser**: [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 - **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/)
 - **Term Prompt**: [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - **Terminal Multiplexer**: [Tmux](https://github.com/tmux/tmux)
+- **Session Manager**: [airmux](https://github.com/dermoumi/airmux) — Rust-powered tmux session manager
+- **Automation**: [Task](https://taskfile.dev/) — Modern task runner for all operations
+- **Version Management**: [asdf](https://asdf-vm.com/) — Multi-language runtime manager
+- **Editor**: [Neovim](https://github.com/neovim/neovim/)
+  - Built-in LSP with [Mason](https://github.com/williamboman/mason.nvim) for tool management
+  - [blink.cmp](https://github.com/saghen/blink.cmp) — Ultra-fast completion with native Rust core
+  - [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) — Advanced syntax highlighting
+  - [tokyonight](https://github.com/folke/tokyonight.nvim) — Color theme
+  - [telescope](https://github.com/nvim-telescope/telescope.nvim) — Fuzzy finder
+  - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) — Status line
+  - [bufferline](https://github.com/akinsho/nvim-bufferline.lua) — Buffer tabs
+  - [GitHub Copilot](https://github.com/github/copilot.vim) & [Code Companion](https://github.com/olimorris/codecompanion.nvim) — AI assistance
+- **Modern CLI Tools**: [ripgrep](https://github.com/BurntSushi/ripgrep), [fd](https://github.com/sharkdp/fd), [bat](https://github.com/sharkdp/bat), [fzf](https://github.com/junegunn/fzf), [zoxide](https://github.com/ajeetdsouza/zoxide), [lazygit](https://github.com/jesseduffield/lazygit)
+- **Git Workflow**: [Conventional Commits](https://www.conventionalcommits.org/), [Lefthook](https://github.com/evilmartians/lefthook), [Release Please](https://github.com/googleapis/release-please)
 
-![screenshot](./screenshot.png)
+## Screenshots
+
+<table>
+<tr>
+<td><b>macOS</b></td>
+<td><b>Ubuntu (WSL2)</b></td>
+</tr>
+<tr>
+<td><img src="./screenshot_darwin.png" alt="macOS Screenshot"></td>
+<td><img src="./screenshot-wsl2.png" alt="WSL2 Screenshot"></td>
+</tr>
+</table>
 
 Feel free to "steal" anything you want, and if you have a question please open an issue.
 

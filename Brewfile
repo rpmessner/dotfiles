@@ -202,9 +202,6 @@ brew 'xq'
 # better shell completions
 brew 'carapace'
 
-# cross-shell prompt
-brew 'starship'
-
 # git hooks manager
 brew 'lefthook'
 
