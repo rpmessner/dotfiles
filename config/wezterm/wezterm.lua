@@ -279,7 +279,18 @@ config.keys = {
     action = wezterm.action.ActivatePaneDirection 'Right',
   },
 
-  -- Pane splitting (matching your tmux config)
+  -- Pane splitting (vim-like bindings)
+  {
+    key = 's',
+    mods = 'LEADER',
+    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+  },
+  {
+    key = 'v',
+    mods = 'LEADER',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+  -- Default tmux-style splits (kept as alternatives)
   {
     key = '"',
     mods = 'LEADER|SHIFT',
