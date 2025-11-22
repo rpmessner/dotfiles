@@ -18,12 +18,6 @@ cask 'obsidian'
 # spotlight alternative
 cask 'raycast'
 
-# a terminal emulator (used primarily for wrapping terminal apps)
-cask 'iterm2'
-
-# allow accessing passwords from a CLI
-cask '1password-cli'
-
 # macOS automation using Lua
 cask 'hammerspoon'
 
@@ -71,9 +65,6 @@ brew 'yank'
 # format postgres sql files
 brew 'pgformatter'
 
-# required for formatting terraform files
-brew 'opentofu'
-
 # Postgres pager
 brew 'pspg'
 
@@ -82,9 +73,6 @@ brew 'libpq'
 
 # for NeoVim
 brew 'lua'
-
-# quickly jump to recently used folders
-brew 'autojump'
 
 # better cat with syntax highlighting
 brew 'bat'
@@ -120,7 +108,6 @@ brew 'gnupg'
 brew 'grep'
 
 # show active process and their telemetry
-brew 'htop'
 brew 'btop'
 
 # GitHub CLIs
@@ -143,18 +130,11 @@ brew 'tmux'
 tap 'morantron/tmux-fingers'
 brew 'morantron/tmux-fingers/tmux-fingers'
 
-# tmux session managers
-brew 'tmuxinator'
-brew 'sesh'
-
 # download files from the terminal, used by some scripts
 brew 'wget'
 
 # Reattach process (e.g., TMux) to background
 brew 'reattach-to-user-namespace'
-
-# display system info
-brew 'neofetch'
 
 # best code editor on planet earth
 brew 'neovim'
@@ -208,9 +188,6 @@ brew 'curl'
 # run things in parallel
 brew 'parallel'
 
-# ask questions in natural language and get results in the terminal
-brew 'howdoi'
-
 # pretty text display utils
 brew 'figlet'
 
@@ -218,9 +195,6 @@ brew 'figlet'
 brew 'kubernetes-cli'
 brew 'kubectx'
 brew 'helm'
-
-# yet another tmux session manager
-brew 'smug'
 
 # for formatting XML files
 brew 'xq'
