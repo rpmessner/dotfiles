@@ -731,6 +731,90 @@ Include:
 
 ---
 
+### Category 7: Installation & Setup Improvements 🔧
+
+#### Current Status
+**Phase 1**: ✅ Complete - Dead code removed (~500 lines)
+**Phase 2**: ⬜ Ready to start - Consolidation & simplification
+**Phase 3**: ⬜ Future - Documentation & polish
+
+**Session Reference**: `docs/sessions/2025-11-21-installer-refactoring.md`
+
+#### Problem
+Installation system has evolved from 3 parallel systems (setup.sh + installer.rb + Taskfile) which created redundancy and confusion. Phase 1 removed dead code (installer.rb). Phase 2 will consolidate to a clean two-layer architecture.
+
+#### 7.1 Remove Debian Support
+**Status**: ⬜ Not started
+**Effort**: 10 minutes
+**Rationale**: User doesn't use Debian, only Ubuntu + macOS
+
+**Tasks**:
+- [ ] Delete `installer/debian-setup.sh`
+- [ ] Update `setup.sh` (remove lines 53-55)
+- [ ] Update README.md (remove Debian references)
+
+#### 7.2 Reorganize Installer Directory
+**Status**: ⬜ Not started
+**Effort**: 30 minutes
+**Impact**: MEDIUM - Better organization and maintainability
+
+**Proposed Structure**:
+```
+installer/
+├── bootstrap.sh (new, replaces ../setup.sh)
+├── platforms/
+│   ├── ubuntu.sh
+│   └── darwin.sh
+├── lib/
+│   ├── detect-os.sh
+│   ├── shared.sh
+│   ├── gitconfig.sh
+│   └── title.txt
+└── README.md (new)
+```
+
+**Tasks**:
+- [ ] Create new directory structure
+- [ ] Move and rename existing files
+- [ ] Update internal path references
+- [ ] Test on both Ubuntu and macOS
+
+#### 7.3 Update ASCII Art
+**Status**: ⬜ Not started
+**Effort**: 5 minutes
+**Impact**: LOW - Personalization
+
+Replace "DOTFILES" in `installer/lib/title.txt` with "ryan's dotfiles"
+
+#### 7.4 Simplify Bootstrap Script
+**Status**: ⬜ Not started
+**Effort**: 20 minutes
+**Impact**: MEDIUM - Easier to understand and maintain
+
+**Goal**: Reduce `installer/bootstrap.sh` to ~20 lines max
+- Platform detection
+- Call appropriate platform script
+- Hand off to `task install`
+
+#### 7.5 Documentation Improvements
+**Status**: ⬜ Future (Phase 3)
+**Effort**: 30 minutes
+
+**Tasks**:
+- [ ] Create `installer/README.md` explaining architecture
+- [ ] Document `task install` vs `task sync` distinction
+- [ ] Add inline comments to complex taskfiles
+- [ ] Create `task doctor` to verify prerequisites
+- [ ] Add banner to `task install` showing planned actions
+
+#### Key Principles
+1. **Single source of truth** - No duplicate logic
+2. **Platform clarity** - Only support Ubuntu + macOS (what user uses)
+3. **Clear separation** - System deps (bash) vs dotfiles/tools (Taskfile)
+4. **Safe iteration** - Small changes, frequent reviews
+
+---
+
 ## Prioritized Implementation Plan
 
 ### Phase 1: Critical Gaps (Week 1) 🔥
