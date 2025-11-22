@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Ruby itself via asdf
+    cmds:
+      - asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git || true
+      - asdf install ruby latest
+      - asdf global ruby latest
+
+  tools:install:
+    desc: Installs common Ruby development tools (gems)
+    cmds:
+      - gem install bundler
+      - gem install rubocop
+      - gem install solargraph
+      - gem install rails
+      - gem install rspec
+      - gem install pry
+      - gem install rake
+      - gem install debug
+
+  tools:update:
+    desc: Updates Ruby gems
+    cmds:
+      - gem update --system
+      - gem update
+
+  tools:outdated:
+    desc: Lists outdated Ruby gems
+    cmds:
+      - gem outdated
+
+  clean:
+    desc: Cleans Ruby gem cache
+    cmds:
+      - gem cleanup

@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Elixir itself via asdf (requires Erlang)
+    cmds:
+      - asdf plugin add elixir https://github.com/asdf-vm/asdf-elixir.git || true
+      - asdf install elixir latest
+      - asdf global elixir latest
+
+  tools:install:
+    desc: Installs common Elixir development tools
+    cmds:
+      - mix local.hex --force
+      - mix local.rebar --force
+      - mix archive.install hex phx_new --force
+
+  tools:update:
+    desc: Updates Elixir tools
+    cmds:
+      - mix local.hex --force
+      - mix local.rebar --force
+
+  tools:outdated:
+    desc: Lists outdated Hex packages
+    cmds:
+      - mix hex.outdated
+
+  clean:
+    desc: Cleans Elixir build artifacts
+    cmds:
+      - mix clean || true
+      - rm -rf _build || true
+      - rm -rf deps || true

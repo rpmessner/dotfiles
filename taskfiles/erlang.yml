@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Erlang itself via asdf
+    cmds:
+      - asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git || true
+      - asdf install erlang latest
+      - asdf global erlang latest
+
+  tools:install:
+    desc: Installs common Erlang development tools
+    cmds:
+      - asdf plugin add rebar https://github.com/Stratus3D/asdf-rebar.git || true
+      - asdf install rebar latest
+      - asdf global rebar latest
+
+  tools:update:
+    desc: Updates Erlang tools
+    cmds:
+      - echo "Erlang tools updated via asdf"
+
+  clean:
+    desc: Cleans Erlang build artifacts
+    cmds:
+      - rm -rf _build || true
+      - rm -rf .rebar3 || true
