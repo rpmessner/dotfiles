@@ -916,6 +916,72 @@ These can be done anytime for immediate benefit:
 
 ---
 
+## WSL2/Ubuntu Optimizations 🐧
+
+Platform-specific improvements for WSL2 development environment:
+
+### Clipboard Integration
+**Priority**: HIGH | **Effort**: 15 minutes
+
+**Issue**: Currently no clipboard integration between Windows and tmux panes
+**Available Tool**: `clip.exe` is present at `/mnt/c/Windows/system32/clip.exe`
+
+**Tasks**:
+1. [ ] Configure tmux to use `clip.exe` for copy operations
+2. [ ] Test copy from tmux to Windows clipboard (Ctrl+C in copy mode)
+3. [ ] Test paste from Windows clipboard to tmux pane (Ctrl+V or tmux paste)
+4. [ ] Document keybindings in README or tmux.conf comments
+5. [ ] Consider installing `win32yank` as alternative (faster, purpose-built)
+
+**Configuration Approach**:
+```tmux
+# In config/tmux/tmux.conf
+if-shell "uname -r | grep -i microsoft" \
+  "bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'clip.exe'"
+```
+
+### Performance Optimization
+**Priority**: MEDIUM | **Effort**: 1-2 hours research + testing
+
+**Areas to Explore**:
+1. [ ] WSL2 `.wslconfig` tuning
+   - Memory allocation limits
+   - Processor count optimization
+   - Swap configuration
+   - Network performance settings
+
+2. [ ] File system performance
+   - Verify projects in `/home/` not `/mnt/c/`
+   - Check metadata performance (`wsl.conf` settings)
+   - Consider filesystem cache settings
+
+3. [ ] WSL2 kernel optimizations
+   - Check kernel version (`uname -r`)
+   - Research WSL2 kernel parameters
+   - IO scheduler tuning
+
+4. [ ] Git performance on WSL2
+   - Verify core.fsmonitor settings
+   - Check core.untrackedCache configuration
+   - Test git status performance in large repos
+
+5. [ ] Shell startup time
+   - Profile zsh startup (already fast but verify)
+   - Check for unnecessary compinit calls
+   - Optimize plugin loading order
+
+**Documentation**:
+- Create `docs/wsl2-performance.md` with findings
+- Add optimal `.wslconfig` template to repo
+- Document any `wsl.conf` settings in installer
+
+**Success Metrics**:
+- Git status < 100ms in large repos
+- Shell startup < 300ms
+- No noticeable lag in terminal operations
+
+---
+
 ## Current Status Assessment
 
 ### Strengths ✅
