@@ -99,7 +99,6 @@ tasks:
       - task: apt:sync
       - task: bat:sync
       - task: tmux:plugins:install
-      - task: tmux:airmux:install
       - task: gh:plugins:install
       # completions needs the tools to be installed
       - task: completions:sync
@@ -124,7 +123,6 @@ tasks:
       - task: apt:sync
       - task: bat:sync
       - task: tmux:sync
-      - task: tmux:airmux:install
       - task: zinit:sync
       - task: gh:sync
       - task: fonts:sync

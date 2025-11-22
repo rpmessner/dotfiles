@@ -30,6 +30,8 @@ tasks:
       - cargo install bottom
       - cargo install du-dust
       - cargo install lolcrab
+      - cargo install airmux
+      - asdf reshim rust
 
   tools:update:
     desc: Updates Rust and cargo packages
