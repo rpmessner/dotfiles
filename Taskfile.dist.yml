@@ -54,8 +54,8 @@ includes:
   lint:
     taskfile: ./taskfiles/lint.yml
 
-  mac:
-    taskfile: ./taskfiles/mac.yml
+  darwin:
+    taskfile: ./taskfiles/darwin.yml
 
   nvim:
     taskfile: ./taskfiles/nvim.yml
@@ -77,8 +77,8 @@ includes:
     aliases: [t]
     taskfile: ./taskfiles/tmux.yml
 
-  ubuntu:
-    taskfile: ./taskfiles/ubuntu.yml
+  apt:
+    taskfile: ./taskfiles/apt.yml
 
   wezterm:
     aliases: [wez]

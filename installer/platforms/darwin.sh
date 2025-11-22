@@ -9,17 +9,6 @@ error() {
   exit 1
 }
 
-# symlink 1password ssh agent sock file so that the paths are compatible between
-# mac and linux (linux uses the ~/.1password, and mac uses that ugly path below)
-if [ ! -d "$HOME/.1password" ]; then
-  echo 'Symlinking 1Password SSH Agent Sock'
-  if ! mkdir -p ~/.1password; then
-    echo "⚠️  Warning: Failed to create ~/.1password directory" >&2
-  elif ! ln -s ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock ~/.1password/agent.sock 2>/dev/null; then
-    echo "⚠️  Warning: Failed to symlink 1Password SSH agent (1Password may not be installed)" >&2
-  fi
-fi
-
 echo 'Configuring macOS settings...'
 # disables the hold key menu to allow key repeat
 defaults write -g ApplePressAndHoldEnabled -bool false
@@ -50,10 +39,21 @@ if ! command -v brew &>/dev/null; then
   echo "✅ Homebrew installed successfully"
 fi
 
-echo 'Installing Homebrew packages from Brewfile...'
-if ! brew bundle; then
-  error "Failed to install Homebrew packages" \
-        "Check Brewfile for issues. Try running 'brew bundle' manually to see detailed errors."
+# Install Task (if not already installed)
+# Task is required to run the package installation from taskfiles/brew.yml
+if ! command -v task &>/dev/null; then
+  echo 'Task not installed, installing via Homebrew...'
+  if ! brew install go-task; then
+    error "Failed to install Task" \
+          "Task is required for package management. Try: brew install go-task"
+  fi
+  echo "✅ Task installed successfully"
+fi
+
+echo 'Installing Homebrew packages via Task...'
+if ! task brew:sync; then
+  error "Failed to install Homebrew packages via Task" \
+        "Check Brewfile for issues. Try running 'task brew:sync' manually to see detailed errors."
 fi
 
 if ! command -v sudo-touchid &>/dev/null; then
@@ -62,30 +62,6 @@ if ! command -v sudo-touchid &>/dev/null; then
     && chmod +x /usr/local/bin/sudo-touchid \
     && sudo curl -# https://raw.githubusercontent.com/artginzburg/sudo-touchid/main/com.user.sudo-touchid.plist -o /Library/LaunchDaemons/com.user.sudo-touchid.plist \
     && /usr/local/bin/sudo-touchid
-fi
-
-# TODO: this requires XCode to be installed, maybe it can be added via `mas`
-# CLI?
-# NOTE: check this page if getting an error from xcodebuild:
-# https://stackoverflow.com/questions/17980759/xcode-select-active-developer-directory-error
-if ! command -v unicornleap &>/dev/null; then
-  echo 'Installing unicornleap... (requires XCode)'
-  mkdir -p ~/dev/forks
-
-  # clone unicornleap
-  rm -rf ~/dev/forks/unicornleap
-  git clone --depth=1 git@github.com:jgdavey/unicornleap.git ~/dev/forks/unicornleap
-
-  # create install dir
-  mkdir -p ~/.bin
-
-  # Install
-  # shellcheck disable=2164
-  pushd ~/dev/forks/unicornleap \
-    && make \
-    && make images \
-    && cp build/unicornleap ~/.bin/ \
-    && popd || exit
 fi
 
 # Install TerminalVim

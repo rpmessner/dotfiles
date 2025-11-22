@@ -44,8 +44,8 @@ includes:
     taskfile: ./github.yml
     internal: true
 
-  mac:
-    taskfile: ./mac.yml
+  darwin:
+    taskfile: ./darwin.yml
     internal: true
 
   asdf:
@@ -62,8 +62,8 @@ includes:
     dir: ../
     internal: true
 
-  ubuntu:
-    taskfile: ./ubuntu.yml
+  apt:
+    taskfile: ./apt.yml
     internal: true
 
   wezterm:
@@ -88,7 +88,7 @@ tasks:
       - task: create:dirs
       - task: symlink
       - task: wezterm:sync
-      - task: mac:set:defaults
+      - task: darwin:set:defaults
       - task: zinit:install
       - task: zinit:plugins:update
       - task: asdf:install
@@ -96,7 +96,7 @@ tasks:
       - task: git:hooks:sync
       - task: fonts:sync
       - task: brew:sync
-      - task: ubuntu:sync
+      - task: apt:sync
       - task: bat:sync
       - task: tmux:plugins:install
       - task: tmux:airmux:install
@@ -121,14 +121,14 @@ tasks:
       - task: asdf:sync
       - task: git:hooks:sync
       - task: brew:sync
-      - task: ubuntu:sync
+      - task: apt:sync
       - task: bat:sync
       - task: tmux:sync
       - task: tmux:airmux:install
       - task: zinit:sync
       - task: gh:sync
       - task: fonts:sync
-      - task: mac:sync
+      - task: darwin:sync
       # completions needs the tools to be installed
       - task: completions:sync
       - task: print:done

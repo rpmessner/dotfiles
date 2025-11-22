@@ -14,7 +14,7 @@ error() {
 # Works on both bare metal and WSL2
 
 # Install Task (if not already installed)
-# Task is required to run the package installation from taskfiles/ubuntu.yml
+# Task is required to run the package installation from taskfiles/apt.yml
 if ! command -v task &>/dev/null; then
   echo 'Task not installed, installing...'
 
@@ -41,12 +41,12 @@ if ! command -v task &>/dev/null; then
 fi
 
 # Delegate package installation to Task
-# This uses the package list defined in taskfiles/ubuntu.yml
-# Similar to how darwin.sh uses 'brew bundle' from the Brewfile
+# This uses the package list defined in taskfiles/apt.yml
+# Similar to how darwin.sh uses 'task brew:sync' for Homebrew
 echo "Installing Ubuntu packages via Task..."
-if ! task ubuntu:sync; then
+if ! task apt:sync; then
   error "Failed to install Ubuntu packages via Task" \
-        "Check taskfiles/ubuntu.yml for issues. Try running 'task ubuntu:sync' manually."
+        "Check taskfiles/apt.yml for issues. Try running 'task apt:sync' manually."
 fi
 
 echo "✅ Ubuntu bootstrap complete"

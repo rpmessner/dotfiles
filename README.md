@@ -61,12 +61,12 @@ Platform-specific installers ([installer/platforms/](./installer/platforms/)) ha
 
 **Ubuntu/WSL** ([ubuntu.sh](./installer/platforms/ubuntu.sh)):
 - Installs Task (if needed)
-- Runs `task ubuntu:sync` using [taskfiles/ubuntu.yml](./taskfiles/ubuntu.yml)
+- Runs `task apt:sync` using [taskfiles/apt.yml](./taskfiles/apt.yml)
 - Installs apt packages declaratively (similar to Brewfile)
 
 **Key Pattern:** Both platforms use declarative package lists for consistency:
-- macOS: `Brewfile` → `brew bundle`
-- Ubuntu: `taskfiles/ubuntu.yml` → `task ubuntu:sync`
+- macOS: `Brewfile` → `brew bundle` (via `task brew:sync`)
+- Ubuntu: `taskfiles/apt.yml` → `task apt:sync`
 
 This parallel structure makes it easy to maintain OS-specific dependencies while keeping the orchestration phase cross-platform.
 
@@ -169,8 +169,8 @@ Shows specialized tasks like:
 | `task sync` | ❌ No | 🔄 Updates only | Daily updates (`git pull && task sync`) |
 
 **Platform-specific sync tasks:**
-- `task ubuntu:sync` - Update Ubuntu/WSL system packages (equivalent to re-running bootstrap)
-- `brew bundle` - Update macOS Homebrew packages (macOS only)
+- `task apt:sync` - Update Ubuntu/WSL system packages (equivalent to re-running bootstrap)
+- `task brew:sync` - Update macOS Homebrew packages (macOS only)
 
 For more details on the bootstrap architecture, see [installer/README.md](./installer/README.md).
 
