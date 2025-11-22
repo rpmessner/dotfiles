@@ -107,6 +107,9 @@ brew 'gcc'
 # source control
 brew 'git'
 
+# better git diffs
+brew 'git-delta'
+
 # GTags for use in Vim
 brew 'global'
 
