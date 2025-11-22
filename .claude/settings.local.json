@@ -14,7 +14,16 @@
       "Bash(git commit:*)",
       "Bash(xargs:*)",
       "Bash(markdownlint-cli2:*)",
-      "Bash(git -C /home/rpmessner/.dotfiles branch -vv)"
+      "Bash(git -C /home/rpmessner/.dotfiles branch -vv)",
+      "Bash(find:*)",
+      "Bash(zstyle:*)",
+      "Bash(dpkg:*)",
+      "Bash(compdef:*)",
+      "Bash(echo $_omps[mix])",
+      "Bash(bindkey:*)",
+      "Bash(exec zsh -c 'source ~/.config/zsh/completions.zsh 2>&1; type _mix && echo \"\"Completion: ${_comps[mix]}\"\"')",
+      "Bash(source:*)",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

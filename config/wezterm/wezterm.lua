@@ -376,7 +376,7 @@ config.keys = {
     action = wezterm.action.PaneSelect { mode = 'Activate' },
   },
 
-  -- Close pane (tmux uses 'x', but keeping 'w' for familiarity)
+  -- Close pane (tmux uses 'x', closes tab when last pane exits)
   {
     key = 'x',
     mods = 'LEADER',
