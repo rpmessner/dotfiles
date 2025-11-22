@@ -51,10 +51,12 @@ end
 -- Options:
 --   'NONE' - No decorations, no controls
 --   'TITLE' - Title bar with controls
---   'RESIZE' - Just resize borders (current)
---   'TITLE | RESIZE' - Full decorations
---   'INTEGRATED_BUTTONS|RESIZE' - Buttons in tab bar (recommended for seamless look)
-config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+--   'RESIZE' - Just resize borders
+--   'TITLE | RESIZE' - Full decorations (buttons in separate title bar)
+--   'INTEGRATED_BUTTONS|RESIZE' - Buttons in tab bar (can overlap with content)
+-- macOS: No buttons (prevents overlap with tab bar)
+-- Windows/Linux: Full decorations with buttons
+config.window_decorations = is_macos and 'RESIZE' or 'INTEGRATED_BUTTONS|RESIZE'
 
 config.window_padding = {
   left = 4,
@@ -74,7 +76,7 @@ config.show_tab_index_in_tab_bar = false
 config.window_frame = {
   -- Font for tab bar - using Regular weight to prevent clipping
   font = wezterm.font { family = 'FiraCode Nerd Font', weight = 'Regular' },
-  font_size = 10.0,
+  font_size = 11.0,
 
   -- The overall background color of the tab bar when
   -- the window is focused
@@ -644,7 +646,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     end
   end
 
-  -- Extra padding with ZWSP (zero-width space) hack for vertical space
+  -- Extra padding for tab text
   return {
     { Text = '  ' .. title .. '  ' },
   }
