@@ -20,20 +20,43 @@ YYYY-MM-DD-brief-description.md
 
 ## Index
 
+Recent sessions (most recent first):
+
+- [2025-11-21: Airmux Installation & Setup](./sessions/2025-11-21-airmux-installation-setup.md)
+  - Installed and configured airmux (tmux session manager)
+  - Added Task automation for installation
+  - Set up dotfiles session profile
+
+- [2025-11-21: WezTerm WSL Cross-Platform Fixes](./sessions/2025-11-21-wezterm-wsl-cross-platform-fixes.md)
+  - Comprehensive WezTerm configuration overhaul
+  - Fixed font rendering issues on Windows WSL
+  - Implemented tmux-style leader key bindings
+  - Added cross-platform support (macOS, Linux, Windows WSL)
+
+- [2025-11-21: Installer Refactoring](./sessions/2025-11-21-installer-refactoring.md)
+  - Removed ~500 lines of dead code (installer.rb)
+  - Documented installation architecture issues
+  - Planned Phase 2 consolidation (see ROADMAP.md)
+
 - [2025-11-21: Erlang LSP Installation Failure - Architecture Mismatch](./sessions/2025-11-21-erlang-lsp-neovim-architecture-fix.md)
   - Fixed erlangls installation by resolving duplicate rebar3 entries in .tool-versions
   - Removed x86_64 treesitter parsers incompatible with ARM64 architecture
   - Documented cross-platform considerations for architecture-specific binaries
   - Added verification commands and prevention strategies
 
-- [2025-11-19: Elixir and Phoenix Development Environment Setup](./2025-11-19-elixir-phoenix-setup.md)
+- [2025-11-20: WSL2 Ubuntu Installation](./sessions/2025-11-20-wsl2-ubuntu-installation.md)
+  - Documented WSL2 Ubuntu setup process
+  - Identified and fixed installation issues
+  - Updated tool versions
+
+- [2025-11-19: Elixir and Phoenix Development Environment Setup](./sessions/2025-11-19-elixir-phoenix-setup.md)
   - Added Elixir 1.19.3, Erlang 28.1.1, Rebar 3.25.1 to tool versions
   - Configured ElixirLS LSP with Dialyzer and test lenses
   - Added Credo linting support
   - Created comprehensive Elixir/Phoenix zsh configuration
   - Added Phoenix dependencies (fswatch, unixodbc) to Brewfile
 
-- [2025-01-19: Ruby Upgrade and Documentation Cleanup](./2025-01-19-ruby-upgrade-and-cleanup.md)
+- [2025-01-19: Ruby Upgrade and Documentation Cleanup](./sessions/2025-01-19-ruby-upgrade-and-cleanup.md)
   - Fixed Rails 8.1.1 compatibility by upgrading Ruby 3.3.0 → 3.3.8
   - Corrected documentation (mise → asdf)
   - Fixed installer to respect `.tool-versions`
