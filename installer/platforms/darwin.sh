@@ -77,7 +77,7 @@ if ! command -v unicornleap &>/dev/null; then
   git clone --depth=1 git@github.com:jgdavey/unicornleap.git ~/dev/forks/unicornleap
 
   # create install dir
-  mkdir ~/.bin
+  mkdir -p ~/.bin
 
   # Install
   # shellcheck disable=2164
