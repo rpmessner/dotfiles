@@ -12,7 +12,6 @@ tasks:
     vars:
       COMPLETIONS:
         - 'bun|bun --print "await (await fetch(\"https://raw.githubusercontent.com/oven-sh/bun/refs/heads/main/completions/bun.zsh\")).text()"'
-        - 'delta|delta --generate-completion zsh'
         - 'erd|erd --completions zsh'
         - 'fx|fx --comp zsh'
         - 'kubectl|kubectl completion zsh'
@@ -22,6 +21,7 @@ tasks:
         - 'op|op completion zsh'
         - 'talosctl|talosctl completion zsh'
         - 'task|task --completion zsh'
+        - 'pnpm|pnpm completion zsh'
         - 'pgroll|pgroll completion zsh'
         - 'lefthook|lefthook completion zsh'
         # Graphite CLI

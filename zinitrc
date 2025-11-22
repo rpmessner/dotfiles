@@ -26,11 +26,8 @@ zinit snippet OMZ::lib/git.zsh
 zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 # Install OMZ elixir mix completions
-zinit ice as"completion"
-zinit snippet OMZ::plugins/mix/_mix
-
-zinit ice as"completion"
-zinit snippet OMZ::plugins/mix-fast/mix-fast.plugin.zsh
+# Disabled: moved to completions.zsh to avoid compdef timing issues
+# zinit snippet OMZ::plugins/mix-fast/mix-fast.plugin.zsh
 
 # Replace zsh's default completion selection menu with fzf!
 zinit light Aloxaf/fzf-tab
