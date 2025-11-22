@@ -37,5 +37,8 @@ path_prepend "/usr/local/sbin"
 # mkdir .git/safe in the root of repositories you trust
 path_prepend ".git/safe/../../bin"
 
+# Add cargo bin directory for Rust-installed tools (e.g., airmux)
+path_append "$HOME/.cargo/bin"
+
 # Local config
 [[ -f ~/.zshenv.local ]] && source ~/.zshenv.local
