@@ -7,7 +7,7 @@ root: ~/.dotfiles
 clear_panes: true
 
 windows:
-  - editor:
+  - dots:
       # Any valid tmux layout is accepted
       layout: main-vertical
       # Short form for panes, with a single command each:
