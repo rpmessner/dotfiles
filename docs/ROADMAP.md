@@ -677,87 +677,49 @@ keys = {
 }
 ```
 
-#### 5.4 Unified Pane Resizing Bindings
-**Status**: ⬜ Not implemented
-**Effort**: 20 minutes
-**Impact**: MEDIUM - Consistent muscle memory across tools
+#### 5.4 Unified Pane/Window Management System
+**Status**: ✅ Complete (2025-11-22)
+**Effort**: 60 minutes (exceeded scope - built complete unified system)
+**Impact**: HIGH - Consistent muscle memory across all tools
 
-**Rationale**: Similar to how we unified split bindings (`Leader s`/`Leader v`), pane resizing should be consistent across vim, tmux, and WezTerm. Use Shift+hjkl (uppercase HJKL) as the natural "bigger version" of navigation's hjkl.
+**Rationale**: Similar to how we unified split bindings (`Leader s`/`Leader v`), pane management should be consistent across vim, tmux, and WezTerm.
 
-**Current State (Inconsistent)**:
+**What Was Implemented**: Went beyond just resize to create a complete unified system with 7 operations following a semantic hierarchy (more modifiers = more permanent changes).
 
-**Vim/Neovim:**
-- `Alt+hjkl` - Resize windows (via better-vim-tmux-resizer)
+**Final Implementation**:
 
-**tmux:**
-- `Prefix+HJKL` - Resize by 10 units ✅ **Already correct!**
-- `Shift+Arrows` - Small resize (2/1 units) - redundant
-- `Ctrl+Arrows` - Large resize (10/5 units) - redundant
-- `Alt+hjkl` - Resize (via better-vim-tmux-resizer plugin) - can remove
+| Operation       | Vim            | tmux           | WezTerm        | Purpose                    |
+|-----------------|----------------|----------------|----------------|----------------------------|
+| Navigate        | `Ctrl+W hjkl`  | `Ctrl+S hjkl`  | `Ctrl+Sp hjkl` | Move between panes         |
+| Swap/Move       | `Ctrl+W HJKL`  | `Ctrl+S HJKL`  | `Ctrl+Sp HJKL` | Rearrange layout           |
+| Resize          | `Ctrl+W Ctrl+hjkl` | `Ctrl+S Ctrl+hjkl` | `Ctrl+Sp Ctrl+hjkl` | Adjust dimensions |
+| Zoom            | `Ctrl+W z`     | `Ctrl+S z`     | `Ctrl+Sp z`    | Maximize/restore           |
+| Equalize        | `Ctrl+W =`     | `Ctrl+S =`     | —              | Equal sizes                |
+| Rotate          | `Ctrl+W r/R`   | `Ctrl+S R`     | `Ctrl+Sp R`    | Cycle positions            |
+| Last Active     | `Ctrl+W ;`     | `Ctrl+S ;`     | `Ctrl+Sp ;`    | Jump to previous pane      |
 
-**WezTerm:**
-- No resize bindings configured
+**Key Design Decision**: Changed resize from HJKL to Ctrl+hjkl to preserve Vim's default Ctrl+W HJKL (move windows to edges). This freed up HJKL for swap/rearrange operations, creating a better semantic progression.
 
-**Proposed Solution**:
+**Semantic Hierarchy**:
+- `hjkl` → navigate (temporary, non-destructive)
+- `HJKL` → swap/move (layout topology change)
+- `Ctrl+hjkl` → resize (dimension change)
 
-Use **Shift+hjkl** (uppercase HJKL) consistently across all three tools:
-- **Pattern**: Shifted version of navigation keys (hjkl → HJKL)
-- **No Alt key needed** (user preference)
-- **Vim**: `Ctrl+W` + `HJKL`
-- **tmux**: `Leader` + `HJKL` (already exists!)
-- **WezTerm**: `Leader` + `HJKL`
+**Benefits**:
+- ✅ Zero conflicts - All Vim defaults preserved
+- ✅ Zero orphans - No valuable bindings lost
+- ✅ Removed better-vim-tmux-resizer plugin dependency (Lua implementation)
+- ✅ Cleaned up redundant tmux arrow key bindings
+- ✅ Consistent muscle memory across all three tools
+- ✅ Documented in README.md with prominent section
 
-**Implementation**:
+**Files Modified**:
+- `config/nvim/lua/config/keymaps.lua`
+- `config/tmux/tmux.conf`
+- `config/wezterm/wezterm.lua`
+- `README.md`
 
-**1. Update vim** (`config/nvim/lua/config/keymaps.lua`):
-Replace `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>` mappings with:
-```lua
--- resize windows with Ctrl+W + HJKL (Shift+hjkl)
-map({
-  "<C-w>H",
-  function()
-    require("config.tmux_resizer").resize_left()
-  end,
-  silent,
-})
--- ... repeat for J, K, L
-```
-
-**2. tmux** (`config/tmux/tmux.conf`):
-- ✅ Already has `bind H/J/K/L resize-pane` - no changes needed!
-- Optional: Remove arrow key bindings and Alt+hjkl for consistency
-
-**3. Add to WezTerm** (`config/wezterm/wezterm.lua`):
-```lua
--- Pane resizing (Leader + Shift+hjkl)
-{
-  key = 'H',
-  mods = 'LEADER|SHIFT',
-  action = wezterm.action.AdjustPaneSize { 'Left', 5 },
-},
-{
-  key = 'J',
-  mods = 'LEADER|SHIFT',
-  action = wezterm.action.AdjustPaneSize { 'Down', 5 },
-},
-{
-  key = 'K',
-  mods = 'LEADER|SHIFT',
-  action = wezterm.action.AdjustPaneSize { 'Up', 5 },
-},
-{
-  key = 'L',
-  mods = 'LEADER|SHIFT',
-  action = wezterm.action.AdjustPaneSize { 'Right', 5 },
-},
-```
-
-**Benefits:**
-- ✅ Consistent pattern: **Shift+hjkl** resizes everywhere
-- ✅ Natural mnemonic: shifted navigation = resizing
-- ✅ Leverages existing tmux bindings (Prefix+HJKL)
-- ✅ No Alt key usage (ergonomic, user preference)
-- ✅ vim uses natural Ctrl+W prefix, tmux/WezTerm use Leader
+**Commit**: `feat(keybindings): implement unified window/pane management across vim/tmux/wezterm`
 
 ---
 

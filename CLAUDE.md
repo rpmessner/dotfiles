@@ -19,6 +19,7 @@ using Task automation and asdf for dependency management.
 - Cross-platform support (primarily macOS, some Linux/Debian)
 - Modern tooling with performance focus
 - Conventional commits and semantic versioning
+- **Unified keybindings:** Consistent window/pane management across vim, tmux, and WezTerm (see README.md for details)
 
 **Directory Structure:**
 
@@ -142,6 +143,7 @@ git push
 - **tmux prefix:** `Ctrl+S` (primary) or `Ctrl+Z` (secondary - prevents accidental suspend)
 - **WezTerm leader:** `Ctrl+Space` (terminal-level pane/tab management)
 - **Suspend process:** `Ctrl+Z` works in non-tmux sessions; use `Ctrl+Space z` in WezTerm for intentional suspend in tmux
+- **Unified window/pane management:** Consistent keybindings across vim (`Ctrl+W`), tmux (`Ctrl+S`), and WezTerm (`Ctrl+Space`) for navigate (hjkl), swap (HJKL), resize (Ctrl+hjkl), zoom (z), equalize (=), rotate (R), and last-active (;). See README.md "Unified Window/Pane Management" section for complete reference.
 
 ### Git Configuration
 
