@@ -1,3 +1,9 @@
+# Disable terminal flow control (Ctrl+S/Ctrl+Q) to allow Ctrl+S as tmux prefix
+# Only run stty if stdin is a TTY
+if [[ -t 0 ]]; then
+  stty -ixon
+fi
+
 # Enable extended globbing
 setopt extendedglob
 
