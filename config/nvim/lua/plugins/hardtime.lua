@@ -22,8 +22,6 @@ return {
     -- List of keys to restrict
     restricted_keys = {
       ["h"] = { "n", "x" },
-      ["j"] = { "n", "x" },
-      ["k"] = { "n", "x" },
       ["l"] = { "n", "x" },
       ["-"] = { "n", "x" },
       ["+"] = { "n", "x" },
