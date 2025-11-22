@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add python https://github.com/asdf-community/asdf-python.git || true
       - asdf install python latest
-      - asdf global python latest
+      - asdf set python latest
 
   tools:install:
     desc: Installs common Python development tools

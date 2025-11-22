@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add rust https://github.com/asdf-community/asdf-rust.git || true
       - asdf install rust latest
-      - asdf global rust latest
+      - asdf set rust latest
 
   tools:install:
     desc: Installs common Rust development tools via cargo
@@ -25,6 +25,7 @@ tasks:
       - cargo install tokei
       - cargo install bottom
       - cargo install du-dust
+      - cargo install lolcrab
 
   tools:update:
     desc: Updates Rust and cargo packages

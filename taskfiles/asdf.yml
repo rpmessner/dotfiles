@@ -33,8 +33,20 @@ tasks:
   update:
     desc: Updates asdf itself
     cmds:
-      - cmd: asdf update
+      # macOS: Update via Homebrew
+      - cmd: brew upgrade asdf || true
+        platforms: [darwin]
         silent: true
+
+      # Linux: Update via git if installed to ~/.asdf
+      - cmd: |
+          if [[ -d ~/.asdf/.git ]]; then
+            cd ~/.asdf && git pull
+          fi
+        platforms: [linux]
+        silent: true
+
+      # Update all plugins
       - cmd: asdf plugin update --all
         silent: true
 

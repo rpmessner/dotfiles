@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add golang https://github.com/asdf-community/asdf-golang.git || true
       - asdf install golang latest
-      - asdf global golang latest
+      - asdf set golang latest
 
   tools:install:
     desc: Installs common Go development tools

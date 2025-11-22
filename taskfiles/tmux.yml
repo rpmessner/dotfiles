@@ -62,9 +62,10 @@ tasks:
     status:
       - '[ -z "$TMUX" ]'
     cmds:
-      - task: plugins:clean
+      - task: plugins:manager:install
       - task: plugins:install
       - task: plugins:update
+      - task: plugins:clean
 
   airmux:install:
     desc: Install airmux (tmux session manager)
@@ -83,7 +84,7 @@ tasks:
             echo "⚠️  Cargo not found. Installing Rust first..."
             asdf plugin add rust https://github.com/asdf-community/asdf-rust.git || true
             asdf install rust latest
-            asdf global rust latest
+            asdf set rust latest
             # Reload shell to get cargo in PATH
             export PATH="$HOME/.asdf/installs/rust/$(asdf current rust | awk '{print $2}')/bin:$PATH"
           fi
