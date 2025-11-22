@@ -34,6 +34,7 @@
   add-untracked = !"git status --porcelain | awk '/\\?\\?/{ print $2 }' | xargs git add"
   snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
   reset-authors = commit --amend --reset-author -CHEAD
+  cheddar = commit --amend -CHEAD
 
 [core]
   excludesfile = ~/.gitignore
