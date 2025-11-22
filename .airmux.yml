@@ -14,3 +14,9 @@ windows:
       panes:
         - vim
         -
+  - dev:
+      root: ~/dev
+      layout: main-vertical
+      panes:
+        -
+        -
