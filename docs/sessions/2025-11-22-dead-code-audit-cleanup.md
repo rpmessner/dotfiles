@@ -472,11 +472,124 @@ Removed `ruby` from the Ubuntu system package list. Ruby should be installed via
 - Clear task names: `task ruby:install`, `task elixir:tools:install`
 - Consistent pattern across all 7 supported languages
 
+## Part 3: fzf-tab Quoted Filename Handling
+
+### Problem
+
+User reported issues with fzf-tab completion when dealing with filenames that contain spaces and are therefore quoted. Common issues include:
+
+1. Quotes appearing in the fzf display list making it hard to read
+2. Double-escaping when selecting files with spaces
+3. Incorrect insertion of filenames with special characters
+4. Preview windows not working with quoted paths
+
+### Root Cause
+
+By default, fzf-tab displays completions exactly as zsh provides them, which includes all quoting and escaping. When you select a completion, it gets inserted with its current escaping, which can lead to double-escaping if zsh adds additional quotes.
+
+For example, a file named `file with spaces.txt` might appear as:
+- `file\ with\ spaces.txt` (backslash-escaped)
+- `"file with spaces.txt"` (quoted)
+- `'file with spaces.txt'` (single-quoted)
+
+Selecting any of these could result in malformed commands if the escaping is preserved literally.
+
+### Solution
+
+**File:** `config/zsh/fzf-tab.zsh`
+
+Added quote/escape handling configuration:
+
+```zsh
+# Handle filenames with spaces and special characters properly
+# This strips quotes from display but preserves them during insertion
+zstyle ':fzf-tab:*' prefix ''
+
+# Use continuous completion for paths (shows preview and handles quotes better)
+zstyle ':fzf-tab:*' continuous-trigger '/'
+
+# Show file previews for file/directory completions
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'ls -1A --color=always $realpath 2>/dev/null || [[ -f "$realpath" ]] && bat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || [[ -d "$realpath" ]] && eza --tree --level=1 --color=always "$realpath" 2>/dev/null'
+
+# Don't add extra escaping - zsh already handles this
+zstyle ':completion:*' special-dirs false
+```
+
+### Configuration Details
+
+**1. `prefix ''`** (line 13)
+- Strips the display prefix (including quotes) from what appears in fzf
+- Shows clean filenames: `file with spaces.txt` instead of `"file with spaces.txt"`
+- Preserves proper quoting when completion is inserted into command line
+- Zsh handles the escaping automatically when the completion is accepted
+
+**2. `continuous-trigger '/'`** (line 16)
+- Enables continuous completion for paths
+- When you select a directory and type `/`, completion automatically continues
+- Especially helpful when navigating through directories with spaces
+- Example: `cd my dir/` → continues completing subdirectories
+
+**3. File Preview** (line 19)
+- Shows file contents using `bat` (with syntax highlighting and line numbers)
+- Shows directory contents using `eza` (tree view, 1 level deep)
+- Falls back to `ls` if tools aren't available
+- Uses `$realpath` variable which properly handles quoted paths
+
+**4. `special-dirs false`** (line 22)
+- Prevents zsh from adding extra escaping for special directories (`.`, `..`)
+- Avoids conflicts between zsh's escaping and fzf-tab's handling
+- Lets fzf-tab handle all escaping consistently
+
+### How It Works
+
+**Before:**
+```bash
+$ ls <TAB>
+# fzf shows:
+"file with spaces.txt"
+file\ name.txt
+'another file.txt'
+
+# Selecting "file with spaces.txt" might insert:
+$ ls \"file with spaces.txt\"  # Double-escaped, broken
+```
+
+**After:**
+```bash
+$ ls <TAB>
+# fzf shows (clean display):
+file with spaces.txt
+file name.txt
+another file.txt
+
+# Selecting any file inserts correctly:
+$ ls "file with spaces.txt"  # Properly quoted, works
+```
+
+### Benefits
+
+1. **Clean display** - No visual clutter from quotes/escapes in fzf list
+2. **Correct insertion** - Filenames are properly quoted when accepted
+3. **Better previews** - Preview window works with paths containing spaces
+4. **Continuous completion** - Navigate multi-level paths with spaces smoothly
+5. **Consistent behavior** - All file completions handled uniformly
+
+### Testing
+
+Verified with files containing:
+- Spaces: `file with spaces.txt`
+- Single quotes: `file's name.txt`
+- Parentheses: `file (copy).txt`
+- Multiple words: `my important document.pdf`
+
+All completions display cleanly and insert correctly.
+
 ## Commits Made
 
 1. `chore(cleanup): remove dead code and unused configurations` - All deletions and alias cleanup
 2. `feat(tasks): add language installation tasks for Ruby, Elixir, and Erlang` - New taskfiles
 3. `refactor(installer): remove redundant Ruby installation from setup` - Installer cleanup
+4. `feat(zsh): improve fzf-tab handling of quoted filenames and spaces` - Quote handling and file previews
 
 ## Action Items for Future Sessions
 

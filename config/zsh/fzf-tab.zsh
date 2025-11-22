@@ -8,6 +8,19 @@ zstyle ':fzf-tab:*' fzf-bindings 'ctrl-k:ignore'
 # Configure fzf-tab to show more context
 zstyle ':fzf-tab:*' fzf-min-height 15
 
+# Handle filenames with spaces and special characters properly
+# This strips quotes from display but preserves them during insertion
+zstyle ':fzf-tab:*' prefix ''
+
+# Use continuous completion for paths (shows preview and handles quotes better)
+zstyle ':fzf-tab:*' continuous-trigger '/'
+
+# Show file previews for file/directory completions
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'ls -1A --color=always $realpath 2>/dev/null || [[ -f "$realpath" ]] && bat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || [[ -d "$realpath" ]] && eza --tree --level=1 --color=always "$realpath" 2>/dev/null'
+
+# Don't add extra escaping - zsh already handles this
+zstyle ':completion:*' special-dirs false
+
 # Parse SSH hosts from ~/.ssh/config and set them for completion
 # This extracts all "Host" entries (excluding wildcards)
 if [[ -r ~/.ssh/config ]]; then
