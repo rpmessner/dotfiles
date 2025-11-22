@@ -1,12 +1,14 @@
 # fzf-tab configuration
 # =====================
 
-# Disable Ctrl+K in fzf to avoid conflict with zsh keybinding
-# Use Ctrl+P for up navigation instead (already bound in keybindings.zsh)
-zstyle ':fzf-tab:*' fzf-bindings 'ctrl-k:ignore'
+# Enable Ctrl+K to navigate up in fzf (Ctrl+J for down is default)
+zstyle ':fzf-tab:*' fzf-bindings 'ctrl-k:up' 'ctrl-j:down'
 
 # Configure fzf-tab to show more context
 zstyle ':fzf-tab:*' fzf-min-height 15
+
+# Enable preview window (right side, 50% width, with border)
+zstyle ':fzf-tab:*' fzf-flags --preview-window=right:50%:wrap
 
 # Handle filenames with spaces and special characters properly
 # This strips quotes from display but preserves them during insertion
@@ -16,7 +18,8 @@ zstyle ':fzf-tab:*' prefix ''
 zstyle ':fzf-tab:*' continuous-trigger '/'
 
 # Show file previews for file/directory completions
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'ls -1A --color=always $realpath 2>/dev/null || [[ -f "$realpath" ]] && bat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || [[ -d "$realpath" ]] && eza --tree --level=1 --color=always "$realpath" 2>/dev/null'
+# Note: On Ubuntu/Debian, bat is called batcat
+zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -f "$realpath" ]] && (batcat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || bat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || cat "$realpath") || [[ -d "$realpath" ]] && eza --tree --level=1 --color=always "$realpath" 2>/dev/null || echo "Preview not available"'
 
 # Don't add extra escaping - zsh already handles this
 zstyle ':completion:*' special-dirs false
@@ -42,3 +45,9 @@ zstyle ':completion:*:ssh:*' group-name ''
 
 # Preview for SSH hosts (optional - shows the config entry)
 zstyle ':fzf-tab:complete:ssh:*' fzf-preview 'echo "SSH Config Entry:" && grep -A 3 "^Host $word" ~/.ssh/config 2>/dev/null'
+
+# Preview for mix tasks - shows the task description
+zstyle ':fzf-tab:complete:mix:*' fzf-preview 'mix help $word 2>/dev/null || echo "No help available for: $word"'
+
+# Preview for source/dot commands - shows file contents
+zstyle ':fzf-tab:complete:(source|.):*' fzf-preview '[[ -f "$realpath" ]] && (batcat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || bat --color=always --style=plain --line-range=:50 "$realpath" 2>/dev/null || cat "$realpath") || echo "Not a file"'

@@ -24,6 +24,9 @@ export LC_ALL="en_US.UTF-8"
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
+# load zinit plugins BEFORE compinit (which happens in config files)
+[[ -f ~/.zinitrc ]] && source ~/.zinitrc
+
 # load all config files
 for f in ${XDG_CONFIG_HOME}/zsh/*; do
   source $f
@@ -65,8 +68,6 @@ esac
 
 # tell RipGrep where to look for it's config file
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
-
-[[ -f ~/.zinitrc ]] && source ~/.zinitrc
 
 # load aliases
 [[ -f ~/.aliases ]] && source ~/.aliases

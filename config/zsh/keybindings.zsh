@@ -17,3 +17,11 @@ bindkey "^[f" forward-word
 bindkey "^[b" backward-word
 
 bindkey '^r' history-incremental-search-backward
+
+# zsh-autosuggestions keybindings
+# Accept entire suggestion with Ctrl+F (most common use case)
+bindkey '^F' autosuggest-accept
+# Accept one word at a time with Alt+F or Ctrl+→ (already bound to forward-word above)
+
+# Ctrl+W deletes word backward (like vim, zsh default)
+bindkey '^W' backward-kill-word
