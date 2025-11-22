@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0](https://github.com/rpmessner/dotfiles/compare/v13.0.0...v13.1.0) (2025-11-22)
+
+### ✨ Unified Window/Pane Management Release
+
+This release introduces a comprehensive unified keybinding system for window and pane management across Vim, tmux, and WezTerm, eliminating context-switching overhead and establishing consistent muscle memory across all tools.
+
+### Features
+
+* **keybindings:** Unified window/pane management across vim/tmux/wezterm ([4a60ad1](https://github.com/rpmessner/dotfiles/commit/4a60ad1))
+  - **Navigate:** `hjkl` - Move between panes (temporary, non-destructive)
+  - **Swap/Move:** `HJKL` - Rearrange layout topology
+  - **Resize:** `Ctrl+hjkl` - Adjust dimensions
+  - **Zoom:** `z` - Maximize/restore current pane
+  - **Equalize:** `=` - Make all panes equal size (vim/tmux)
+  - **Rotate:** `R` - Cycle pane positions
+  - **Last Active:** `;` - Jump to previous pane
+  - Preserves all Vim defaults (Ctrl+W HJKL for moving windows to edges)
+  - Removes better-vim-tmux-resizer plugin dependency (Lua implementation)
+  - Semantic hierarchy: more modifiers = more permanent changes
+  - See README "Unified Window/Pane Management" section for complete reference
+
+* **git:** Add 'cheddar' alias for quick amend with same message ([b4c319a](https://github.com/rpmessner/dotfiles/commit/b4c319a))
+  - `git cheddar` = `git commit --amend -CHEAD`
+  - Allows quick amending of last commit while reusing existing message
+
+### Documentation
+
+* **roadmap:** Mark unified pane management as complete ([90517ae](https://github.com/rpmessner/dotfiles/commit/90517ae))
+  - Updated ROADMAP.md with implementation details
+  - Added unified keybindings to CLAUDE.md Core Philosophy
+  - Documented semantic hierarchy and benefits
+
+### Chores
+
+* **markdownlint:** Relax overly restrictive linting rules ([d28be48](https://github.com/rpmessner/dotfiles/commit/d28be48))
+  - Disabled MD004 (mixed list styles), MD012 (multiple blank lines), MD024 (duplicate headings)
+  - Improves readability for AI-generated documentation
+
+### Other Changes
+
+* **screenshot:** Updated with latest setup (1600px optimized for GitHub)
+
+---
+
 ## [13.0.0](https://github.com/rpmessner/dotfiles/compare/v12.4.0...v13.0.0) (2025-11-22)
 
 ### 🎉 Fork Milestone Release
