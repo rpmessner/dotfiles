@@ -597,33 +597,23 @@ alias tp='tmux-project'
 
 ### Category 5: Shell Enhancements 🐚
 
-#### 5.1 Tmux Leader Change to Shift+Space
-**Status**: ⬜ Not implemented
+#### 5.1 Tmux Leader Change to Ctrl+S
+**Status**: ✅ Complete (2025-11-22)
 **Effort**: 5 minutes
-**Impact**: MEDIUM - Better leader key separation
+**Impact**: MEDIUM - Better ergonomics and conflict prevention
 
-**Rationale**: Creates logical separation:
+**Rationale**:
+- `Ctrl+S` → tmux (session multiplexer)
 - `Ctrl+Space` → WezTerm (terminal multiplexer)
-- `Shift+Space` → tmux (window multiplexer)
+- Prevents Ctrl+Z footguns (suspending processes in terminal mode)
 
-**Conflict Analysis**: ✅ SAFE - No conflicts with shell, Vim, or other tools
+**Implementation Complete**:
+- Changed tmux prefix from `C-z` to `C-s`
+- Disabled `Ctrl+Z` in neovim terminal mode (prevents accidental suspends)
+- Added `stty -ixon` to disable flow control (allows Ctrl+S to work)
+- Added `Leader+z` in WezTerm for safe, intentional suspend
 
-**Implementation**:
-Edit `/home/rpmessner/.dotfiles/config/tmux/tmux.conf` (line 52-53):
-
-**Current**:
-```tmux
-unbind C-b
-set -g prefix C-z
-```
-
-**Change to**:
-```tmux
-unbind C-b
-unbind C-z
-set -g prefix S-Space
-bind S-Space send-prefix
-```
+**Session Reference**: `docs/sessions/2025-11-22-tmux-leader-key-change.md`
 
 #### 5.2 Productivity Aliases
 **Status**: ⬜ Partially implemented

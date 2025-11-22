@@ -22,6 +22,13 @@ YYYY-MM-DD-brief-description.md
 
 Recent sessions (most recent first):
 
+- [2025-11-22: Tmux Leader Key Change](./sessions/2025-11-22-tmux-leader-key-change.md)
+  - Changed tmux prefix from Ctrl+Z to Ctrl+S for better ergonomics
+  - Disabled Ctrl+Z in neovim terminal mode to prevent accidental suspends
+  - Added stty -ixon to disable flow control
+  - Added safe suspend binding (Leader+z) in WezTerm
+  - Completed ROADMAP Section 5.1
+
 - [2025-11-22: .tool-versions Cleanup & Documentation Reorganization](./sessions/2025-11-22-tool-versions-cleanup-docs-reorganization.md)
   - Cleaned up .tool-versions to only include neovim (project requirement)
   - Moved session-style docs to proper location

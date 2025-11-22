@@ -138,6 +138,11 @@ git push
 - **FZF:** Fuzzy finding integration
 - **Zoxide:** Smart directory jumping
 
+**Key Bindings:**
+- **tmux prefix:** `Ctrl+S` (primary) or `Ctrl+Z` (secondary - prevents accidental suspend)
+- **WezTerm leader:** `Ctrl+Space` (terminal-level pane/tab management)
+- **Suspend process:** `Ctrl+Z` works in non-tmux sessions; use `Ctrl+Space z` in WezTerm for intentional suspend in tmux
+
 ### Git Configuration
 
 - **Conventional Commits:** Enforced via cocogitto (cog)
