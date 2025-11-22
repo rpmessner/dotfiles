@@ -11,15 +11,17 @@ local keymaps = require("config.keymaps")
 
 return {
   "coder/claudecode.nvim",
-  dependencies = { "folke/snacks.nvim" },
+  dependencies = {
+    "folke/snacks.nvim",
+    -- Claude Code history tracker (refactored to separate plugin)
+    {
+      dir = "~/dev/utils/claude-history.nvim",
+      lazy = false,
+    },
+  },
   config = function()
     require("claudecode").setup()
-
-    -- Setup history tracking
-    require("claude-history.tracker").setup()
-
-    -- Setup history commands
-    require("claude-history.commands").setup()
+    -- Note: claude-history.nvim auto-loads via plugin/claude-history.lua
   end,
   keys = keymaps.claude_code_mappings,
 }
