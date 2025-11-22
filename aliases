@@ -26,18 +26,7 @@ alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
 # copy directory recursively
 alias cpr='cp -r'
 
-# pulumi
-alias p='pulumi'
-
-# covid
-alias covid='curl https://covid19.trackercli.com'
-alias covidus='curl https://covid19.trackercli.com/us'
-
-# Jira
-# transition issue
-jt() {
-  jira i "$(jira i | fzf | awk '{ print $1 }')" -t
-}
+# Jira removed - CLI not installed
 
 alias et="eza --tree -I '.git|node_modules'"
 alias tree="eza --tree -I '.git|node_modules'"
@@ -66,9 +55,6 @@ alias sgraph="solargraph socket"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-
-# ZSH aliases
-alias ohmyzsh="vim ~/.oh-my-zsh ~/.zshrc"
 
 # Typos
 alias quit="exit"
@@ -244,14 +230,12 @@ command -v xclip >/dev/null && alias pbcopy='xclip -sel c'
 alias help='tldr'
 
 # quick config
-alias vimconfig='vim -o ~/.vimrc ~/.vimrc.bundles'
 alias muxconfig='vim ~/.tmux.conf && tmux source-file ~/.tmux.conf'
 alias sshconfig='vim ~/.ssh/config'
 alias aliasconfig='vim ~/.aliases && source ~/.aliases'
 alias hostsconfig='sudo nvim /etc/hosts'
 alias zshconfig="vim -o ~/.zshrc && source ~/.zshrc"
 alias gitconfig="vim ~/.gitconfig"
-alias vifmconfig="vim ~/.config/vifm/vifmrc"
 
 # tmux
 alias mux='airmux'
