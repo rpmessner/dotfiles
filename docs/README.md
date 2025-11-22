@@ -22,6 +22,13 @@ YYYY-MM-DD-brief-description.md
 
 Recent sessions (most recent first):
 
+- [2025-11-22: .tool-versions Cleanup & Documentation Reorganization](./sessions/2025-11-22-tool-versions-cleanup-docs-reorganization.md)
+  - Cleaned up .tool-versions to only include neovim (project requirement)
+  - Moved session-style docs to proper location
+  - Consolidated INSTALLER_REFACTOR_PLAN into ROADMAP
+  - Updated post_install.md for accuracy
+  - Reorganized documentation for better discoverability
+
 - [2025-11-21: Airmux Installation & Setup](./sessions/2025-11-21-airmux-installation-setup.md)
   - Installed and configured airmux (tmux session manager)
   - Added Task automation for installation
