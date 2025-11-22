@@ -65,3 +65,41 @@ tasks:
       - task: plugins:clean
       - task: plugins:install
       - task: plugins:update
+
+  airmux:install:
+    desc: Install airmux (tmux session manager)
+    summary: |
+      Install airmux (tmux session manager)
+
+      Airmux is a tmux session manager written in Rust that allows you to
+      create and manage tmux sessions via configuration files.
+
+      Requires Rust/cargo to be installed.
+    status:
+      - command -v airmux
+    cmds:
+      - cmd: |
+          if ! command -v cargo &>/dev/null; then
+            echo "⚠️  Cargo not found. Installing Rust first..."
+            asdf plugin add rust https://github.com/asdf-community/asdf-rust.git || true
+            asdf install rust latest
+            asdf global rust latest
+            # Reload shell to get cargo in PATH
+            export PATH="$HOME/.asdf/installs/rust/$(asdf current rust | awk '{print $2}')/bin:$PATH"
+          fi
+          echo "📦 Installing airmux via cargo..."
+          cargo install airmux
+          echo "✅ Airmux installed successfully!"
+
+  airmux:update:
+    desc: Update airmux to the latest version
+    cmds:
+      - cmd: |
+          if command -v cargo &>/dev/null; then
+            echo "📦 Updating airmux..."
+            cargo install airmux --force
+            echo "✅ Airmux updated successfully!"
+          else
+            echo "❌ Cargo not found. Cannot update airmux."
+            exit 1
+          fi
