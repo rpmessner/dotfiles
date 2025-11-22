@@ -42,7 +42,7 @@ Here are some details about my setup:
   - [blink.cmp](https://github.com/saghen/blink.cmp) — Ultra-fast completion with native Rust core
   - [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) — Advanced syntax highlighting
   - [tokyonight](https://github.com/folke/tokyonight.nvim) — Color theme
-  - [telescope](https://github.com/nvim-telescope/telescope.nvim) — Fuzzy finder
+  - [snacks.nvim](https://github.com/folke/snacks.nvim) — Picker, dashboard, and UI framework
   - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) — Status line
   - [bufferline](https://github.com/akinsho/nvim-bufferline.lua) — Buffer tabs
   - [GitHub Copilot](https://github.com/github/copilot.vim) & [Code Companion](https://github.com/olimorris/codecompanion.nvim) — AI assistance
