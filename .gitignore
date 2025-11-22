@@ -17,3 +17,8 @@ config/nvim/plugin/packer_compiled.lua
 p10k.zsh
 .p10k.zsh
 config/starship/
+
+# ignore Task cache and scratch file/directory
+.task/
+scratch
+scratch/
