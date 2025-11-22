@@ -62,6 +62,10 @@ includes:
     dir: ../
     internal: true
 
+  wezterm:
+    taskfile: ./wezterm.yml
+    internal: true
+
   zinit:
     taskfile: ./zinit.yml
     dir: ../
@@ -79,6 +83,7 @@ tasks:
       - task: shell:zsh:default
       - task: create:dirs
       - task: symlink
+      - task: wezterm:sync
       - task: mac:set:defaults
       - task: zinit:install
       - task: zinit:plugins:update
@@ -106,6 +111,7 @@ tasks:
     cmds:
       - task: create:dirs
       - task: symlink
+      - task: wezterm:sync
       - task: asdf:sync
       - task: git:hooks:sync
       - task: brew:sync

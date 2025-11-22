@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  sync:
+    desc: Synchronize WezTerm configuration
+    summary: |
+      Synchronize WezTerm configuration for the current platform
+
+      - macOS/Linux: Config is already symlinked to ~/.config/wezterm
+      - WSL: Creates symlink in Windows user directory for WezTerm running on Windows
+    cmds:
+      - task: sync:wsl
+      - cmd: echo "✅ WezTerm configuration synchronized"
+        silent: true
+
+  sync:wsl:
+    desc: Symlink WezTerm config to Windows filesystem (WSL only)
+    internal: true
+    platforms: [linux]
+    status:
+      # Only run if we're in WSL
+      - '! grep -qi microsoft /proc/version'
+    cmds:
+      - cmd: |
+          # Detect Windows username from environment
+          WINDOWS_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r\n')
+
+          if [ -z "$WINDOWS_USER" ]; then
+            echo "⚠️  Could not detect Windows username"
+            exit 1
+          fi
+
+          WINDOWS_HOME_WIN="C:\\Users\\$WINDOWS_USER"
+          WINDOWS_CONFIG="$WINDOWS_HOME_WIN\\.config"
+
+          # Get Windows path to WSL config directory
+          WEZTERM_SOURCE=$(wslpath -w "$(pwd)/config/wezterm" | tr -d '\r\n')
+
+          # Create .config directory if it doesn't exist
+          mkdir -p "/mnt/c/Users/$WINDOWS_USER/.config"
+
+          # Remove existing symlink/directory if it exists
+          cd /mnt/c
+          powershell.exe -Command "if (Test-Path '$WINDOWS_CONFIG\\wezterm') { Remove-Item -Force -Recurse '$WINDOWS_CONFIG\\wezterm' }" 2>/dev/null || true
+
+          # Create Windows symlink using PowerShell (required for Windows apps to read it)
+          powershell.exe -Command "New-Item -ItemType SymbolicLink -Path '$WINDOWS_CONFIG\\wezterm' -Target '$WEZTERM_SOURCE'" >/dev/null
+
+          echo "✅ WezTerm config symlinked to $WINDOWS_CONFIG\\wezterm"

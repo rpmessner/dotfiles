@@ -77,6 +77,10 @@ includes:
     aliases: [t]
     taskfile: ./taskfiles/tmux.yml
 
+  wezterm:
+    aliases: [wez]
+    taskfile: ./taskfiles/wezterm.yml
+
   zinit:
     taskfile: ./taskfiles/zinit.yml
 
