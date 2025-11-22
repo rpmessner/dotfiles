@@ -2,6 +2,73 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.0.0](https://github.com/rpmessner/dotfiles/compare/v12.4.0...v13.0.0) (2025-11-22)
+
+### 🎉 Fork Milestone Release
+
+This major version represents the comprehensive modernization and customization of the dotfiles after forking from [dkarter/dotfiles](https://github.com/dkarter/dotfiles). The repository has been extensively refactored to support cross-platform development (macOS + WSL2/Ubuntu) with modern tooling and automation.
+
+### Major Changes
+
+#### Platform & Installation
+
+* **BREAKING:** Complete installer refactoring for better maintainability ([installer/platforms/](./installer/platforms/))
+* **feat:** Ubuntu/WSL2 support with taskfile-based package management ([taskfiles/apt.yml](./taskfiles/apt.yml))
+* **feat:** Symmetric package management pattern (brew:sync ↔ apt:sync)
+* **feat:** Platform-specific settings separated from package management (darwin:sync)
+* **fix:** Both OS installers now fully idempotent and safe to re-run
+* **feat:** Task automation framework for all installation and sync operations
+
+#### Terminal & Shell
+
+* **feat:** WezTerm comprehensive cross-platform configuration ([config/wezterm/](./config/wezterm/))
+* **feat:** tmux leader key changed to Ctrl+S with Ctrl+Z safety (prevents accidental suspend)
+* **feat:** Unified vim-like split bindings across vim/tmux/WezTerm (Leader s/v)
+* **feat:** Smart pane navigation that prefers topmost/leftmost panes ([scripts/tmux-smart-select-pane.sh](./scripts/tmux-smart-select-pane.sh))
+* **feat:** zsh improvements with proper TTY detection for non-interactive contexts
+* **feat:** Powerlevel10k integration with proper instant prompt support
+
+#### Development Tools
+
+* **feat:** Neovim modernization (Lazy.nvim, Mason, LSP improvements)
+* **feat:** Airmux integration for tmux session management
+* **feat:** Elixir/Phoenix development setup with proper LSP configuration
+* **feat:** Ruby upgrade to modern version with dependency cleanup
+* **feat:** asdf/mise tooling with project-specific .tool-versions
+* **feat:** Enhanced git workflow with delta, conventional commits, and lefthook
+
+#### Automation & DevEx
+
+* **feat:** Comprehensive Task automation (70+ tasks via Taskfile.dist.yml)
+* **feat:** CI pipeline with linting, formatting, and spell checking
+* **feat:** Session-based development workflow documentation ([docs/sessions/](./docs/sessions/))
+* **feat:** Development roadmap with prioritized improvements ([docs/ROADMAP.md](./docs/ROADMAP.md))
+* **feat:** Git hooks via lefthook with conventional commit enforcement
+
+#### Documentation
+
+* **docs:** Session documentation system for tracking complex changes
+* **docs:** Comprehensive README with bootstrap architecture explanation
+* **docs:** Post-installation guide with setup verification
+* **docs:** ROADMAP with categorized improvement tasks
+* **docs:** CLAUDE.md for AI assistant context and patterns
+
+### Breaking Changes
+
+* tmux leader key changed from Ctrl+Z to Ctrl+S (Ctrl+Z now secondary prefix)
+* Installer architecture completely refactored (two-phase: bootstrap + orchestration)
+* Package management now uses declarative taskfiles instead of direct brew/apt calls
+* Repository now at github.com/rpmessner/dotfiles (forked from github.com/dkarter/dotfiles)
+
+### Migration Notes
+
+If upgrading from v12.x:
+1. Note the new tmux leader key (Ctrl+S instead of Ctrl+Z)
+2. Run `task sync` to update all configurations
+3. Review [docs/post_install.md](./docs/post_install.md) for verification steps
+
+---
+
 ## [12.4.0](https://github.com/dkarter/dotfiles/compare/v12.3.3...v12.4.0) (2023-10-02)
 
 
