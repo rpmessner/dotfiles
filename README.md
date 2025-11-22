@@ -46,6 +46,29 @@ Feel free to "steal" anything you want, and if you have a question please open a
 
 ---
 
+## Unified Window/Pane Management
+
+A key philosophy of this setup is **unified keybindings** across Vim, tmux, and WezTerm. The same muscle memory works everywhere:
+
+| Operation       | Vim            | tmux           | WezTerm        | Purpose                    |
+|-----------------|----------------|----------------|----------------|----------------------------|
+| Navigate        | `Ctrl+W hjkl`  | `Ctrl+S hjkl`  | `Ctrl+Sp hjkl` | Move between panes         |
+| Swap/Move       | `Ctrl+W HJKL`  | `Ctrl+S HJKL`  | `Ctrl+Sp HJKL` | Rearrange layout           |
+| Resize          | `Ctrl+W Ctrl+hjkl` | `Ctrl+S Ctrl+hjkl` | `Ctrl+Sp Ctrl+hjkl` | Adjust dimensions |
+| Zoom            | `Ctrl+W z`     | `Ctrl+S z`     | `Ctrl+Sp z`    | Maximize/restore           |
+| Equalize        | `Ctrl+W =`     | `Ctrl+S =`     | —              | Equal sizes                |
+| Rotate          | `Ctrl+W r/R`   | `Ctrl+S R`     | `Ctrl+Sp R`    | Cycle positions            |
+| Last Active     | `Ctrl+W ;`     | `Ctrl+S ;`     | `Ctrl+Sp ;`    | Jump to previous pane      |
+
+**Pattern**: More modifiers = more permanent changes
+- `hjkl` → navigate (temporary)
+- `HJKL` → swap (layout change)
+- `Ctrl+hjkl` → resize (dimension change)
+
+This unified approach eliminates context-switching overhead when moving between tools.
+
+---
+
 # Dependencies
 
 All dependencies are automatically installed using a two-phase approach:

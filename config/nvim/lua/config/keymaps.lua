@@ -123,43 +123,42 @@ tmap({ "<C-o>", "<C-\\><C-n><esc><cr>" })
 -- prevent ctrl+z from suspending processes in terminal mode
 tmap({ "<C-z>", "<nop>", { desc = "Disabled (use exit or <C-d> instead)" } })
 
--- resize windows with alt+hjkl in terminal mode (matches tmux behavior)
-tmap({
-  "<M-h>",
+-- resize windows with Ctrl+W Ctrl+hjkl (preserves Ctrl+W HJKL for window rearrangement)
+nmap({
+  "<C-w><C-h>",
   function()
     require("config.tmux_resizer").resize_left()
-    vim.cmd("startinsert")
   end,
   silent,
 })
-tmap({
-  "<M-j>",
+nmap({
+  "<C-w><C-j>",
   function()
     require("config.tmux_resizer").resize_down()
-    vim.cmd("startinsert")
   end,
   silent,
 })
-tmap({
-  "<M-k>",
+nmap({
+  "<C-w><C-k>",
   function()
     require("config.tmux_resizer").resize_up()
-    vim.cmd("startinsert")
   end,
   silent,
 })
-tmap({
-  "<M-l>",
+nmap({
+  "<C-w><C-l>",
   function()
     require("config.tmux_resizer").resize_right()
-    vim.cmd("startinsert")
   end,
   silent,
 })
 
 -- zoom a vim pane, <C-w> = to re-balance
-nmap({ "<leader>-", ":wincmd _<cr>:wincmd \\|<cr>", { desc = "Zoom window" } })
-nmap({ "<leader>=", ":wincmd =<cr>", { desc = "Rebalance window sizes" } })
+nmap({ "<C-w>z", ":wincmd _<cr>:wincmd \\|<cr>", { desc = "Zoom window (maximize)" } })
+-- Note: Ctrl+W = already exists as vim default for equalizing windows
+
+-- last active window (alias to Ctrl+W p for consistency with tmux/wezterm)
+nmap({ "<C-w>;", "<C-w>p", { desc = "Go to last active window" } })
 
 -- close all other windows with <leader>o
 nmap({ "<leader>wo", "<c-w>o", { desc = "Close other windows" } })

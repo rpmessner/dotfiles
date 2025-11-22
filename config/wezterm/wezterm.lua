@@ -279,6 +279,50 @@ config.keys = {
     action = wezterm.action.ActivatePaneDirection 'Right',
   },
 
+  -- Pane swapping (Leader + Shift+hjkl) - interactive mode
+  {
+    key = 'H',
+    mods = 'LEADER|SHIFT',
+    action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
+  },
+  {
+    key = 'J',
+    mods = 'LEADER|SHIFT',
+    action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
+  },
+  {
+    key = 'K',
+    mods = 'LEADER|SHIFT',
+    action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
+  },
+  {
+    key = 'L',
+    mods = 'LEADER|SHIFT',
+    action = wezterm.action.PaneSelect { mode = 'SwapWithActive' },
+  },
+
+  -- Pane resizing (Leader + Ctrl+hjkl)
+  {
+    key = 'h',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.AdjustPaneSize { 'Left', 5 },
+  },
+  {
+    key = 'j',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.AdjustPaneSize { 'Down', 5 },
+  },
+  {
+    key = 'k',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.AdjustPaneSize { 'Up', 5 },
+  },
+  {
+    key = 'l',
+    mods = 'LEADER|CTRL',
+    action = wezterm.action.AdjustPaneSize { 'Right', 5 },
+  },
+
   -- Pane splitting (vim-like bindings)
   {
     key = 's',
@@ -302,16 +346,32 @@ config.keys = {
     action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
   },
 
-  -- Pane zoom (matching your tmux config)
+  -- Pane zoom (Leader + z)
   {
-    key = 'UpArrow',
+    key = 'z',
     mods = 'LEADER',
     action = wezterm.action.TogglePaneZoomState,
   },
+
+  -- Equalize panes (Leader + =)
+  -- Note: WezTerm doesn't have a native equalize action like tmux/vim
+  -- For now, this is unbound. Use manual resizing with Leader+Ctrl+hjkl
+  -- TODO: Consider implementing via Lua if needed
+
+  -- Rotate panes (Leader + R)
   {
-    key = 'DownArrow',
+    key = 'R',
+    mods = 'LEADER|SHIFT',
+    action = wezterm.action.RotatePanes 'Clockwise',
+  },
+
+  -- Last active pane (Leader + ;)
+  -- Note: WezTerm doesn't have a built-in "last pane" action like tmux
+  -- This uses PaneSelect as a workaround - you can visually select the pane
+  {
+    key = ';',
     mods = 'LEADER',
-    action = wezterm.action.TogglePaneZoomState,
+    action = wezterm.action.PaneSelect { mode = 'Activate' },
   },
 
   -- Close pane (tmux uses 'x', but keeping 'w' for familiarity)
