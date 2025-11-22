@@ -203,5 +203,10 @@ tasks:
   print:done:
     desc: Prints done with a cool font and some nice gradients (animated)
     internal: true
-    cmd: echo DONE | figlet | lolcrab -a --speed 1 --duration 1 --gradient warm
+    cmd: |
+      if command -v lolcrab >/dev/null 2>&1; then
+        echo DONE | figlet | lolcrab -a --speed 1 --duration 1 --gradient warm
+      else
+        figlet -f banner DONE || echo "✅ Sync complete!"
+      fi
     silent: true
