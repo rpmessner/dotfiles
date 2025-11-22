@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Function to display error messages
 error() {
@@ -23,17 +23,17 @@ if ! command -v brew &>/dev/null; then
   # Check for curl
   if ! command -v curl &>/dev/null; then
     error "curl is not installed" \
-          "curl should be pre-installed on macOS. Try reinstalling Command Line Tools."
+      "curl should be pre-installed on macOS. Try reinstalling Command Line Tools."
   fi
 
   if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
     error "Failed to install Homebrew" \
-          "Check https://brew.sh for troubleshooting. Ensure you have Command Line Tools: 'xcode-select --install'"
+      "Check https://brew.sh for troubleshooting. Ensure you have Command Line Tools: 'xcode-select --install'"
   fi
 
   if ! eval "$(/opt/homebrew/bin/brew shellenv)"; then
     error "Failed to configure Homebrew environment" \
-          "Homebrew may have installed to a non-standard location. Check /opt/homebrew/bin/brew"
+      "Homebrew may have installed to a non-standard location. Check /opt/homebrew/bin/brew"
   fi
 
   echo "✅ Homebrew installed successfully"
@@ -45,7 +45,7 @@ if ! command -v task &>/dev/null; then
   echo 'Task not installed, installing via Homebrew...'
   if ! brew install go-task; then
     error "Failed to install Task" \
-          "Task is required for package management. Try: brew install go-task"
+      "Task is required for package management. Try: brew install go-task"
   fi
   echo "✅ Task installed successfully"
 fi
@@ -53,7 +53,7 @@ fi
 echo 'Installing Homebrew packages via Task...'
 if ! task brew:sync; then
   error "Failed to install Homebrew packages via Task" \
-        "Check Brewfile for issues. Try running 'task brew:sync' manually to see detailed errors."
+    "Check Brewfile for issues. Try running 'task brew:sync' manually to see detailed errors."
 fi
 
 if ! command -v sudo-touchid &>/dev/null; then

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Function to display error messages
 error() {
@@ -12,7 +12,7 @@ error() {
 # Check for git
 if ! command -v git &>/dev/null; then
   error "git is not installed" \
-        "Install git first: 'brew install git' (macOS) or 'sudo apt install git' (Ubuntu)"
+    "Install git first: 'brew install git' (macOS) or 'sudo apt install git' (Ubuntu)"
 fi
 
 # Install tmux terminfo
@@ -20,7 +20,7 @@ if [[ ! -f "/tmp/terminfo/terminfo.src" ]]; then
   echo 'Installing TMux term info...'
   if ! ./scripts/term.sh; then
     error "Failed to install tmux terminfo" \
-          "Check scripts/term.sh for issues. Try running it manually."
+      "Check scripts/term.sh for issues. Try running it manually."
   fi
 fi
 
@@ -33,18 +33,18 @@ if ! command -v asdf &>/dev/null; then
   # Check SSH access to GitHub
   if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
     error "Cannot access GitHub via SSH" \
-          "Set up SSH keys: https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
+      "Set up SSH keys: https://docs.github.com/en/authentication/connecting-to-github-with-ssh"
   fi
 
   if ! git clone git@github.com:asdf-vm/asdf.git ~/.asdf --branch v0.14.1; then
     error "Failed to clone asdf repository" \
-          "Check your internet connection and GitHub SSH access"
+      "Check your internet connection and GitHub SSH access"
   fi
 
   # shellcheck disable=1091
   if ! source "$HOME/.asdf/asdf.sh"; then
     error "Failed to source asdf shell environment" \
-          "Check if ~/.asdf/asdf.sh exists and is valid"
+      "Check if ~/.asdf/asdf.sh exists and is valid"
   fi
 
   echo "✅ ASDF installed successfully"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Function to display error messages
 error() {
@@ -23,7 +23,7 @@ if ! command -v task &>/dev/null; then
     echo "Installing curl first..."
     if ! sudo apt update && sudo apt install -y curl; then
       error "Failed to install curl" \
-            "curl is required to install Task. Try: sudo apt update && sudo apt install -y curl"
+        "curl is required to install Task. Try: sudo apt update && sudo apt install -y curl"
     fi
   fi
 
@@ -31,7 +31,7 @@ if ! command -v task &>/dev/null; then
   # This installs to ~/.local/bin/task (user-local, no sudo needed)
   if ! sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin; then
     error "Failed to install Task" \
-          "Check https://taskfile.dev for manual installation instructions."
+      "Check https://taskfile.dev for manual installation instructions."
   fi
 
   # Ensure ~/.local/bin is in PATH for this session
@@ -46,7 +46,7 @@ fi
 echo "Installing Ubuntu packages via Task..."
 if ! task apt:sync; then
   error "Failed to install Ubuntu packages via Task" \
-        "Check taskfiles/apt.yml for issues. Try running 'task apt:sync' manually."
+    "Check taskfiles/apt.yml for issues. Try running 'task apt:sync' manually."
 fi
 
 echo "✅ Ubuntu bootstrap complete"
