@@ -23,7 +23,8 @@
       "Bash(bindkey:*)",
       "Bash(exec zsh -c 'source ~/.config/zsh/completions.zsh 2>&1; type _mix && echo \"\"Completion: ${_comps[mix]}\"\"')",
       "Bash(source:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "Bash(git shortlog:*)"
     ],
     "deny": [],
     "ask": []
