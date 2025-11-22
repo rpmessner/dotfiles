@@ -33,9 +33,7 @@ installer/
 │   └── ubuntu.sh      # Ubuntu setup (apt packages, system libraries)
 └── lib/               # Shared utilities and libraries
     ├── detect-os.sh   # OS detection and platform normalization
-    ├── shared.sh      # Cross-platform setup (ASDF, tmux terminfo)
-    ├── gitconfig.sh   # Git configuration installer
-    └── title.txt      # ASCII art banner
+    └── shared.sh      # Cross-platform setup (ASDF, tmux terminfo)
 ```
 
 ## Execution Flow
@@ -57,17 +55,16 @@ installer/
 3. **`lib/shared.sh`**
    - Installs tmux terminfo for proper terminal support
    - Installs ASDF version manager (required for Task and other tools)
-   - Installs Ruby 3.3.8 via ASDF (required by some dotfiles scripts)
+   - Language runtimes installed separately via `task asdf:tools:install`
 
 4. **Platform Scripts**
 
    **`platforms/darwin.sh`** (macOS):
-   - Symlinks 1Password SSH agent for cross-platform compatibility
    - Disables macOS press-and-hold, enables key repeat
    - Installs Homebrew if missing
-   - Runs `brew bundle` to install all Brewfile packages
+   - Installs Task (go-task) via Homebrew
+   - Runs `task brew:sync` to install all Brewfile packages
    - Installs sudo-touchid for Touch ID sudo authentication
-   - Installs unicornleap (requires Xcode)
    - Installs TerminalVim and BTop applications
    - Configures file handlers for TerminalVim
 
@@ -129,12 +126,11 @@ task sync
 
 ### Installed by Bootstrap
 - ASDF version manager
-- Ruby 3.3.8 (via ASDF)
+- Task (go-task) automation tool
 - System package manager packages
 - Platform-specific tools
 
 ### Requires Manual Installation
-- **macOS**: Xcode (for unicornleap compilation)
 - **Git SSH keys**: For private repository access
 
 ## Design Principles
