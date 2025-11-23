@@ -51,16 +51,11 @@ Here are some details about my setup:
 
 ## Screenshots
 
-<table>
-<tr>
-<td><b>macOS</b></td>
-<td><b>Ubuntu (WSL2)</b></td>
-</tr>
-<tr>
-<td><img src="./screenshot_darwin.png" alt="macOS Screenshot" width="600"></td>
-<td><img src="./screenshot-wsl2.png" alt="WSL2 Screenshot" width="600"></td>
-</tr>
-</table>
+### macOS
+<img src="./screenshot_darwin.png" alt="macOS Screenshot" width="100%">
+
+### Ubuntu (WSL2)
+<img src="./screenshot-wsl2.png" alt="WSL2 Screenshot" width="100%">
 
 Feel free to "steal" anything you want, and if you have a question please open an issue.
 
