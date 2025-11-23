@@ -276,6 +276,29 @@ tmux new -s test
 
 ---
 
-**Status**: Production Ready (for new tmux sessions)
+## Post-Session Follow-Up
+
+### Issue: Fix Not Persisting Across Config Reloads
+
+**Problem Discovered**: After initial fix, paste worked in new sessions but broke again after `tmux source-file`.
+
+**Root Cause**: Using `set -as terminal-features 'xterm*:clipboard@'` (append) didn't actually remove clipboard from the auto-detected `terminal-features[0]`:
+```
+terminal-features[0] xterm*:clipboard:ccolour:cstyle:focus:title  ← enabled
+terminal-features[3] xterm*:clipboard@  ← disable attempt, ignored
+```
+
+**Final Fix**: Replace `terminal-features[0]` entirely instead of appending:
+```tmux
+set -s terminal-features[0] 'xterm*:ccolour:cstyle:focus:title'
+```
+
+This removes `clipboard` from the feature list while preserving other capabilities (colors, cursor, focus, title).
+
+**Commit**: `fix(tmux): replace terminal-features instead of appending` (f187994)
+
+---
+
+**Status**: ✅ Production Ready (persists across config reloads)
 **Date Completed**: November 23, 2025
 **Next Session**: WSL2 Performance Optimization (shell startup, git, .wslconfig)
