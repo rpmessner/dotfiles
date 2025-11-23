@@ -57,8 +57,8 @@ Here are some details about my setup:
 <td><b>Ubuntu (WSL2)</b></td>
 </tr>
 <tr>
-<td><img src="./screenshot_darwin.png" alt="macOS Screenshot"></td>
-<td><img src="./screenshot-wsl2.png" alt="WSL2 Screenshot"></td>
+<td><img src="./screenshot_darwin.png" alt="macOS Screenshot" width="600"></td>
+<td><img src="./screenshot-wsl2.png" alt="WSL2 Screenshot" width="600"></td>
 </tr>
 </table>
 
