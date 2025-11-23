@@ -4,6 +4,11 @@ if [[ -t 0 ]]; then
   stty -ixon
 fi
 
+# Enable bracketed paste mode for safe pasting
+# Use the faster url-quote-magic instead of bracketed-paste-magic for better performance
+# This prevents pasted text from being executed immediately without the overhead
+zstyle ':bracketed-paste-magic' active-widgets '.self-insert'
+
 # Enable extended globbing
 setopt extendedglob
 
