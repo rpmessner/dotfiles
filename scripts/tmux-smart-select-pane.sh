@@ -35,21 +35,8 @@ find_pane_in_direction() {
         | head -1 \
         | awk '{print $2}')
       ;;
-    D) # Down: find leftmost pane below
-      target_pane=$(tmux list-panes -F '#{pane_id} #{pane_top} #{pane_left}' \
-        | awk -v bottom="$current_bottom" -v current="$current_pane" \
-          '$2 >= bottom && $1 != current {print $3, $1}' \
-        | sort -n \
-        | head -1 \
-        | awk '{print $2}')
-      ;;
-    U) # Up: find leftmost pane above
-      target_pane=$(tmux list-panes -F '#{pane_id} #{pane_bottom} #{pane_left}' \
-        | awk -v top="$current_top" -v current="$current_pane" \
-          '$2 <= top && $1 != current {print $3, $1}' \
-        | sort -n \
-        | head -1 \
-        | awk '{print $2}')
+    U|D) # Up/Down: use tmux's default behavior (no smart logic)
+      # Return empty to fall through to default
       ;;
   esac
 
@@ -59,9 +46,9 @@ find_pane_in_direction() {
 target_pane=$(find_pane_in_direction "$direction")
 
 if [ -n "$target_pane" ]; then
-  # Found a pane in the desired direction
+  # Found a pane in the desired direction (only L/R with smart logic)
   tmux select-pane -t "$target_pane"
 else
-  # No pane found, use tmux's default directional selection
+  # Use tmux's default directional selection (L/R fallback, or all U/D)
   tmux select-pane -"$direction"
 fi

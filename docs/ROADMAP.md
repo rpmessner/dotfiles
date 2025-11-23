@@ -678,10 +678,9 @@ keys = {
 ```
 
 #### 5.4 Unified Pane/Window Management System
-**Status**: ⚠️ Complete with cleanup needed (2025-11-22)
+**Status**: ✅ Complete (2025-11-22)
 **Effort**: 60 minutes (exceeded scope - built complete unified system)
 **Impact**: HIGH - Consistent muscle memory across all tools
-**Cleanup Needed**: Smart pane switching behavior needs refinement
 
 **Rationale**: Similar to how we unified split bindings (`Leader s`/`Leader v`), pane management should be consistent across vim, tmux, and WezTerm.
 
@@ -721,6 +720,8 @@ keys = {
 - `README.md`
 
 **Commit**: `feat(keybindings): implement unified window/pane management across vim/tmux/wezterm`
+
+**Cleanup Completed (2025-11-22)**: Removed smart logic from up/down navigation in `scripts/tmux-smart-select-pane.sh`. Now only left/right navigation uses smart "topmost pane" selection, while up/down uses tmux's default behavior for intuitive movement.
 
 ---
 
@@ -912,7 +913,6 @@ These can be done anytime for immediate benefit:
 5. [ ] Add Twilight focus mode keybinding
 6. [ ] Add Portal.nvim interactive keybindings
 7. [ ] Add Gitsigns hunk navigation keybindings
-8. [ ] Clean up smart pane switching behavior in tmux (investigate and fix issues)
 
 ---
 
