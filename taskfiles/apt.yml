@@ -34,6 +34,7 @@ tasks:
             automake \
             bat \
             bison \
+            btop \
             build-essential \
             clangd-18 \
             curl \

@@ -24,7 +24,18 @@
       "Bash(exec zsh -c 'source ~/.config/zsh/completions.zsh 2>&1; type _mix && echo \"\"Completion: ${_comps[mix]}\"\"')",
       "Bash(source:*)",
       "Bash(echo:*)",
-      "Bash(git shortlog:*)"
+      "Bash(git shortlog:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(if [ -f ~/.config/fd/ignore ])",
+      "Bash(then cat ~/.config/fd/ignore)",
+      "Bash(else echo \"No global fd ignore file found\")",
+      "Bash(fi)",
+      "Bash(/mnt/c/Windows/system32/clip.exe)",
+      "Bash(tmux source-file:*)",
+      "Bash(tmux list-keys:*)",
+      "Bash(tmux show-options:*)",
+      "Bash(clip.exe:*)"
     ],
     "deny": [],
     "ask": []
