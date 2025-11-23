@@ -239,6 +239,10 @@ end
 -- Detect and integrate with shell
 config.detect_password_input = true
 
+-- Enable bracketed paste mode for better paste handling
+config.enable_kitty_keyboard = false -- Disable advanced keyboard protocol for compatibility
+config.enable_csi_u_key_encoding = false
+
 -- ============================================================================
 -- Platform-Aware Keybindings
 -- ============================================================================
@@ -252,11 +256,27 @@ local mod_shift = is_macos and 'CMD|SHIFT' or 'CTRL|SHIFT'
 config.leader = { key = 'Space', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.keys = {
-  -- Copy mode
+  -- Copy/Paste
   {
     key = '[',
     mods = mod,
     action = wezterm.action.ActivateCopyMode,
+  },
+  {
+    key = 'c',
+    mods = mod_shift,
+    action = wezterm.action.CopyTo 'Clipboard',
+  },
+  {
+    key = 'v',
+    mods = mod_shift,
+    action = wezterm.action.PasteFrom 'Clipboard',
+  },
+  -- Alternative paste binding for troubleshooting
+  {
+    key = 'Insert',
+    mods = 'SHIFT',
+    action = wezterm.action.PasteFrom 'Clipboard',
   },
 
   -- Pane navigation (tmux-style with leader key)
