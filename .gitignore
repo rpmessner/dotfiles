@@ -12,6 +12,7 @@ config/nvim/plugin/packer_compiled.lua
 # ignore local/user-specific configuration files
 *.local
 .dotfiles.local
+.claude/
 
 # ignore prompt configurations (managed per-host)
 p10k.zsh
