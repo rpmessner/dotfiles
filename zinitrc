@@ -19,6 +19,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 
+# zsh-histdb - SQLite command history database
+zinit light larkery/zsh-histdb
+
 # Load OMZ Git library
 zinit snippet OMZ::lib/git.zsh
 
