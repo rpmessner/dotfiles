@@ -3,44 +3,26 @@
 {
   // Default: all rules enabled
   "default": true,
-  // Disable or relax overly strict rules
-  "MD013": false, // Disable line length checking - use editor wrapping instead
-  "MD026": false, // Trailing punctuation in headers (?, !, etc.) is fine
-  "MD032": false, // Lists don't require blank lines around them
-  "MD031": false, // Code blocks don't require blank lines around them
-  "MD022": false, // Headings don't require blank lines around them
-  // Allow emphasis (bold) as pseudo-headings for subsections
-  "MD036": false,
-  // Allow bare URLs (common in technical docs and AI-generated content)
-  "MD034": false,
-  // Keep these enabled for quality
+  // Enabled rules (sorted by rule number)
   "MD001": true, // Heading levels should increment by one
   "MD003": {
     "style": "atx"
   }, // Use ATX style headings (##)
-  "MD004": false, // Use dashes for unordered lists
   "MD005": true, // Inconsistent indentation for list items
   "MD007": {
     "indent": 2
   }, // Unordered list indentation (2 spaces)
   "MD009": true, // Trailing spaces
   "MD010": true, // Hard tabs
-  "MD024": false,
-  "MD011": false, // Reversed link syntax - disabled, causes false positives with em-dash
-  "MD012": false, // Multiple consecutive blank lines
-  "MD044": false, // Proper names should have correct capitalization - causes m-dash warnings
   "MD014": true, // Dollar signs before commands without showing output
   "MD018": true, // No space after hash on atx style heading
   "MD019": true, // Multiple spaces after hash on atx style heading
   "MD023": true, // Headings must start at the beginning of the line
   "MD027": true, // Multiple spaces after blockquote symbol
   "MD030": true, // Spaces after list markers
-  "MD033": false, // Allow inline HTML (sometimes needed)
   "MD037": true, // Spaces inside emphasis markers
   "MD038": true, // Spaces inside code span elements
   "MD039": true, // Spaces inside link text
-  "MD040": false, // Code blocks should specify language (too strict)
-  "MD041": false, // First line doesn't have to be a top-level heading
   "MD046": {
     "style": "fenced"
   }, // Code block style (prefer fenced ```)
@@ -51,7 +33,23 @@
   "MD050": {
     "style": "asterisk"
   }, // Strong style (prefer **bold**)
-  // Additional rules to prevent m-dash/hyphen warnings
+  // Disabled rules (sorted by rule number)
+  "MD004": false, // Use dashes for unordered lists
+  "MD011": false, // Reversed link syntax - disabled, causes false positives with em-dash
+  "MD012": false, // Multiple consecutive blank lines
+  "MD013": false, // Disable line length checking - use editor wrapping instead
+  "MD022": false, // Headings don't require blank lines around them
+  "MD024": false, // Multiple headings with the same content
+  "MD026": false, // Trailing punctuation in headers (?, !, etc.) is fine
+  "MD031": false, // Code blocks don't require blank lines around them
+  "MD032": false, // Lists don't require blank lines around them
+  "MD033": false, // Allow inline HTML (sometimes needed)
+  "MD034": false, // Allow bare URLs (common in technical docs and AI-generated content)
+  "MD036": false, // Allow emphasis (bold) as pseudo-headings for subsections
+  "MD040": false, // Code blocks should specify language (too strict)
+  "MD041": false, // First line doesn't have to be a top-level heading
+  "MD044": false, // Proper names should have correct capitalization - causes m-dash warnings
   "MD052": false, // Reference links should not use bare URLs
-  "MD053": false // Link and image reference definitions should be needed
+  "MD053": false, // Link and image reference definitions should be needed
+  "MD058": false // Blanks around tables
 }
