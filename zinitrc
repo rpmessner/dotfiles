@@ -19,6 +19,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 
+# Vi mode for zsh - enhanced vim-style line editing
+zinit light jeffreytse/zsh-vi-mode
+
 # zsh-histdb - SQLite command history database
 zinit light larkery/zsh-histdb
 

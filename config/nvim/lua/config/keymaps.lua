@@ -73,6 +73,9 @@ end
 
 local silent = { silent = true }
 
+-- Ctrl+G to exit insert mode (matches zsh vi-mode)
+imap({ "<C-g>", "<Esc>", { desc = "Exit insert mode" } })
+
 -- a more useful gf
 nmap({ "gf", "gF", { desc = "Go to file under cursor", silent = true } })
 
