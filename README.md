@@ -30,21 +30,22 @@ This is my personal collection of configuration files.
 Here are some details about my setup:
 
 - **OS**: Ubuntu (WSL2) / macOS
-- **Shell**: [zsh](https://www.zsh.org/)
+- **Shell**: [zsh](https://www.zsh.org/) with [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) for vim-like editing
 - **Terminal**: [WezTerm](https://wezfurlong.org/wezterm/)
 - **Term Prompt**: [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - **Terminal Multiplexer**: [Tmux](https://github.com/tmux/tmux)
+- **Shell History**: [zsh-histdb](https://github.com/larkery/zsh-histdb) — SQLite-based command history
 - **Session Manager**: [airmux](https://github.com/dermoumi/airmux) — Rust-powered tmux session manager
 - **Automation**: [Task](https://taskfile.dev/) — Modern task runner for all operations
 - **Version Management**: [asdf](https://asdf-vm.com/) — Multi-language runtime manager
-- **Editor**: [Neovim](https://github.com/neovim/neovim/)
+- **Editor**: [Neovim](https://github.com/neovim/neovim/) (nightly)
   - Built-in LSP with [Mason](https://github.com/williamboman/mason.nvim) for tool management
   - [blink.cmp](https://github.com/saghen/blink.cmp) — Ultra-fast completion with native Rust core
   - [tree-sitter](https://github.com/nvim-treesitter/nvim-treesitter) — Advanced syntax highlighting
-  - [tokyonight](https://github.com/folke/tokyonight.nvim) — Color theme
+  - [tokyonight](https://github.com/folke/tokyonight.nvim) — Color theme (consistent across WezTerm/tmux)
   - [snacks.nvim](https://github.com/folke/snacks.nvim) — Picker, dashboard, and UI framework
-  - [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) — Status line
-  - [bufferline](https://github.com/akinsho/nvim-bufferline.lua) — Buffer tabs
+  - [oil.nvim](https://github.com/stevearc/oil.nvim) — File explorer as a buffer
+  - [Claude Code](https://github.com/coder/claudecode.nvim) — AI coding assistant integration
   - [GitHub Copilot](https://github.com/github/copilot.vim) & [Code Companion](https://github.com/olimorris/codecompanion.nvim) — AI assistance
 - **Modern CLI Tools**: [ripgrep](https://github.com/BurntSushi/ripgrep), [fd](https://github.com/sharkdp/fd), [bat](https://github.com/sharkdp/bat), [fzf](https://github.com/junegunn/fzf), [zoxide](https://github.com/ajeetdsouza/zoxide), [lazygit](https://github.com/jesseduffield/lazygit)
 - **Git Workflow**: [Conventional Commits](https://www.conventionalcommits.org/), [Lefthook](https://github.com/evilmartians/lefthook), [Release Please](https://github.com/googleapis/release-please)
@@ -81,6 +82,8 @@ A key philosophy of this setup is **unified keybindings** across Vim, tmux, and 
 - `Ctrl+hjkl` → resize (dimension change)
 
 This unified approach eliminates context-switching overhead when moving between tools.
+
+For a complete keybindings reference, see **[KEYBINDINGS.md](./KEYBINDINGS.md)**.
 
 ---
 
