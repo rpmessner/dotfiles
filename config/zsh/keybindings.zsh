@@ -33,6 +33,7 @@ function zvm_after_init() {
   bindkey -M viins '^A' beginning-of-line      # Ctrl+A - start of line
   bindkey -M viins '^E' end-of-line            # Ctrl+E - end of line
   bindkey -M viins '^K' kill-line              # Ctrl+K - delete to end of line
+  bindkey -M viins '^D' delete-char            # Ctrl+D - delete char forward
   bindkey -M viins '^W' backward-kill-word     # Ctrl+W - delete word backward
   bindkey -M viins '^U' backward-kill-line     # Ctrl+U - delete to start of line
   bindkey -M viins '^L' clear-screen           # Ctrl+L - clear screen
