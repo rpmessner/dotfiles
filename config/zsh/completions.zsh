@@ -35,6 +35,11 @@ done
 
 compinit -C
 
+# Explicitly load task completion (autoload from fpath doesn't always work)
+if [[ -f ~/.cache/zsh/completions/_task ]]; then
+  source ~/.cache/zsh/completions/_task
+fi
+
 # Override slow default source completion
 # Default searches all files in $PATH which causes hangs
 # This limits to current dir, common config locations, and recently used

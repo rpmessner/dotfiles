@@ -57,9 +57,10 @@ tasks:
     cmd: |
       echo -n Reloading completions cache...
       rm -f ~/.zcompdump*
-      zsh -c 'builtin autoload -Uz +X compinit'
-      zsh -c 'autoload -Uz compinit && compinit'
+      # Run compinit with full zshrc so fpath is correct
+      zsh -ic 'autoload -Uz compinit && compinit' 2>/dev/null
       echo "DONE"
+      echo "Run 'exec zsh' to reload your shell"
     silent: true
 
   sync:
