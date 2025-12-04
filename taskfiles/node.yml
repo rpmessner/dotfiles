@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
       - asdf install nodejs latest
-      - asdf set nodejs latest
+      - asdf global nodejs latest
 
   tools:install:
     desc: Installs common Node.js development tools globally

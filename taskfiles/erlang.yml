@@ -7,14 +7,14 @@ tasks:
     cmds:
       - asdf plugin add erlang https://github.com/asdf-vm/asdf-erlang.git || true
       - asdf install erlang latest
-      - asdf set erlang latest
+      - asdf global erlang latest
 
   tools:install:
     desc: Installs common Erlang development tools
     cmds:
       - asdf plugin add rebar https://github.com/Stratus3D/asdf-rebar.git || true
       - asdf install rebar latest
-      - asdf set rebar latest
+      - asdf global rebar latest
 
   tools:update:
     desc: Updates Erlang tools

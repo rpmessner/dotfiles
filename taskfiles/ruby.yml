@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git || true
       - asdf install ruby latest
-      - asdf set ruby latest
+      - asdf global ruby latest
 
   tools:install:
     desc: Installs common Ruby development tools (gems)
