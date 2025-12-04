@@ -41,6 +41,7 @@
   "MD022": false, // Headings don't require blank lines around them
   "MD024": false, // Multiple headings with the same content
   "MD026": false, // Trailing punctuation in headers (?, !, etc.) is fine
+  "MD029": false,
   "MD031": false, // Code blocks don't require blank lines around them
   "MD032": false, // Lists don't require blank lines around them
   "MD033": false, // Allow inline HTML (sometimes needed)
