@@ -35,6 +35,8 @@ return {
       rust = { "rustfmt" },
       -- go
       go = { "gofmt", "goimports" },
+      -- zig
+      zig = { "zigfmt" },
       -- ruby
       ruby = { "rubocop" },
       eruby = { "erb_format" },
@@ -58,6 +60,13 @@ return {
     formatters = {
       shfmt = {
         prepend_args = { "-i", "2", "-ci", "-bn", "-s" },
+      },
+      -- Override mix formatter to use file mode instead of stdin
+      -- This prevents compilation output from being captured into the buffer
+      mix = {
+        command = "mix",
+        args = { "format", "$FILENAME" },
+        stdin = false,
       },
     },
   },
