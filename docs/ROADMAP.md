@@ -201,6 +201,79 @@ Snippet Workflow:
 
 ---
 
+### Category 1.5: CLI Prompt Library for AI Coding Agents 🤖
+
+#### Problem
+No quick way to search and insert prompts when using CLI coding agents (Claude Code, aider, etc.). Currently requires manually typing or copy-pasting prompts from external sources.
+
+#### Impact
+**Productivity Gap**: Frequently used prompts for refactoring, code review, debugging, etc. should be instantly accessible via fuzzy search with tag-based organization.
+
+#### Implementation
+
+**1.5.1 Create Prompt Library Function**
+**Effort**: 20 minutes
+**Status**: ⬜ Not implemented
+
+Add to `config/zsh/functions.zsh`:
+- `prompt` function with fzf-based fuzzy search
+- Support for YAML frontmatter with tags
+- Preview window showing prompt content
+- Options: `-c` (copy to clipboard), `-e` (edit), `-n` (new prompt)
+
+**1.5.2 Keybinding Integration**
+**Effort**: 5 minutes
+**Status**: ⬜ Not implemented
+
+Add to `config/zsh/keybindings.zsh`:
+- Bind `Ctrl+O` to prompt selector widget in insert mode
+- Creates zle widget that inserts selected prompt at cursor
+
+**1.5.3 Prompt Library Structure**
+**Effort**: 30 minutes
+**Status**: ⬜ Not implemented
+
+Create `~/.prompts/` directory with categorized prompts:
+```
+~/.prompts/
+├── refactor/
+│   ├── extract-function.md
+│   ├── simplify-logic.md
+│   └── rename-variable.md
+├── review/
+│   ├── security-audit.md
+│   ├── performance-check.md
+│   └── code-style.md
+├── generate/
+│   ├── tests.md
+│   ├── docs.md
+│   └── types.md
+└── debug/
+    ├── trace-error.md
+    └── explain-code.md
+```
+
+Prompt file format:
+```markdown
+---
+tags: [refactor, function, extract, clean-code]
+---
+Extract the highlighted code into a well-named, reusable function...
+```
+
+**1.5.4 Feature Requirements**
+- Fuzzy search by tag or filename
+- bat-powered preview with syntax highlighting
+- Cross-platform clipboard support (clip.exe on WSL, pbcopy on macOS)
+- fzf-tmux popup for seamless integration
+- Keybindings within fzf: `Ctrl-E` to edit, `Ctrl-N` to create new
+
+#### Related Tools
+- [Navi](https://github.com/denisidoro/navi) - Interactive cheatsheet tool (inspiration)
+- [Pet](https://github.com/knqyf263/pet) - CLI snippet manager (alternative approach)
+
+---
+
 ### Category 2: Unlock Installed Features 🔓
 
 #### 2.1 Database UI (vim-dadbod)
