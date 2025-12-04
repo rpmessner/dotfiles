@@ -1,8 +1,5 @@
 # Elixir configuration
 
-# Mix environment - use test for faster compilation in development
-export MIX_ENV="${MIX_ENV:-dev}"
-
 # Enable IEx history
 export ERL_AFLAGS="-kernel shell_history enabled"
 
@@ -18,7 +15,7 @@ export ELIXIR_LS_PATH="$HOME/.local/share/nvim/mason/packages/elixir-ls"
 alias mdg='mix deps.get'
 alias mdc='mix deps.compile'
 alias mdu='mix deps.update --all'
-alias mt='mix test'
+alias mt='MIX_ENV=test mix test'
 alias mtw='mix test.watch'
 alias mc='mix compile'
 alias mcf='mix compile --force'
