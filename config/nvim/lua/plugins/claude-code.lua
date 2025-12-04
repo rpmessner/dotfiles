@@ -14,10 +14,10 @@ return {
   dependencies = {
     "folke/snacks.nvim",
     -- Claude Code history tracker (refactored to separate plugin)
-    {
-      dir = "~/dev/utils/claude-history.nvim",
-      lazy = false,
-    },
+    -- {
+    --   dir = "~/dev/utils/claude-history.nvim",
+    --   lazy = false,
+    -- },
   },
   config = function()
     require("claudecode").setup()
