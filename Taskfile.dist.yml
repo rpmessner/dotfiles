@@ -69,6 +69,9 @@ includes:
   rust:
     taskfile: ./taskfiles/rust.yml
 
+  zig:
+    taskfile: ./taskfiles/zig.yml
+
   shell:
     aliases: [sh]
     taskfile: ./taskfiles/shell.yml

@@ -1,0 +1,56 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+tasks:
+  install:
+    desc: Installs Zig via asdf
+    cmds:
+      - asdf plugin add zig https://github.com/asdf-community/asdf-zig.git || true
+      - asdf install zig latest
+      - asdf global zig latest
+
+  tools:install:
+    desc: Installs ZLS (Zig Language Server)
+    vars:
+      ZLS_VERSION: 0.15.0
+      ZLS_ARCH:
+        sh: |
+          case "$(uname -s)-$(uname -m)" in
+            Linux-x86_64) echo "x86_64-linux" ;;
+            Linux-aarch64) echo "aarch64-linux" ;;
+            Darwin-arm64) echo "aarch64-macos" ;;
+            Darwin-x86_64) echo "x86_64-macos" ;;
+            *) echo "unsupported" ;;
+          esac
+    cmds:
+      - cmd: |
+          if [[ "{{.ZLS_ARCH}}" == "unsupported" ]]; then
+            echo "Unsupported platform: $(uname -s)-$(uname -m)"
+            exit 1
+          fi
+          echo "Installing ZLS {{.ZLS_VERSION}} for {{.ZLS_ARCH}}..."
+          curl -fsSL "https://github.com/zigtools/zls/releases/download/{{.ZLS_VERSION}}/zls-{{.ZLS_ARCH}}.tar.xz" | tar -xJ -C ~/.local/bin
+          chmod +x ~/.local/bin/zls
+          echo "ZLS installed to ~/.local/bin/zls"
+
+  tools:update:
+    desc: Updates Zig and ZLS to latest versions
+    cmds:
+      - asdf install zig latest
+      - asdf global zig latest
+      - task: tools:install
+
+  tools:outdated:
+    desc: Shows current Zig and ZLS versions
+    cmds:
+      - echo "Zig version:"
+      - zig version
+      - echo "ZLS version:"
+      - zls --version || echo "ZLS not installed"
+
+  clean:
+    desc: Cleans Zig build artifacts
+    cmds:
+      - rm -rf zig-cache || true
+      - rm -rf zig-out || true
+      - rm -rf .zig-cache || true
