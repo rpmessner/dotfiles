@@ -38,6 +38,8 @@ return {
           "--header-insertion=iwyu",
         },
       },
+      -- Zig Language Server
+      zls = {},
       -- Ruby LSP configuration (optimized for Rails)
       ruby_lsp = {
         init_options = {
