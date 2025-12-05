@@ -23,3 +23,6 @@ config/starship/
 .task/
 scratch
 scratch/
+
+# ignore dadbod database queries and connections (local/sensitive)
+.db_queries/
