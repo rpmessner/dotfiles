@@ -20,6 +20,17 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 
 # Vi mode for zsh - enhanced vim-style line editing
+# These ZVM_* vars must be set BEFORE the plugin is sourced. ZVM_INIT_MODE=sourcing
+# in particular makes ZVM initialize at source time instead of via a precmd hook;
+# without it, ZVM's lazy init fires after config/zsh/* runs and wipes out
+# Tab bindings from fzf-tab (and other keymaps set during shell init).
+ZVM_INIT_MODE=sourcing
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_KEYTIMEOUT=20
+ZVM_CURSOR_STYLE_ENABLED=true
+ZVM_VI_INSERT_CURSOR=beam
+ZVM_VI_NORMAL_CURSOR=block
+ZVM_VI_OPPEND_CURSOR=underline
 zinit light jeffreytse/zsh-vi-mode
 
 # zsh-histdb - SQLite command history database
@@ -34,6 +45,21 @@ zinit snippet OMZ::plugins/git/git.plugin.zsh
 # Install OMZ elixir mix completions
 # Disabled: moved to completions.zsh to avoid compdef timing issues
 # zinit snippet OMZ::plugins/mix-fast/mix-fast.plugin.zsh
+
+# compinit must run BEFORE fzf-tab loads. fzf-tab wraps _main_complete and
+# other completion functions; if those don't exist yet, the wrappers point
+# at nothing and Tab silently no-ops (you see a blink, nothing happens).
+# The compinit call in config/zsh/completions.zsh runs later but only
+# handles the >24h dump refresh — this one is the real init.
+fpath=(
+  ~/.zsh/completion
+  ~/.cache/zsh/completions
+  ${ASDF_DIR}/completions
+  ${BREW_PREFIX}/share/zsh/site-functions
+  $fpath
+)
+autoload -Uz compinit
+compinit -C
 
 # Replace zsh's default completion selection menu with fzf!
 zinit light Aloxaf/fzf-tab

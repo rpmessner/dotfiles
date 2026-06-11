@@ -7,7 +7,7 @@ tasks:
     cmds:
       - asdf plugin add zig https://github.com/asdf-community/asdf-zig.git || true
       - asdf install zig latest
-      - asdf global zig latest
+      - asdf set -u zig latest
 
   tools:install:
     desc: Installs ZLS (Zig Language Server)
@@ -37,7 +37,7 @@ tasks:
     desc: Updates Zig and ZLS to latest versions
     cmds:
       - asdf install zig latest
-      - asdf global zig latest
+      - asdf set -u zig latest
       - task: tools:install
 
   tools:outdated:

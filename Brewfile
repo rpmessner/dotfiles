@@ -140,7 +140,7 @@ brew 'reattach-to-user-namespace'
 brew 'neovim'
 
 # OpenSSL - important for compiling things that support SSL
-brew 'openssl@1.1'
+brew 'openssl@3'
 
 # better, faster grep
 brew 'ripgrep'
