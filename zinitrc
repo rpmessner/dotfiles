@@ -42,8 +42,12 @@ zinit light Aloxaf/fzf-tab
 zinit light djui/alias-tips
 
 # kubernetes completions and aliases
+# Guard on an *executable* kubectl, not just a name on PATH: Docker Desktop's
+# WSL2 integration symlinks /usr/local/bin/kubectl into /mnt/wsl/docker-desktop
+# which only resolves while Docker Desktop is running. has'kubectl' passes on
+# that broken symlink and the plugin then errors at startup; -x skips it.
 zinit ice lucid wait \
-  has'kubectl' \
+  if'[[ -n ${commands[kubectl]} && -x ${commands[kubectl]} ]]' \
   atinit'source <(kubectl completion zsh)'
 zinit light Dbz/kube-aliases
 
