@@ -26,3 +26,5 @@ _build/
 target/
 .exercism/
 node_modules
+
+**/.claude/settings.local.json
