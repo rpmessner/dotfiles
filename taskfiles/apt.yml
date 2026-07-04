@@ -38,7 +38,10 @@ tasks:
             build-essential \
             clangd-18 \
             curl \
+            eza \
+            figlet \
             fop \
+            gh \
             git \
             git-delta \
             global \
@@ -85,5 +88,12 @@ tasks:
             xz-utils \
             zlib1g-dev \
             zsh
+      # Debian/Ubuntu installs bat as batcat — create symlink so 'bat' works
+      - cmd: |
+          if command -v batcat &>/dev/null && ! command -v bat &>/dev/null; then
+            mkdir -p ~/.local/bin
+            ln -sf "$(command -v batcat)" ~/.local/bin/bat
+            echo "🔗 Created bat → batcat symlink"
+          fi
       - cmd: |
           echo "✅ Ubuntu packages installed/updated successfully"
