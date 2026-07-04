@@ -25,9 +25,22 @@ tasks:
       - task: tools:install
       - task: update
 
+  plugins:install:
+    desc: Adds asdf plugins for all tools listed in .tool-versions
+    silent: true
+    cmds:
+      - cmd: |
+          cut -d' ' -f1 .tool-versions | while read -r plugin; do
+            if [ -n "$plugin" ] && ! asdf plugin list 2>/dev/null | grep -q "^${plugin}$"; then
+              echo "Adding asdf plugin: $plugin"
+              asdf plugin add "$plugin"
+            fi
+          done
+
   tools:install:
     desc: Installs/updates all asdf based tools from .tool-versions
     cmds:
+      - task: plugins:install
       - cmd: asdf install
 
   update:
