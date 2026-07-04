@@ -31,20 +31,13 @@ tasks:
             exit 1
           fi
 
-          WINDOWS_HOME_WIN="C:\\Users\\$WINDOWS_USER"
-          WINDOWS_CONFIG="$WINDOWS_HOME_WIN\\.config"
+          WINDOWS_WEZTERM_DIR="/mnt/c/Users/$WINDOWS_USER/.config/wezterm"
+          SOURCE_DIR="$(pwd)/config/wezterm"
 
-          # Get Windows path to WSL config directory
-          WEZTERM_SOURCE=$(wslpath -w "$(pwd)/config/wezterm" | tr -d '\r\n')
+          # Create target directory
+          mkdir -p "$WINDOWS_WEZTERM_DIR"
 
-          # Create .config directory if it doesn't exist
-          mkdir -p "/mnt/c/Users/$WINDOWS_USER/.config"
+          # Copy config files to Windows filesystem
+          cp -f "$SOURCE_DIR"/* "$WINDOWS_WEZTERM_DIR/"
 
-          # Remove existing symlink/directory if it exists
-          cd /mnt/c
-          powershell.exe -Command "if (Test-Path '$WINDOWS_CONFIG\\wezterm') { Remove-Item -Force -Recurse '$WINDOWS_CONFIG\\wezterm' }" 2>/dev/null || true
-
-          # Create Windows symlink using PowerShell (required for Windows apps to read it)
-          powershell.exe -Command "New-Item -ItemType SymbolicLink -Path '$WINDOWS_CONFIG\\wezterm' -Target '$WEZTERM_SOURCE'" >/dev/null
-
-          echo "✅ WezTerm config symlinked to $WINDOWS_CONFIG\\wezterm"
+          echo "✅ WezTerm config copied to $WINDOWS_WEZTERM_DIR"
