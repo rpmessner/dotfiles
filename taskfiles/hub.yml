@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+#
+version: 3
+
+vars:
+  HUB_REPO_DIR:
+    sh: |
+      if [ -z "${HUB_REPO_DIR:-}" ]; then
+        echo "HUB_REPO_DIR is not set" >&2
+        exit 1
+      fi
+      echo "$HUB_REPO_DIR"
+
+tasks:
+  server:
+    desc: Start the Agent Orchestration Hub Phoenix node for CLI RPC
+    dir: "{{.HUB_REPO_DIR}}"
+    cmds:
+      - elixir --sname hub --cookie "${HUB_COOKIE:-hub}" -S mix phx.server
+
+  status:
+    desc: Print the tmux status segment for the Agent Orchestration Hub
+    dir: "{{.HUB_REPO_DIR}}"
+    cmd: bin/hub --local status-segment
+
+  sessions:
+    desc: List Agent Orchestration Hub sessions from the CLI
+    dir: "{{.HUB_REPO_DIR}}"
+    cmd: bin/hub --local sessions

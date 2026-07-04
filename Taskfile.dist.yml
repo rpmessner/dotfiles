@@ -48,6 +48,9 @@ includes:
     aliases: [github]
     taskfile: ./taskfiles/github.yml
 
+  hub:
+    taskfile: ./taskfiles/hub.yml
+
   go:
     taskfile: ./taskfiles/go.yml
 
