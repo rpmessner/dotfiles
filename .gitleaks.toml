@@ -1,0 +1,25 @@
+# Gitleaks config: default rules plus a rule for references to private files under ~/.ssh.
+# Used by the lefthook pre-commit job and the CI `secrets` job.
+title = 'dotfiles gitleaks config'
+
+[extend]
+useDefault = true
+
+# Default secret rules catch secret *values*; this one catches *paths* to secret files
+# (e.g. a private key or API key kept under ~/.ssh), which leak names and layout.
+# Spellings: ~, $HOME, ${HOME}, /home/<user>, /Users/<user>, /root.
+[[rules]]
+id = 'ssh-dir-file-path'
+description = 'Path to a private file under .ssh/'
+regex = '''(?:~|\$HOME|\$\{HOME\}|/home/[A-Za-z0-9._-]+|/Users/[A-Za-z0-9._-]+|/root)/\.ssh/([A-Za-z0-9._-]+)'''
+keywords = ['.ssh/']
+tags = ['path', 'ssh']
+
+# Public or non-secret files, plus the stock OpenSSH identity names, which reveal nothing.
+[[rules.allowlists]]
+regexTarget = 'match'
+regexes = [
+  '''/\.ssh/(?:config|known_hosts(?:\.old)?|authorized_keys2?|environment|rc)$''',
+  '''/\.ssh/(?:id_rsa|id_dsa|id_ecdsa|id_ecdsa_sk|id_ed25519|id_ed25519_sk)$''',
+  '''\.pub$''',
+]

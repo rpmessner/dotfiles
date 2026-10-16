@@ -1,0 +1,7 @@
+# Historical findings already in pushed history (cannot be removed without a rewrite).
+# New findings must be fixed, not added here. See docs/sessions/dotfiles-retro.md.
+aaa600a524a5721d8479edbe756ee489305261ee:aliases:ssh-dir-file-path:127
+9d8cf640725d3d8c2d84e873dc6f481eda10c3e3:zshrc:ssh-dir-file-path:203
+233658f0bf7e58d5fd7486d7822ae88388c94d1e:zshrc-dorian:generic-api-key:319
+233658f0bf7e58d5fd7486d7822ae88388c94d1e:zshrc-dorian:generic-api-key:320
+55d5f2aeb576eb09c4fef70edca01cef5445a855:zshrc-dorian:ssh-dir-file-path:53
