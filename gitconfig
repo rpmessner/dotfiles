@@ -133,14 +133,12 @@
 ; https://git-scm.com/docs/git-config#_includes
 [include]
   path = ~/.gitconfig.local
-[safe]
-	directory = /mnt/c/Users/rpmes/ElvUI
 [credential "https://github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [user]
 	email = rpmessner@gmail.com
 	name = Ryan Messner

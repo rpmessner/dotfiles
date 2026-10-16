@@ -125,7 +125,3 @@ fi
 
 # Note: Haskell/GHCup PATH configuration is handled in config/zsh/haskell.zsh
 # The ~/.ghcup/env file is sourced there to avoid duplicate PATH entries
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/rpmessner/.local/bin:$PATH"
