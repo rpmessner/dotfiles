@@ -11,8 +11,6 @@ direction="${1:-R}"
 current_pane=$(tmux display-message -p '#{pane_id}')
 current_left=$(tmux display-message -p '#{pane_left}')
 current_right=$(tmux display-message -p '#{pane_right}')
-current_top=$(tmux display-message -p '#{pane_top}')
-current_bottom=$(tmux display-message -p '#{pane_bottom}')
 
 find_pane_in_direction() {
   local dir=$1
@@ -35,7 +33,7 @@ find_pane_in_direction() {
         | head -1 \
         | awk '{print $2}')
       ;;
-    U|D) # Up/Down: use tmux's default behavior (no smart logic)
+    U | D) # Up/Down: use tmux's default behavior (no smart logic)
       # Return empty to fall through to default
       ;;
   esac

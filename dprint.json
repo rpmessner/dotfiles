@@ -26,7 +26,7 @@
       },
       {
         "command": "shfmt -i 2 -ci -bn -s -",
-        "exts": [".sh", ".bash", ".zsh"]
+        "exts": [".sh", ".bash"]
       },
       {
         "command": "shfmt -i 2 -ci -bn -s -",
@@ -49,6 +49,8 @@
     ]
   },
   "excludes": [
+    ".agents/skills/beads/**",
+    ".beads/**",
     "**/*-lock.yaml",
     "**/*lock.json",
     "CHANGELOG.md",

@@ -13,6 +13,10 @@ extend-ignore-re = [
   "LESS_TERMCAP_[a-z]+",
 ]
 
+[default.extend-identifiers]
+# zsh-vi-mode setting name (operator-pending mode)
+ZVM_VI_OPPEND_CURSOR = "ZVM_VI_OPPEND_CURSOR"
+
 [files]
 extend-exclude = [
   "Brewfile.lock.json",
