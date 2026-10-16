@@ -1,19 +1,45 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/evilmartians/lefthook/refs/heads/master/schema.json
+#
+# lefthook is the only git hook runner here: `lefthook install` (run by `task dot:install` / `task dot:sync`)
+# writes .git/hooks/*, and core.hooksPath must stay unset. Beads' hook logic lives in .beads/hooks/* (bd shims +
+# the house issues.jsonl export) and is called from the jobs below; `task doctor` checks the wiring.
 pre-commit:
-  parallel: true
+  piped: true # sequential, stop on first failure; the beads export (git add) must not race the checks
   jobs:
     - name: Check Secret Leaks
-      run: gitleaks git --pre-commit --redact --staged --verbose --no-banner
+      run: gitleaks git --pre-commit --staged --redact --no-banner --verbose --config .gitleaks.toml
 
     - name: Check formatting
-      run: task ci:format:check
+      run: dprint check --allow-no-files {staged_files}
+
+    - name: beads (bd hook + house issues.jsonl export)
+      run: .beads/hooks/pre-commit
+
+prepare-commit-msg:
+  jobs:
+    - name: beads
+      run: .beads/hooks/prepare-commit-msg {0}
 
 commit-msg:
   jobs:
     - name: conventional commits
       run: cog verify --file {1}
 
+post-checkout:
+  jobs:
+    - name: beads
+      run: .beads/hooks/post-checkout {0}
+
+post-merge:
+  jobs:
+    - name: beads
+      run: .beads/hooks/post-merge {0}
+
 pre-push:
-  commands:
-    ci:
+  jobs:
+    - name: beads
+      run: .beads/hooks/pre-push {0}
+      use_stdin: true
+
+    - name: ci
       run: task ci:run

@@ -193,7 +193,7 @@ tasks:
 
   leaks:
     desc: Checks for secret leaks across the history of this project
-    cmd: gitleaks git -v --redact -b gitleaks-report.json
+    cmd: gitleaks git -v --redact --config .gitleaks.toml .
 
   fmt:
     desc: Format all formattable files
@@ -201,9 +201,13 @@ tasks:
     cmd: dprint fmt
 
   git:hooks:sync:
-    desc: Installs git hooks via lefthook
+    desc: Installs git hooks via lefthook (the only hook runner; see lefthook.yml)
     internal: true
-    cmd: lefthook install || echo "lefthook not installed, skipping"
+    cmds:
+      # bd init / bd hooks install point core.hooksPath at .beads/hooks; lefthook would then write its
+      # shims over the beads scripts it calls. Keep hooks in .git/hooks.
+      - cmd: git config --unset core.hooksPath || true
+      - cmd: lefthook install
 
   print:done:
     desc: Prints done with a cool font and some nice gradients (animated)

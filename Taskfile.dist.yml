@@ -139,6 +139,7 @@ tasks:
       - ASDF installation and tools
       - SSH key configuration
       - Symlink status
+      - Git hooks are owned by lefthook
 
       Use this to diagnose issues before or after installation.
     cmds:
@@ -214,6 +215,20 @@ tasks:
             echo "  ✅ Core dotfiles are symlinked"
           else
             echo "  ⚠️  Dotfiles not yet symlinked (run 'task install')"
+          fi
+          echo ""
+
+          # Git hooks: lefthook must own the active hooks (core.hooksPath unset)
+          echo "🪝 Git Hooks"
+          HOOK="$(git rev-parse --git-path hooks/pre-commit)"
+          if [[ -n "$(git config --get core.hooksPath)" ]]; then
+            echo "  ❌ core.hooksPath is set to $(git config --get core.hooksPath); unset it and run 'lefthook install'"
+            FAILURES=$((FAILURES + 1))
+          elif [[ -f "$HOOK" ]] && grep -q lefthook "$HOOK"; then
+            echo "  ✅ pre-commit hook is lefthook's ($HOOK)"
+          else
+            echo "  ❌ active pre-commit hook ($HOOK) is not lefthook's; run 'lefthook install'"
+            FAILURES=$((FAILURES + 1))
           fi
           echo ""
 
