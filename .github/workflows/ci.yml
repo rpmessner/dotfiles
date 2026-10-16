@@ -6,6 +6,31 @@ on:
   pull_request:
 
 jobs:
+  secrets:
+    name: 'Scan: Secrets'
+
+    runs-on: ubuntu-latest
+    if: always()
+
+    env:
+      # keep in sync with .tool-versions
+      GITLEAKS_VERSION: 8.30.1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        run: |
+          url="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          curl -sSfL "${url}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" | tar -xz -C "$RUNNER_TEMP" gitleaks
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Scan history (default rules + .gitleaks.toml, baseline in .gitleaksignore)
+        run: gitleaks git --config .gitleaks.toml --redact --no-banner --verbose .
+
   yaml-lint:
     name: 'Lint: Yaml'
 
