@@ -24,5 +24,14 @@ config/starship/
 scratch
 scratch/
 
+# ignore tool state written through ~/.config/<tool> symlinks
+config/go/telemetry/
+
 # ignore dadbod database queries and connections (local/sensitive)
 .db_queries/
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
