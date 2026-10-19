@@ -230,6 +230,8 @@ alias gitconfig="vim ~/.gitconfig"
 
 # tmux
 alias mux='airmux'
+# The coordinator Claude session on foreman's tmux server: attach, or create it in ~/dev/music.
+alias coord='tmux -L foreman new-session -A -s coordinator -c ~/dev/music'
 
 # ripgrep - rg is taken by rails generate alias from the oh-my-zsh rails plugin
 alias rgrep='command rg'
