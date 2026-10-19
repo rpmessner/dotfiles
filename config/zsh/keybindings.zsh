@@ -1,26 +1,8 @@
 # Keybindings configuration for zsh-vi-mode
-# This file configures keybindings AFTER zsh-vi-mode initializes
+# This file configures keybindings AFTER zsh-vi-mode initializes.
+# ZVM_* config vars (init mode, cursor, escape key) are set in zinitrc, since
+# they must be set before the plugin is sourced.
 # See: https://github.com/jeffreytse/zsh-vi-mode
-
-# =============================================================================
-# zsh-vi-mode configuration (set BEFORE plugin loads)
-# =============================================================================
-
-# Use jk to exit insert mode (more ergonomic than Esc)
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-
-# Timeout for key sequences (in hundredths of a second)
-# 20 = 200ms - adjust if jk feels too slow/fast
-ZVM_KEYTIMEOUT=20
-
-# Cursor styles (works in WezTerm)
-ZVM_CURSOR_STYLE_ENABLED=true
-ZVM_VI_INSERT_CURSOR=beam
-ZVM_VI_NORMAL_CURSOR=block
-ZVM_VI_OPPEND_CURSOR=underline
-
-# Don't let zsh-vi-mode override fzf bindings
-ZVM_INIT_MODE=sourcing
 
 # =============================================================================
 # Custom keybindings (applied after zsh-vi-mode init via hook)
