@@ -1,0 +1,12 @@
+# Coordinator layout on foreman's tmux server. Start it with `coord` (aliases), which runs
+# airmux with -t "tmux -L foreman"; airmux only creates windows that are missing.
+name: coordinator
+root: ~/dev/music
+
+windows:
+  - coordinator:
+      panes:
+        - foreman coordinator
+  - shell:
+      panes:
+        -

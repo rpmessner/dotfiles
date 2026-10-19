@@ -230,8 +230,16 @@ alias gitconfig="vim ~/.gitconfig"
 
 # tmux
 alias mux='airmux'
-# The coordinator Claude session on foreman's tmux server: attach, or create it in ~/dev/music.
-alias coord='tmux -L foreman new-session -A -s coordinator -c ~/dev/music'
+# The coordinator layout on foreman's tmux server: start any stopped foreman unit, then
+# attach (airmux creates only missing windows; config/airmux/coordinator.yml).
+unalias coord 2>/dev/null
+coord() {
+  local unit
+  for unit in foreman-tmux foreman-web foreman-worker; do
+    systemctl --user is-active --quiet "$unit" || systemctl --user start "$unit"
+  done
+  airmux start -t "tmux -L foreman" -f ~/.dotfiles/config/airmux/coordinator.yml
+}
 
 # ripgrep - rg is taken by rails generate alias from the oh-my-zsh rails plugin
 alias rgrep='command rg'
