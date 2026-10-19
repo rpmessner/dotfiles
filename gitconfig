@@ -5,6 +5,7 @@
 
 [push]
   default = tracking
+	autoSetupRemote = true
   
 [color]
   ui = true
