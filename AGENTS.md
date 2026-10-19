@@ -49,3 +49,9 @@ Codex integration and are kept.
 - Keybindings: `KEYBINDINGS.md` and README "Unified Window/Pane Management".
 - Install/bootstrap: README "Dependencies" and `installer/README.md`; plans in `docs/`; past sessions in
   `docs/sessions/`.
+
+<!-- BEGIN FOREMAN -->
+## Tickets
+
+Use the globally linked `foreman` skill (`~/.agents/skills/foreman/SKILL.md`).
+<!-- END FOREMAN -->
