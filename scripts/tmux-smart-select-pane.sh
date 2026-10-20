@@ -17,19 +17,23 @@ find_pane_in_direction() {
   local target_pane=""
 
   case $dir in
-    R) # Right: find topmost pane to the right
+    R) # Right: topmost pane in the NEAREST column to the right
       target_pane=$(tmux list-panes -F '#{pane_id} #{pane_left} #{pane_top}' \
         | awk -v right="$current_right" -v current="$current_pane" \
-          '$2 >= right && $1 != current {print $3, $1}' \
-        | sort -n \
+          '$2 > right && $1 != current { id[NR]=$1; col[NR]=$2; top[NR]=$3;
+             if (best == "" || $2 < best) best = $2 }
+           END { for (i in id) if (col[i] == best) print top[i], id[i] }' \
+        | sort -n -k1,1 \
         | head -1 \
         | awk '{print $2}')
       ;;
-    L) # Left: find topmost pane to the left
+    L) # Left: topmost pane in the NEAREST column to the left
       target_pane=$(tmux list-panes -F '#{pane_id} #{pane_right} #{pane_top}' \
         | awk -v left="$current_left" -v current="$current_pane" \
-          '$2 <= left && $1 != current {print $3, $1}' \
-        | sort -n \
+          '$2 < left && $1 != current { id[NR]=$1; col[NR]=$2; top[NR]=$3;
+             if (best == "" || $2 > best) best = $2 }
+           END { for (i in id) if (col[i] == best) print top[i], id[i] }' \
+        | sort -n -k1,1 \
         | head -1 \
         | awk '{print $2}')
       ;;
